@@ -1,0 +1,7 @@
+cache_dir = /data/data/com.termux/files/home/GAM_CELL/config/gamcache
+client_secrets_json = client_secrets.json
+config_dir = /data/data/com.termux/files/home/GAM_CELL/config
+drive_dir = /data/data/com.termux/files/home/Downloads
+oauth2_txt = oauth2.txt
+oauth2_txt_lock_mode = 600
+oauth2service_json = oauth2service.json

@@ -1,0 +1,132 @@
+/data/data/com.termux/files/home/LLM_FS_ORCHESTRATOR/95_SCRIPTS/init.sh:881:policy: never delete original memory during compaction.
+/data/data/com.termux/files/home/LLM_FS_ORCHESTRATOR/95_SCRIPTS/init.sh:1061:responsibility: Execute domain logic for $service after controller validation.
+/data/data/com.termux/files/home/LLM_FS_ORCHESTRATOR/95_SCRIPTS/init.sh:1158:denied: external secrets, credentials, tokens and network transfer.
+/data/data/com.termux/files/home/LLM_FS_ORCHESTRATOR/95_SCRIPTS/init.sh:1159:retention: auditable logs are not deleted without checkpoint.
+/data/data/com.termux/files/home/LLM_FS_ORCHESTRATOR/95_SCRIPTS/init.sh:1634:  echo "- original_memory_deleted: false"
+/data/data/com.termux/files/home/LLM_FS_ORCHESTRATOR/95_SCRIPTS/compact_memory.sh:23:  echo "- original_memory_deleted: false"
+/data/data/com.termux/files/home/stagev1.sh:163:- In heavy mode, execute only when cx asks for heavy execution.
+/data/data/com.termux/files/home/stagev1.sh:170:- For local-capable tasks, classify only; do not execute during parse.
+/data/data/com.termux/files/home/stagev1.sh:712:Do not execute commands.
+/data/data/com.termux/files/home/stage_termux_reverse_ssh_phone.sh:117:    -o ExitOnForwardFailure=yes \
+/data/data/com.termux/files/home/stage_termux_lowpriv_pc_access.sh:46:- Port forwarding.
+/data/data/com.termux/files/home/stage_termux_lowpriv_pc_access.sh:47:- X11 forwarding.
+/data/data/com.termux/files/home/stage_termux_lowpriv_pc_access.sh:48:- Agent forwarding.
+/data/data/com.termux/files/home/stage_termux_lowpriv_pc_access.sh:251:AUTHORIZED_LINE="command=\"$GUARD\",no-agent-forwarding,no-X11-forwarding,no-port-forwarding $PC_PUBKEY"
+/data/data/com.termux/files/home/stage_termux_lowpriv_pc_access.sh:314:    -o ExitOnForwardFailure=yes \
+/data/data/com.termux/files/home/stage_fix_pc_to_termux_lowpriv_key.sh:199:printf 'command="%s",no-agent-forwarding,no-X11-forwarding,no-port-forwarding,no-pty %s\n' "$GUARD" "$PC_PUBKEY" >> "$HOME/.ssh/authorized_keys"
+/data/data/com.termux/files/home/stage_fix_pc_to_termux_lowpriv_key.sh:263:  -o ExitOnForwardFailure=yes \
+/data/data/com.termux/files/home/stage_rebuild_pc_to_termux_lowpriv_final.sh:56:- port forwarding
+/data/data/com.termux/files/home/stage_rebuild_pc_to_termux_lowpriv_final.sh:57:- agent forwarding
+/data/data/com.termux/files/home/stage_rebuild_pc_to_termux_lowpriv_final.sh:58:- x11 forwarding
+/data/data/com.termux/files/home/stage_rebuild_pc_to_termux_lowpriv_final.sh:268:command="$GUARD",no-agent-forwarding,no-X11-forwarding,no-port-forwarding,no-pty $PC_PUBKEY
+/data/data/com.termux/files/home/stage_rebuild_pc_to_termux_lowpriv_final.sh:341:  -o ExitOnForwardFailure=yes \
+/data/data/com.termux/files/home/stage_termux_sedu_mobile_control.sh:268:  -o ExitOnForwardFailure=yes \
+/data/data/com.termux/files/home/sedu_atlas_tunnel_reopen_8091.sh:43:  -o ExitOnForwardFailure=yes \
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:6:GAM installation script.
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:10:   -d      Directory where gam folder will be installed. Default is \$HOME/bin/
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:14:   -l      Just upgrade GAM to latest version. Skips project creation and auth.
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:15:   -p      Profile update (true, false). Should script add gam command to environment. Default is true.
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:19:   -s      Strip gam component from extracted files, files will be downloaded directly to $target_dir
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:59:                echo_yellow "Adding gam alias to profile file $1."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:119:echo_yellow "Checking GitHub URL $release_url for $gamversion GAM release ($check_type)..."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:138:# unlike GAM itself. If some users don't have Python we can try grep / sed / etc
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:214:            echo_green "Using GAM compiled against $useglibc"
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:229:            echo_green "Using GAM compiled against $useglibc"
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:271:                echo_green "You are running MacOS ${currentversion} Using GAM compiled against ${gam_mac_ver}"
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:276:	    echo_red "Sorry, you are running MacOS ${osversion} but GAM on ${gamarch} requires MacOS ${gam_mac_ver} or newer. Exiting."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:291:            echo_green "You are running MacOS ${osversion}, good. Downloading GAM from ${download_url}."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:293:          echo_red "Sorry, you are running MacOS ${osversion} but GAM on ${gamarch} requires MacOS ${minimum_version}. Exiting."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:297:          echo_red "Sorry, you are running MacOS ${currentversion} but GAM on ${gamarch} requires MacOS ${minimum_version}. Exiting."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:343:  echo_red "ERROR: extracting the GAM archive with tar failed with error $rc. Exiting."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:346:  echo_green "Finished extracting GAM archive."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:349:# Update profile to add gam command
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:364:  echo_green "Here's information about your GAM upgrade:"
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:368:    echo_red "ERROR: Failed running GAM for the first time with return code $rc. Please report this error to GAM mailing list. Exiting."
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:428:  read -p "Are you ready to authorize GAM to perform Google Workspace management operations as your admin account? (yes or no) " yn
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:454:  read -p "Are you ready to authorize GAM to manage Google Workspace user data and settings? (yes or no) " yn
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:482:echo_green "Here's information about your new GAM installation:"
+/data/data/com.termux/files/home/install-gamadv-xtd3.sh:487:  echo_red "ERROR: Failed running GAM for the first time with $rc. Please report this error to GAM mailing list. Exiting."
+/data/data/com.termux/files/home/apicachegam.sh:1:"id": "directory.orgunits.delete",
+/data/data/com.termux/files/home/apicachegam.sh:4:          "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:247:        "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:248:          "id": "directory.roleAssignments.delete",
+/data/data/com.termux/files/home/apicachegam.sh:251:          "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:273:          "description": "Deletes a role assignment."
+/data/data/com.termux/files/home/apicachegam.sh:399:            "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:400:              "id": "directory.resources.buildings.delete",
+/data/data/com.termux/files/home/apicachegam.sh:403:              "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:413:                  "description": "The id of the building to delete.",
+/data/data/com.termux/files/home/apicachegam.sh:426:              "description": "Deletes a building."
+/data/data/com.termux/files/home/apicachegam.sh:650:            "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:651:              "id": "directory.resources.calendars.delete",
+/data/data/com.termux/files/home/apicachegam.sh:654:              "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:664:                  "description": "The unique ID of the calendar resource to delete.",
+/data/data/com.termux/files/home/apicachegam.sh:677:              "description": "Deletes a calendar resource."
+/data/data/com.termux/files/home/apicachegam.sh:870:            "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:871:              "id": "directory.resources.features.delete",
+/data/data/com.termux/files/home/apicachegam.sh:874:              "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:884:                  "description": "The unique ID of the feature to delete.",
+/data/data/com.termux/files/home/apicachegam.sh:897:              "description": "Deletes a feature."
+/data/data/com.termux/files/home/apicachegam.sh:1107:        "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:1108:          "id": "directory.roles.delete",
+/data/data/com.termux/files/home/apicachegam.sh:1111:          "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:1133:          "description": "Deletes a role."
+/data/data/com.termux/files/home/apicachegam.sh:1308:        "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:1309:          "id": "directory.schemas.delete",
+/data/data/com.termux/files/home/apicachegam.sh:1312:          "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:1334:          "description": "Deletes a schema."
+/data/data/com.termux/files/home/apicachegam.sh:1496:        "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:1497:          "id": "directory.tokens.delete",
+/data/data/com.termux/files/home/apicachegam.sh:1500:          "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:1522:          "description": "Deletes all access tokens issued by a user for an application."
+/data/data/com.termux/files/home/apicachegam.sh:1608:        "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:1609:          "id": "directory.users.delete",
+/data/data/com.termux/files/home/apicachegam.sh:1612:          "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:1627:          "description": "Deletes a user."
+/data/data/com.termux/files/home/apicachegam.sh:1767:                "User Deleted Event",
+/data/data/com.termux/files/home/apicachegam.sh:1769:                "User Undeleted Event",
+/data/data/com.termux/files/home/apicachegam.sh:1774:                "delete",
+/data/data/com.termux/files/home/apicachegam.sh:1775:                "makeAdmin",
+/data/data/com.termux/files/home/apicachegam.sh:1776:                "undelete",
+/data/data/com.termux/files/home/apicachegam.sh:1831:            "showDeleted": {
+/data/data/com.termux/files/home/apicachegam.sh:1832:              "description": "If set to `true`, retrieves the list of deleted users. (Default: `false`)",
+/data/data/com.termux/files/home/apicachegam.sh:1874:          "description": "Retrieves a paginated list of either deleted users or all users in a domain."
+/data/data/com.termux/files/home/apicachegam.sh:1876:        "makeAdmin": {
+/data/data/com.termux/files/home/apicachegam.sh:1877:          "id": "directory.users.makeAdmin",
+/data/data/com.termux/files/home/apicachegam.sh:1878:          "path": "admin/directory/v1/users/{userKey}/makeAdmin",
+/data/data/com.termux/files/home/apicachegam.sh:1879:          "flatPath": "admin/directory/v1/users/{userKey}/makeAdmin",
+/data/data/com.termux/files/home/apicachegam.sh:1893:            "$ref": "UserMakeAdmin"
+/data/data/com.termux/files/home/apicachegam.sh:1929:        "undelete": {
+/data/data/com.termux/files/home/apicachegam.sh:1930:          "id": "directory.users.undelete",
+/data/data/com.termux/files/home/apicachegam.sh:1931:          "path": "admin/directory/v1/users/{userKey}/undelete",
+/data/data/com.termux/files/home/apicachegam.sh:1932:          "flatPath": "admin/directory/v1/users/{userKey}/undelete",
+/data/data/com.termux/files/home/apicachegam.sh:1946:            "$ref": "UserUndelete"
+/data/data/com.termux/files/home/apicachegam.sh:1951:          "description": "Undeletes a deleted user."
+/data/data/com.termux/files/home/apicachegam.sh:2005:                "User Deleted Event",
+/data/data/com.termux/files/home/apicachegam.sh:2007:                "User Undeleted Event",
+/data/data/com.termux/files/home/apicachegam.sh:2012:                "delete",
+/data/data/com.termux/files/home/apicachegam.sh:2013:                "makeAdmin",
+/data/data/com.termux/files/home/apicachegam.sh:2014:                "undelete",
+/data/data/com.termux/files/home/apicachegam.sh:2074:            "showDeleted": {
+/data/data/com.termux/files/home/apicachegam.sh:2075:              "description": "If set to true, retrieves the list of deleted users. (Default: false)",
+/data/data/com.termux/files/home/apicachegam.sh:2122:        "signOut": {
+/data/data/com.termux/files/home/apicachegam.sh:2123:          "id": "directory.users.signOut",
+/data/data/com.termux/files/home/apicachegam.sh:2124:          "path": "admin/directory/v1/users/{userKey}/signOut",
+/data/data/com.termux/files/home/apicachegam.sh:2125:          "flatPath": "admin/directory/v1/users/{userKey}/signOut",
+/data/data/com.termux/files/home/apicachegam.sh:2147:            "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:2148:              "id": "directory.users.aliases.delete",
+/data/data/com.termux/files/home/apicachegam.sh:2151:              "httpMethod": "DELETE",
+/data/data/com.termux/files/home/apicachegam.sh:2222:                    "Alias Deleted Event"
+/data/data/com.termux/files/home/apicachegam.sh:2226:                    "delete"
+/data/data/com.termux/files/home/apicachegam.sh:2262:                    "Alias Deleted Event"
+/data/data/com.termux/files/home/apicachegam.sh:2266:                    "delete"
+/data/data/com.termux/files/home/apicachegam.sh:2291:            "delete": {
+/data/data/com.termux/files/home/apicachegam.sh:2292:              "id": "directory.users.photos.delete",
+/data/data/com.termux/files/home/apicachegam.sh:2295:              "httpMethod": "DELETE",
+/data/data/com.termux/files/home/auditgam.sh:4:echo "### GAM executable"
+/data/data/com.termux/files/home/auditgam.sh:5:type -a gam
+/data/data/com.termux/files/home/auditgam.sh:6:gam --version
+/data/data/com.termux/files/home/auditgam.sh:9:echo "### GAM config dir"
+/data/data/com.termux/files/home/auditgam.sh:14:echo "### GAM source repo"
+/data/data/com.termux/files/home/auditgam.sh:32:grep -R -nE 'subprocess\.call|subprocess\.run|subprocess\.Popen|os\.system|popen|pickle\.loads' gam | grep -v __pycache__ | head -120
+/data/data/com.termux/files/home/GAM_AUDIT/check-batch-risk.sh:25:grep -nEi '(^|[[:space:]])(delete|purge|trash|transfer|turnoff2sv|signout|deprovision|delegate|forward)([[:space:]]|$)' "$file" || echo "Sin comandos sensibles detectados"

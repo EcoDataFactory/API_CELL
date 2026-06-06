@@ -1,0 +1,10 @@
+.env
+config/client_secrets.json
+config/oauth2.txt
+config/oauth2.local.json
+config/oauth2service.json
+config/gam.cfg
+config/gam.cfg.bak.*
+config/gamcache/*
+*.pyc
+__pycache__/

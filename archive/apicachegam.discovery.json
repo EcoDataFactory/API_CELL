@@ -1,0 +1,2481 @@
+"id": "directory.orgunits.delete",
+          "path": "admin/directory/v1/customer/{customerId}/orgunits/{+orgUnitPath}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/orgunits/{orgunitsId}",
+          "httpMethod": "DELETE",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your 
+account's `customerId`. The `customerId` is also returned as part of the [Users resource](https://developers.google.com/workspace/admin/directory/v1/reference/users).",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "orgUnitPath": {
+              "description": "The full path of the organizational unit (minus the leading `/`) or its unique ID.",
+              "pattern": "^.*$",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "orgUnitPath"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.orgunit"
+          ],
+          "description": "Removes an organizational unit."
+        },
+        "get": {
+          "id": "directory.orgunits.get",
+          "path": "admin/directory/v1/customer/{customerId}/orgunits/{+orgUnitPath}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/orgunits/{orgunitsId}",
+          "httpMethod": "GET",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your 
+account's `customerId`. The `customerId` is also returned as part of the [Users resource](https://developers.google.com/workspace/admin/directory/v1/reference/users).",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "orgUnitPath": {
+              "description": "The full path of the organizational unit (minus the leading `/`) or its unique ID.",
+              "pattern": "^.*$",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "orgUnitPath"
+          ],
+          "response": {
+            "$ref": "OrgUnit"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.orgunit",
+            "https://www.googleapis.com/auth/admin.directory.orgunit.readonly"
+          ],
+          "description": "Retrieves an organizational unit."
+        },
+        "insert": {
+          "id": "directory.orgunits.insert",
+          "path": "admin/directory/v1/customer/{customerId}/orgunits",
+          "flatPath": "admin/directory/v1/customer/{customerId}/orgunits",
+          "httpMethod": "POST",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your 
+account's `customerId`. The `customerId` is also returned as part of the [Users resource](https://developers.google.com/workspace/admin/directory/v1/reference/users).",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId"
+          ],
+          "request": {
+            "$ref": "OrgUnit"
+          },
+          "response": {
+            "$ref": "OrgUnit"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.orgunit"
+          ],
+          "description": "Adds an organizational unit."
+        },
+        "list": {
+          "id": "directory.orgunits.list",
+          "path": "admin/directory/v1/customer/{customerId}/orgunits",
+          "flatPath": "admin/directory/v1/customer/{customerId}/orgunits",
+          "httpMethod": "GET",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your 
+account's `customerId`. The `customerId` is also returned as part of the [Users resource](https://developers.google.com/workspace/admin/directory/v1/reference/users).",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "orgUnitPath": {
+              "description": "The full path to the organizational unit or its unique ID. Returns the children of the specified organizational unit.",
+              "default": "",
+              "location": "query",
+              "type": "string"
+            },
+            "type": {
+              "description": "Whether to return all sub-organizations or just immediate children.",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "All sub-organizational units.",
+                "Immediate children only (default).",
+                "All sub-organizational units and the specified organizational unit (root if not specified)."
+              ],
+              "enum": [
+                "all",
+                "children",
+                "allIncludingParent"
+              ]
+            }
+          },
+          "parameterOrder": [
+            "customerId"
+          ],
+          "response": {
+            "$ref": "OrgUnits"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.orgunit",
+            "https://www.googleapis.com/auth/admin.directory.orgunit.readonly"
+          ],
+          "description": "Retrieves a list of all organizational units for an account."
+        },
+        "update": {
+          "id": "directory.orgunits.update",
+          "path": "admin/directory/v1/customer/{customerId}/orgunits/{+orgUnitPath}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/orgunits/{orgunitsId}",
+          "httpMethod": "PUT",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your 
+account's `customerId`. The `customerId` is also returned as part of the [Users resource](https://developers.google.com/workspace/admin/directory/v1/reference/users).",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "orgUnitPath": {
+              "description": "The full path of the organizational unit (minus the leading `/`) or its unique ID.",
+              "pattern": "^.*$",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "orgUnitPath"
+          ],
+          "request": {
+            "$ref": "OrgUnit"
+          },
+          "response": {
+            "$ref": "OrgUnit"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.orgunit"
+          ],
+          "description": "Updates an organizational unit."
+        },
+        "patch": {
+          "id": "directory.orgunits.patch",
+          "path": "admin/directory/v1/customer/{customerId}/orgunits/{+orgUnitPath}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/orgunits/{orgunitsId}",
+          "httpMethod": "PATCH",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent your 
+account's `customerId`. The `customerId` is also returned as part of the [Users resource](https://developers.google.com/workspace/admin/directory/v1/reference/users).",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "orgUnitPath": {
+              "description": "The full path of the organizational unit (minus the leading `/`) or its unique ID.",
+              "pattern": "^.*$",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "orgUnitPath"
+          ],
+          "request": {
+            "$ref": "OrgUnit"
+          },
+          "response": {
+            "$ref": "OrgUnit"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.orgunit"
+          ],
+          "description": "Updates an organizational unit. This method supports [patch semantics](https://developers.google.com/workspace/admin/directory/v1/guides/performance#pa
+tch)"
+        }
+      }
+    },
+    "privileges": {
+      "methods": {
+        "list": {
+          "id": "directory.privileges.list",
+          "path": "admin/directory/v1/customer/{customer}/roles/ALL/privileges",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles/ALL/privileges",
+          "httpMethod": "GET",
+          "parameters": {
+            "customer": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer"
+          ],
+          "response": {
+            "$ref": "Privileges"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement",
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement.readonly"
+          ],
+          "description": "Retrieves a paginated list of all privileges for a customer."
+        }
+      }
+    },
+    "roleAssignments": {
+      "methods": {
+        "delete": {
+          "id": "directory.roleAssignments.delete",
+          "path": "admin/directory/v1/customer/{customer}/roleassignments/{roleAssignmentId}",
+          "flatPath": "admin/directory/v1/customer/{customer}/roleassignments/{roleAssignmentId}",
+          "httpMethod": "DELETE",
+          "parameters": {
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "roleAssignmentId": {
+              "description": "Immutable ID of the role assignment.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer",
+            "roleAssignmentId"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement"
+          ],
+          "description": "Deletes a role assignment."
+        },
+        "get": {
+          "id": "directory.roleAssignments.get",
+          "path": "admin/directory/v1/customer/{customer}/roleassignments/{roleAssignmentId}",
+          "flatPath": "admin/directory/v1/customer/{customer}/roleassignments/{roleAssignmentId}",
+          "httpMethod": "GET",
+          "parameters": {
+            "customer": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "roleAssignmentId": {
+              "description": "Immutable ID of the role assignment.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer",
+            "roleAssignmentId"
+          ],
+          "response": {
+            "$ref": "RoleAssignment"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement",
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement.readonly"
+          ],
+          "description": "Retrieves a role assignment."
+        },
+        "insert": {
+          "id": "directory.roleAssignments.insert",
+          "path": "admin/directory/v1/customer/{customer}/roleassignments",
+          "flatPath": "admin/directory/v1/customer/{customer}/roleassignments",
+          "httpMethod": "POST",
+          "parameters": {
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer"
+          ],
+          "request": {
+            "$ref": "RoleAssignment"
+          },
+          "response": {
+            "$ref": "RoleAssignment"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement"
+          ],
+          "description": "Creates a role assignment."
+        },
+        "list": {
+          "id": "directory.roleAssignments.list",
+          "path": "admin/directory/v1/customer/{customer}/roleassignments",
+          "flatPath": "admin/directory/v1/customer/{customer}/roleassignments",
+          "httpMethod": "GET",
+          "parameters": {
+            "customer": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "maxResults": {
+              "description": "Maximum number of results to return.",
+              "minimum": "1",
+              "maximum": "200",
+              "location": "query",
+              "type": "integer",
+              "format": "int32"
+            },
+            "pageToken": {
+              "description": "Token to specify the next page in the list.",
+              "location": "query",
+              "type": "string"
+            },
+            "roleId": {
+              "description": "Immutable ID of a role. If included in the request, returns only role assignments containing this role ID.",
+              "location": "query",
+              "type": "string"
+            },
+            "userKey": {
+              "description": "The primary email address, alias email address, or unique user or group ID. If included in the request, returns role assignments only for this user
+ or group.",
+              "location": "query",
+              "type": "string"
+            },
+            "includeIndirectRoleAssignments": {
+              "description": "When set to `true`, fetches indirect role assignments (i.e. role assignment via a group) as well as direct ones. Defaults to `false`. You must spec
+ify `user_key` or the indirect role assignments will not be included.",
+              "location": "query",
+              "type": "boolean"
+            }
+          },
+          "parameterOrder": [
+            "customer"
+          ],
+          "response": {
+            "$ref": "RoleAssignments"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement",
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement.readonly"
+          ],
+          "description": "Retrieves a paginated list of all roleAssignments."
+        }
+      }
+    },
+    "resources": {
+      "resources": {
+        "buildings": {
+          "methods": {
+            "delete": {
+              "id": "directory.resources.buildings.delete",
+              "path": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "httpMethod": "DELETE",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "buildingId": {
+                  "description": "The id of the building to delete.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "buildingId"
+              ],
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Deletes a building."
+            },
+            "get": {
+              "id": "directory.resources.buildings.get",
+              "path": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "httpMethod": "GET",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "buildingId": {
+                  "description": "The unique ID of the building to retrieve.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "buildingId"
+              ],
+              "response": {
+                "$ref": "Building"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar",
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly"
+              ],
+              "description": "Retrieves a building."
+            },
+            "insert": {
+              "id": "directory.resources.buildings.insert",
+              "path": "admin/directory/v1/customer/{customer}/resources/buildings",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/buildings",
+              "httpMethod": "POST",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "coordinatesSource": {
+                  "description": "Source from which Building.coordinates are derived.",
+                  "default": "SOURCE_UNSPECIFIED",
+                  "location": "query",
+                  "type": "string",
+                  "enumDescriptions": [
+                    "Building.coordinates are set to the coordinates included in the request.",
+                    "Building.coordinates are automatically populated based on the postal address.",
+                    "Defaults to `RESOLVED_FROM_ADDRESS` if postal address is provided. Otherwise, defaults to `CLIENT_SPECIFIED` if coordinates are provided."
+                  ],
+                  "enum": [
+                    "CLIENT_SPECIFIED",
+                    "RESOLVED_FROM_ADDRESS",
+                    "SOURCE_UNSPECIFIED"
+                  ]
+                }
+              },
+              "parameterOrder": [
+                "customer"
+              ],
+              "request": {
+                "$ref": "Building"
+              },
+              "response": {
+                "$ref": "Building"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Inserts a building."
+            },
+            "list": {
+              "id": "directory.resources.buildings.list",
+              "path": "admin/directory/v1/customer/{customer}/resources/buildings",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/buildings",
+              "httpMethod": "GET",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "maxResults": {
+                  "description": "Maximum number of results to return.",
+                  "minimum": "1",
+                  "maximum": "500",
+                  "location": "query",
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "pageToken": {
+                  "description": "Token to specify the next page in the list.",
+                  "location": "query",
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer"
+              ],
+              "response": {
+                "$ref": "Buildings"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar",
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly"
+              ],
+              "description": "Retrieves a list of buildings for an account."
+            },
+            "update": {
+              "id": "directory.resources.buildings.update",
+              "path": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "httpMethod": "PUT",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "buildingId": {
+                  "description": "The id of the building to update.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "coordinatesSource": {
+                  "description": "Source from which Building.coordinates are derived.",
+                  "default": "SOURCE_UNSPECIFIED",
+                  "location": "query",
+                  "type": "string",
+                  "enumDescriptions": [
+                    "Building.coordinates are set to the coordinates included in the request.",
+                    "Building.coordinates are automatically populated based on the postal address.",
+                    "Defaults to `RESOLVED_FROM_ADDRESS` if postal address is provided. Otherwise, defaults to `CLIENT_SPECIFIED` if coordinates are provided."
+                  ],
+                  "enum": [
+                    "CLIENT_SPECIFIED",
+                    "RESOLVED_FROM_ADDRESS",
+                    "SOURCE_UNSPECIFIED"
+                  ]
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "buildingId"
+              ],
+              "request": {
+                "$ref": "Building"
+              },
+              "response": {
+                "$ref": "Building"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Updates a building."
+            },
+            "patch": {
+              "id": "directory.resources.buildings.patch",
+              "path": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/buildings/{buildingId}",
+              "httpMethod": "PATCH",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "buildingId": {
+                  "description": "The id of the building to update.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "coordinatesSource": {
+                  "description": "Source from which Building.coordinates are derived.",
+                  "default": "SOURCE_UNSPECIFIED",
+                  "location": "query",
+                  "type": "string",
+                  "enumDescriptions": [
+                    "Building.coordinates are set to the coordinates included in the request.",
+                    "Building.coordinates are automatically populated based on the postal address.",
+                    "Defaults to `RESOLVED_FROM_ADDRESS` if postal address is provided. Otherwise, defaults to `CLIENT_SPECIFIED` if coordinates are provided."
+                  ],
+                  "enum": [
+                    "CLIENT_SPECIFIED",
+                    "RESOLVED_FROM_ADDRESS",
+                    "SOURCE_UNSPECIFIED"
+                  ]
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "buildingId"
+              ],
+              "request": {
+                "$ref": "Building"
+              },
+              "response": {
+                "$ref": "Building"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Patches a building."
+            }
+          }
+        },
+        "calendars": {
+          "methods": {
+            "delete": {
+              "id": "directory.resources.calendars.delete",
+              "path": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "httpMethod": "DELETE",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "calendarResourceId": {
+                  "description": "The unique ID of the calendar resource to delete.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "calendarResourceId"
+              ],
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Deletes a calendar resource."
+            },
+            "get": {
+              "id": "directory.resources.calendars.get",
+              "path": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "httpMethod": "GET",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "calendarResourceId": {
+                  "description": "The unique ID of the calendar resource to retrieve.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "calendarResourceId"
+              ],
+              "response": {
+                "$ref": "CalendarResource"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar",
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly"
+              ],
+              "description": "Retrieves a calendar resource."
+            },
+            "insert": {
+              "id": "directory.resources.calendars.insert",
+              "path": "admin/directory/v1/customer/{customer}/resources/calendars",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/calendars",
+              "httpMethod": "POST",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer"
+              ],
+              "request": {
+                "$ref": "CalendarResource"
+              },
+              "response": {
+                "$ref": "CalendarResource"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Inserts a calendar resource."
+            },
+            "list": {
+              "id": "directory.resources.calendars.list",
+              "path": "admin/directory/v1/customer/{customer}/resources/calendars",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/calendars",
+              "httpMethod": "GET",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "maxResults": {
+                  "description": "Maximum number of results to return.",
+                  "minimum": "1",
+                  "maximum": "500",
+                  "location": "query",
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "orderBy": {
+                  "description": "Field(s) to sort results by in either ascending or descending order. Supported fields include `resourceId`, `resourceName`, `capacity`, `buildi
+ngId`, and `floorName`. If no order is specified, defaults to ascending. Should be of the form \"field [asc|desc], field [asc|desc], ...\". For example `buildingId, capacity des
+c` would return results sorted first by `buildingId` in ascending order then by `capacity` in descending order.",
+                  "location": "query",
+                  "type": "string"
+                },
+                "pageToken": {
+                  "description": "Token to specify the next page in the list.",
+                  "location": "query",
+                  "type": "string"
+                },
+                "query": {
+                  "description": "String query used to filter results. Contains one or more search clauses, each with a field, operator, and value. A field can be any of support
+ed fields and operators can be any of supported operations. Operators include '=' for exact match, '!=' for mismatch and ':' for prefix match or HAS match where applicable. For 
+prefix match, the value should always be followed by a *. Logical operators NOT and AND are supported (in this order of precedence). Supported fields include `generatedResourceN
+ame`, `name`, `buildingId`, `floor_name`, `capacity`, `featureInstances.feature.name`, `resourceEmail`, `resourceCategory`. For example `buildingId=US-NYC-9TH AND featureInstanc
+es.feature.name:Phone`.",
+                  "location": "query",
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer"
+              ],
+              "response": {
+                "$ref": "CalendarResources"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar",
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly"
+              ],
+              "description": "Retrieves a list of calendar resources for an account."
+            },
+            "update": {
+              "id": "directory.resources.calendars.update",
+              "path": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "httpMethod": "PUT",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "calendarResourceId": {
+                  "description": "The unique ID of the calendar resource to update.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "calendarResourceId"
+              ],
+              "request": {
+                "$ref": "CalendarResource"
+              },
+              "response": {
+                "$ref": "CalendarResource"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Updates a calendar resource. This method supports patch semantics, meaning you only need to include the fields you wish to update. Fields that are 
+not present in the request will be preserved."
+            },
+            "patch": {
+              "id": "directory.resources.calendars.patch",
+              "path": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/calendars/{calendarResourceId}",
+              "httpMethod": "PATCH",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "calendarResourceId": {
+                  "description": "The unique ID of the calendar resource to update.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "calendarResourceId"
+              ],
+              "request": {
+                "$ref": "CalendarResource"
+              },
+              "response": {
+                "$ref": "CalendarResource"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Patches a calendar resource."
+            }
+          }
+        },
+        "features": {
+          "methods": {
+            "delete": {
+              "id": "directory.resources.features.delete",
+              "path": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "httpMethod": "DELETE",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "featureKey": {
+                  "description": "The unique ID of the feature to delete.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "featureKey"
+              ],
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Deletes a feature."
+            },
+            "get": {
+              "id": "directory.resources.features.get",
+              "path": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "httpMethod": "GET",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "featureKey": {
+                  "description": "The unique ID of the feature to retrieve.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "featureKey"
+              ],
+              "response": {
+                "$ref": "Feature"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar",
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly"
+              ],
+              "description": "Retrieves a feature."
+            },
+            "insert": {
+              "id": "directory.resources.features.insert",
+              "path": "admin/directory/v1/customer/{customer}/resources/features",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features",
+              "httpMethod": "POST",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer"
+              ],
+              "request": {
+                "$ref": "Feature"
+              },
+              "response": {
+                "$ref": "Feature"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Inserts a feature."
+            },
+            "list": {
+              "id": "directory.resources.features.list",
+              "path": "admin/directory/v1/customer/{customer}/resources/features",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features",
+              "httpMethod": "GET",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "maxResults": {
+                  "description": "Maximum number of results to return.",
+                  "minimum": "1",
+                  "maximum": "500",
+                  "location": "query",
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "pageToken": {
+                  "description": "Token to specify the next page in the list.",
+                  "location": "query",
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer"
+              ],
+              "response": {
+                "$ref": "Features"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar",
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar.readonly"
+              ],
+              "description": "Retrieves a list of features for an account."
+            },
+            "rename": {
+              "id": "directory.resources.features.rename",
+              "path": "admin/directory/v1/customer/{customer}/resources/features/{oldName}/rename",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features/{oldName}/rename",
+              "httpMethod": "POST",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "oldName": {
+                  "description": "The unique ID of the feature to rename.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "oldName"
+              ],
+              "request": {
+                "$ref": "FeatureRename"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Renames a feature."
+            },
+            "update": {
+              "id": "directory.resources.features.update",
+              "path": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "httpMethod": "PUT",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "featureKey": {
+                  "description": "The unique ID of the feature to update.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "featureKey"
+              ],
+              "request": {
+                "$ref": "Feature"
+              },
+              "response": {
+                "$ref": "Feature"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Updates a feature."
+            },
+            "patch": {
+              "id": "directory.resources.features.patch",
+              "path": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "flatPath": "admin/directory/v1/customer/{customer}/resources/features/{featureKey}",
+              "httpMethod": "PATCH",
+              "parameters": {
+                "customer": {
+                  "description": "The unique ID for the customer's Google Workspace account. As an account administrator, you can also use the `my_customer` alias to represent y
+our account's customer ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "featureKey": {
+                  "description": "The unique ID of the feature to update.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "customer",
+                "featureKey"
+              ],
+              "request": {
+                "$ref": "Feature"
+              },
+              "response": {
+                "$ref": "Feature"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.resource.calendar"
+              ],
+              "description": "Patches a feature."
+            }
+          }
+        }
+      }
+    },
+    "roles": {
+      "methods": {
+        "delete": {
+          "id": "directory.roles.delete",
+          "path": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "httpMethod": "DELETE",
+          "parameters": {
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "roleId": {
+              "description": "Immutable ID of the role.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer",
+            "roleId"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement"
+          ],
+          "description": "Deletes a role."
+        },
+        "get": {
+          "id": "directory.roles.get",
+          "path": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "httpMethod": "GET",
+          "parameters": {
+            "customer": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "roleId": {
+              "description": "Immutable ID of the role.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer",
+            "roleId"
+          ],
+          "response": {
+            "$ref": "Role"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement",
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement.readonly"
+          ],
+          "description": "Retrieves a role."
+        },
+        "insert": {
+          "id": "directory.roles.insert",
+          "path": "admin/directory/v1/customer/{customer}/roles",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles",
+          "httpMethod": "POST",
+          "parameters": {
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer"
+          ],
+          "request": {
+            "$ref": "Role"
+          },
+          "response": {
+            "$ref": "Role"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement"
+          ],
+          "description": "Creates a role."
+        },
+        "list": {
+          "id": "directory.roles.list",
+          "path": "admin/directory/v1/customer/{customer}/roles",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles",
+          "httpMethod": "GET",
+          "parameters": {
+            "customer": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "maxResults": {
+              "description": "Maximum number of results to return.",
+              "minimum": "1",
+              "maximum": "100",
+              "location": "query",
+              "type": "integer",
+              "format": "int32"
+            },
+            "pageToken": {
+              "description": "Token to specify the next page in the list.",
+              "location": "query",
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer"
+          ],
+          "response": {
+            "$ref": "Roles"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement",
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement.readonly"
+          ],
+          "description": "Retrieves a paginated list of all the roles in a domain."
+        },
+        "update": {
+          "id": "directory.roles.update",
+          "path": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "httpMethod": "PUT",
+          "parameters": {
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "roleId": {
+              "description": "Immutable ID of the role.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer",
+            "roleId"
+          ],
+          "request": {
+            "$ref": "Role"
+          },
+          "response": {
+            "$ref": "Role"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement"
+          ],
+          "description": "Updates a role."
+        },
+        "patch": {
+          "id": "directory.roles.patch",
+          "path": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "flatPath": "admin/directory/v1/customer/{customer}/roles/{roleId}",
+          "httpMethod": "PATCH",
+          "parameters": {
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "roleId": {
+              "description": "Immutable ID of the role.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customer",
+            "roleId"
+          ],
+          "request": {
+            "$ref": "Role"
+          },
+          "response": {
+            "$ref": "Role"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.rolemanagement"
+          ],
+          "description": "Patches a role."
+        }
+      }
+    },
+    "schemas": {
+      "methods": {
+        "delete": {
+          "id": "directory.schemas.delete",
+          "path": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "httpMethod": "DELETE",
+          "parameters": {
+            "customerId": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "schemaKey": {
+              "description": "Name or immutable ID of the schema.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "schemaKey"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.userschema"
+          ],
+          "description": "Deletes a schema."
+        },
+        "get": {
+          "id": "directory.schemas.get",
+          "path": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "httpMethod": "GET",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "schemaKey": {
+              "description": "Name or immutable ID of the schema.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "schemaKey"
+          ],
+          "response": {
+            "$ref": "Schema"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.userschema",
+            "https://www.googleapis.com/auth/admin.directory.userschema.readonly"
+          ],
+          "description": "Retrieves a schema."
+        },
+        "insert": {
+          "id": "directory.schemas.insert",
+          "path": "admin/directory/v1/customer/{customerId}/schemas",
+          "flatPath": "admin/directory/v1/customer/{customerId}/schemas",
+          "httpMethod": "POST",
+          "parameters": {
+            "customerId": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId"
+          ],
+          "request": {
+            "$ref": "Schema"
+          },
+          "response": {
+            "$ref": "Schema"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.userschema"
+          ],
+          "description": "Creates a schema."
+        },
+        "list": {
+          "id": "directory.schemas.list",
+          "path": "admin/directory/v1/customer/{customerId}/schemas",
+          "flatPath": "admin/directory/v1/customer/{customerId}/schemas",
+          "httpMethod": "GET",
+          "parameters": {
+            "customerId": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all groups for a customer, use this field in
+stead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers
+.google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId"
+          ],
+          "response": {
+            "$ref": "Schemas"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.userschema",
+            "https://www.googleapis.com/auth/admin.directory.userschema.readonly"
+          ],
+          "description": "Retrieves all schemas for a customer."
+        },
+        "patch": {
+          "id": "directory.schemas.patch",
+          "path": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "httpMethod": "PATCH",
+          "parameters": {
+            "customerId": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "schemaKey": {
+              "description": "Name or immutable ID of the schema.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "schemaKey"
+          ],
+          "request": {
+            "$ref": "Schema"
+          },
+          "response": {
+            "$ref": "Schema"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.userschema"
+          ],
+          "description": "Patches a schema."
+        },
+        "update": {
+          "id": "directory.schemas.update",
+          "path": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "flatPath": "admin/directory/v1/customer/{customerId}/schemas/{schemaKey}",
+          "httpMethod": "PUT",
+          "parameters": {
+            "customerId": {
+              "description": "Immutable ID of the Google Workspace account.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "schemaKey": {
+              "description": "Name or immutable ID of the schema.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "customerId",
+            "schemaKey"
+          ],
+          "request": {
+            "$ref": "Schema"
+          },
+          "response": {
+            "$ref": "Schema"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.userschema"
+          ],
+          "description": "Updates a schema."
+        }
+      }
+    },
+    "tokens": {
+      "methods": {
+        "delete": {
+          "id": "directory.tokens.delete",
+          "path": "admin/directory/v1/users/{userKey}/tokens/{clientId}",
+          "flatPath": "admin/directory/v1/users/{userKey}/tokens/{clientId}",
+          "httpMethod": "DELETE",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "clientId": {
+              "description": "The Client ID of the application the token is issued to.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey",
+            "clientId"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Deletes all access tokens issued by a user for an application."
+        },
+        "get": {
+          "id": "directory.tokens.get",
+          "path": "admin/directory/v1/users/{userKey}/tokens/{clientId}",
+          "flatPath": "admin/directory/v1/users/{userKey}/tokens/{clientId}",
+          "httpMethod": "GET",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "clientId": {
+              "description": "The Client ID of the application the token is issued to.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey",
+            "clientId"
+          ],
+          "response": {
+            "$ref": "Token"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Gets information about an access token issued by a user."
+        },
+        "list": {
+          "id": "directory.tokens.list",
+          "path": "admin/directory/v1/users/{userKey}/tokens",
+          "flatPath": "admin/directory/v1/users/{userKey}/tokens",
+          "httpMethod": "GET",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "response": {
+            "$ref": "Tokens"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Returns the set of tokens specified user has issued to 3rd party applications."
+        }
+      }
+    },
+    "twoStepVerification": {
+      "methods": {
+        "turnOff": {
+          "id": "directory.twoStepVerification.turnOff",
+          "path": "admin/directory/v1/users/{userKey}/twoStepVerification/turnOff",
+          "flatPath": "admin/directory/v1/users/{userKey}/twoStepVerification/turnOff",
+          "httpMethod": "POST",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Turns off 2-Step Verification for user."
+        }
+      }
+    },
+    "users": {
+      "methods": {
+        "delete": {
+          "id": "directory.users.delete",
+          "path": "admin/directory/v1/users/{userKey}",
+          "flatPath": "admin/directory/v1/users/{userKey}",
+          "httpMethod": "DELETE",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Deletes a user."
+        },
+        "get": {
+          "id": "directory.users.get",
+          "path": "admin/directory/v1/users/{userKey}",
+          "flatPath": "admin/directory/v1/users/{userKey}",
+          "httpMethod": "GET",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            },
+            "customFieldMask": {
+              "description": "A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when `projection=custom`.",
+              "location": "query",
+              "type": "string"
+            },
+            "projection": {
+              "description": "What subset of fields to fetch for this user.",
+              "default": "basic",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Do not include any custom fields for the user.",
+                "Include custom fields from schemas requested in `customFieldMask`.",
+                "Include all fields associated with this user."
+              ],
+              "enum": [
+                "basic",
+                "custom",
+                "full"
+              ]
+            },
+            "viewType": {
+              "description": "Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see [Retrieve a user as a non-administrator](
+https://developers.google.com/workspace/admin/directory/v1/guides/manage-users#retrieve_users_non_admin).",
+              "default": "admin_view",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Results include both administrator-only and domain-public fields for the user.",
+                "Results only include fields for the user that are publicly visible to other users in the domain."
+              ],
+              "enum": [
+                "admin_view",
+                "domain_public"
+              ]
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "response": {
+            "$ref": "User"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user",
+            "https://www.googleapis.com/auth/admin.directory.user.readonly"
+          ],
+          "description": "Retrieves a user."
+        },
+        "insert": {
+          "id": "directory.users.insert",
+          "path": "admin/directory/v1/users",
+          "flatPath": "admin/directory/v1/users",
+          "httpMethod": "POST",
+          "parameters": {
+            "resolveConflictAccount": {
+              "description": "Optional. If set to `true`, the option selected for [handling unmanaged user accounts](https://support.google.com/a/answer/11112794) will apply. De
+fault: `false`",
+              "location": "query",
+              "type": "boolean"
+            }
+          },
+          "parameterOrder": [],
+          "request": {
+            "$ref": "User"
+          },
+          "response": {
+            "$ref": "User"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Creates a user. Mutate calls immediately following user creation might sometimes fail as the user isn't fully created due to propagation delay in our b
+ackends. Check the error details for the \"User creation is not complete\" message to see if this is the case. Retrying the calls after some time can help in this case. If `reso
+lveConflictAccount` is set to `true`, a `202` response code means that a conflicting unmanaged account exists and was invited to join the organization. A `409` response code mea
+ns that a conflicting account exists so the user wasn't created based on the [handling unmanaged user accounts](https://support.google.com/a/answer/11112794) option selected."
+        },
+        "createGuest": {
+          "id": "directory.users.createGuest",
+          "path": "admin/directory/v1/users:createGuest",
+          "flatPath": "admin/directory/v1/users:createGuest",
+          "httpMethod": "POST",
+          "parameters": {},
+          "parameterOrder": [],
+          "request": {
+            "$ref": "DirectoryUsersCreateGuestRequest"
+          },
+          "response": {
+            "$ref": "User"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Create a guest user with access to a [subset of Workspace capabilities](https://support.google.com/a/answer/16558545). This feature is currently in Ope
+n Beta."
+        },
+        "list": {
+          "id": "directory.users.list",
+          "path": "admin/directory/v1/users",
+          "flatPath": "admin/directory/v1/users",
+          "httpMethod": "GET",
+          "parameters": {
+            "customFieldMask": {
+              "description": "A comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when `projection=custom`.",
+              "location": "query",
+              "type": "string"
+            },
+            "customer": {
+              "description": "The unique ID for the customer's Google Workspace account. In case of a multi-domain account, to fetch all users for a customer, use this field ins
+tead of `domain`. You can also use the `my_customer` alias to represent your account's `customerId`. The `customerId` is also returned as part of the [Users](https://developers.
+google.com/workspace/admin/directory/v1/reference/users) resource. You must provide either the `customer` or the `domain` parameter.",
+              "location": "query",
+              "type": "string"
+            },
+            "domain": {
+              "description": "The domain name. Use this field to get users from only one domain. To return all domains for a customer account, use the `customer` query parameter
+ instead. Either the `customer` or the `domain` parameter must be provided.",
+              "location": "query",
+              "type": "string"
+            },
+            "event": {
+              "description": "Event on which subscription is intended (if subscribing)",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "User Created Event",
+                "User Deleted Event",
+                "User Admin Status Change Event",
+                "User Undeleted Event",
+                "User Updated Event"
+              ],
+              "enum": [
+                "add",
+                "delete",
+                "makeAdmin",
+                "undelete",
+                "update"
+              ]
+            },
+            "maxResults": {
+              "description": "Maximum number of results to return.",
+              "default": "100",
+              "minimum": "1",
+              "maximum": "500",
+              "location": "query",
+              "type": "integer",
+              "format": "int32"
+            },
+            "orderBy": {
+              "description": "Property to use for sorting results.",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Primary email of the user.",
+                "User's family name.",
+                "User's given name."
+              ],
+              "enum": [
+                "email",
+                "familyName",
+                "givenName"
+              ]
+            },
+            "pageToken": {
+              "description": "Token to specify next page in the list. The page token is only valid for three days.",
+              "location": "query",
+              "type": "string"
+            },
+            "projection": {
+              "description": "What subset of fields to fetch for this user.",
+              "default": "basic",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Do not include any custom fields for the user.",
+                "Include custom fields from schemas requested in `customFieldMask`.",
+                "Include all fields associated with this user."
+              ],
+              "enum": [
+                "basic",
+                "custom",
+                "full"
+              ]
+            },
+            "query": {
+              "description": "Query string for searching user fields. For more information on constructing user queries, see [Search for Users](https://developers.google.com/wor
+kspace/admin/directory/v1/guides/search-users).",
+              "location": "query",
+              "type": "string"
+            },
+            "showDeleted": {
+              "description": "If set to `true`, retrieves the list of deleted users. (Default: `false`)",
+              "location": "query",
+              "type": "string"
+            },
+            "sortOrder": {
+              "description": "Whether to return results in ascending or descending order, ignoring case.",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Ascending order.",
+                "Descending order."
+              ],
+              "enum": [
+                "ASCENDING",
+                "DESCENDING"
+              ]
+            },
+            "viewType": {
+              "description": "Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see [Retrieve a user as a non-administrator](
+https://developers.google.com/workspace/admin/directory/v1/guides/manage-users#retrieve_users_non_admin).",
+              "default": "admin_view",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Results include both administrator-only and domain-public fields for the user.",
+                "Results only include fields for the user that are publicly visible to other users in the domain."
+              ],
+              "enum": [
+                "admin_view",
+                "domain_public"
+              ]
+            }
+          },
+          "parameterOrder": [],
+          "response": {
+            "$ref": "Users"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user",
+            "https://www.googleapis.com/auth/admin.directory.user.readonly",
+            "https://www.googleapis.com/auth/cloud-platform"
+          ],
+          "description": "Retrieves a paginated list of either deleted users or all users in a domain."
+        },
+        "makeAdmin": {
+          "id": "directory.users.makeAdmin",
+          "path": "admin/directory/v1/users/{userKey}/makeAdmin",
+          "flatPath": "admin/directory/v1/users/{userKey}/makeAdmin",
+          "httpMethod": "POST",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "request": {
+            "$ref": "UserMakeAdmin"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Makes a user a super administrator."
+        },
+        "patch": {
+          "id": "directory.users.patch",
+          "path": "admin/directory/v1/users/{userKey}",
+          "flatPath": "admin/directory/v1/users/{userKey}",
+          "httpMethod": "PATCH",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "request": {
+            "$ref": "User"
+          },
+          "response": {
+            "$ref": "User"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Updates a user using patch semantics. The update method should be used instead, because it also supports patch semantics and has better performance. If
+ you're mapping an external identity to a Google identity, use the [`update`](https://developers.google.com/workspace/admin/directory/v1/reference/users/update) method instead o
+f the `patch` method. This method is unable to clear fields that contain repeated objects (`addresses`, `phones`, etc). Use the update method instead."
+        },
+        "undelete": {
+          "id": "directory.users.undelete",
+          "path": "admin/directory/v1/users/{userKey}/undelete",
+          "flatPath": "admin/directory/v1/users/{userKey}/undelete",
+          "httpMethod": "POST",
+          "parameters": {
+            "userKey": {
+              "description": "The immutable id of the user",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "request": {
+            "$ref": "UserUndelete"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Undeletes a deleted user."
+        },
+        "update": {
+          "id": "directory.users.update",
+          "path": "admin/directory/v1/users/{userKey}",
+          "flatPath": "admin/directory/v1/users/{userKey}",
+          "httpMethod": "PUT",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "request": {
+            "$ref": "User"
+          },
+          "response": {
+            "$ref": "User"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user"
+          ],
+          "description": "Updates a user. This method supports patch semantics, meaning that you only need to include the fields you wish to update. Fields that are not present 
+in the request will be preserved, and fields set to `null` will be cleared. For repeating fields that contain arrays, individual items in the array can't be patched piecemeal; t
+hey must be supplied in the request body with the desired values for all items. See the [user accounts guide](https://developers.google.com/workspace/admin/directory/v1/guides/m
+anage-users#update_user) for more information."
+        },
+        "watch": {
+          "id": "directory.users.watch",
+          "path": "admin/directory/v1/users/watch",
+          "flatPath": "admin/directory/v1/users/watch",
+          "httpMethod": "POST",
+          "parameters": {
+            "domain": {
+              "description": "Name of the domain. Fill this field to get users from only this domain. To return all users in a multi-domain fill customer field instead.\"",
+              "location": "query",
+              "type": "string"
+            },
+            "customer": {
+              "description": "Immutable ID of the Google Workspace account. In case of multi-domain, to fetch all users for a customer, fill this field instead of domain.",
+              "location": "query",
+              "type": "string"
+            },
+            "event": {
+              "description": "Events to watch for.",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "User Created Event",
+                "User Deleted Event",
+                "User Admin Status Change Event",
+                "User Undeleted Event",
+                "User Updated Event"
+              ],
+              "enum": [
+                "add",
+                "delete",
+                "makeAdmin",
+                "undelete",
+                "update"
+              ]
+            },
+            "customFieldMask": {
+              "description": "Comma-separated list of schema names. All fields from these schemas are fetched. This should only be set when projection=custom.",
+              "location": "query",
+              "type": "string"
+            },
+            "maxResults": {
+              "description": "Maximum number of results to return.",
+              "default": "100",
+              "minimum": "1",
+              "maximum": "500",
+              "location": "query",
+              "type": "integer",
+              "format": "int32"
+            },
+            "orderBy": {
+              "description": "Column to use for sorting results",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Primary email of the user.",
+                "User's family name.",
+                "User's given name."
+              ],
+              "enum": [
+                "email",
+                "familyName",
+                "givenName"
+              ]
+            },
+            "pageToken": {
+              "description": "Token to specify next page in the list",
+              "location": "query",
+              "type": "string"
+            },
+            "projection": {
+              "description": "What subset of fields to fetch for this user.",
+              "default": "basic",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Do not include any custom fields for the user.",
+                "Include custom fields from schemas mentioned in customFieldMask.",
+                "Include all fields associated with this user."
+              ],
+              "enum": [
+                "basic",
+                "custom",
+                "full"
+              ]
+            },
+            "query": {
+              "description": "Query string search. Contains one or more search clauses, each with a field, operator, and value. For complete documentation, go to [Search for use
+rs](https://developers.google.com/workspace/admin/directory/v1/guides/search-users).",
+              "location": "query",
+              "type": "string"
+            },
+            "showDeleted": {
+              "description": "If set to true, retrieves the list of deleted users. (Default: false)",
+              "location": "query",
+              "type": "string"
+            },
+            "sortOrder": {
+              "description": "Whether to return results in ascending or descending order.",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Ascending order.",
+                "Descending order."
+              ],
+              "enum": [
+                "ASCENDING",
+                "DESCENDING"
+              ]
+            },
+            "viewType": {
+              "description": "Whether to fetch the administrator-only or domain-wide public view of the user. For more information, see [Retrieve a user as a non-administrator](
+https://developers.google.com/workspace/admin/directory/v1/guides/manage-users#retrieve_users_non_admin).",
+              "default": "admin_view",
+              "location": "query",
+              "type": "string",
+              "enumDescriptions": [
+                "Results include both administrator-only and domain-public fields.",
+                "Results only include fields for the user that are publicly visible to other users in the domain."
+              ],
+              "enum": [
+                "admin_view",
+                "domain_public"
+              ]
+            }
+          },
+          "parameterOrder": [],
+          "request": {
+            "$ref": "Channel"
+          },
+          "response": {
+            "$ref": "Channel"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user",
+            "https://www.googleapis.com/auth/admin.directory.user.readonly",
+            "https://www.googleapis.com/auth/cloud-platform"
+          ],
+          "description": "Watches for changes in users list."
+        },
+        "signOut": {
+          "id": "directory.users.signOut",
+          "path": "admin/directory/v1/users/{userKey}/signOut",
+          "flatPath": "admin/directory/v1/users/{userKey}/signOut",
+          "httpMethod": "POST",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the target user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Signs a user out of all web and device sessions and reset their sign-in cookies. User will have to sign in by authenticating again."
+        }
+      },
+      "resources": {
+        "aliases": {
+          "methods": {
+            "delete": {
+              "id": "directory.users.aliases.delete",
+              "path": "admin/directory/v1/users/{userKey}/aliases/{alias}",
+              "flatPath": "admin/directory/v1/users/{userKey}/aliases/{alias}",
+              "httpMethod": "DELETE",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "alias": {
+                  "description": "The alias to be removed.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "userKey",
+                "alias"
+              ],
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user",
+                "https://www.googleapis.com/auth/admin.directory.user.alias"
+              ],
+              "description": "Removes an alias."
+            },
+            "insert": {
+              "id": "directory.users.aliases.insert",
+              "path": "admin/directory/v1/users/{userKey}/aliases",
+              "flatPath": "admin/directory/v1/users/{userKey}/aliases",
+              "httpMethod": "POST",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "request": {
+                "$ref": "Alias"
+              },
+              "response": {
+                "$ref": "Alias"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user",
+                "https://www.googleapis.com/auth/admin.directory.user.alias"
+              ],
+              "description": "Adds an alias."
+            },
+            "list": {
+              "id": "directory.users.aliases.list",
+              "path": "admin/directory/v1/users/{userKey}/aliases",
+              "flatPath": "admin/directory/v1/users/{userKey}/aliases",
+              "httpMethod": "GET",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Events to watch for.",
+                  "location": "query",
+                  "type": "string",
+                  "enumDescriptions": [
+                    "Alias Created Event",
+                    "Alias Deleted Event"
+                  ],
+                  "enum": [
+                    "add",
+                    "delete"
+                  ]
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "response": {
+                "$ref": "Aliases"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user",
+                "https://www.googleapis.com/auth/admin.directory.user.alias",
+                "https://www.googleapis.com/auth/admin.directory.user.alias.readonly",
+                "https://www.googleapis.com/auth/admin.directory.user.readonly"
+              ],
+              "description": "Lists all aliases for a user."
+            },
+            "watch": {
+              "id": "directory.users.aliases.watch",
+              "path": "admin/directory/v1/users/{userKey}/aliases/watch",
+              "flatPath": "admin/directory/v1/users/{userKey}/aliases/watch",
+              "httpMethod": "POST",
+              "parameters": {
+                "userKey": {
+                  "description": "Email or immutable ID of the user",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                },
+                "event": {
+                  "description": "Events to watch for.",
+                  "location": "query",
+                  "type": "string",
+                  "enumDescriptions": [
+                    "Alias Created Event",
+                    "Alias Deleted Event"
+                  ],
+                  "enum": [
+                    "add",
+                    "delete"
+                  ]
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "request": {
+                "$ref": "Channel"
+              },
+              "response": {
+                "$ref": "Channel"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user",
+                "https://www.googleapis.com/auth/admin.directory.user.alias",
+                "https://www.googleapis.com/auth/admin.directory.user.alias.readonly",
+                "https://www.googleapis.com/auth/admin.directory.user.readonly"
+              ],
+              "description": "Watches for changes in users list."
+            }
+          }
+        },
+        "photos": {
+          "methods": {
+            "delete": {
+              "id": "directory.users.photos.delete",
+              "path": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "flatPath": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "httpMethod": "DELETE",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user"
+              ],
+              "description": "Removes the user's photo."
+            },
+            "get": {
+              "id": "directory.users.photos.get",
+              "path": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "flatPath": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "httpMethod": "GET",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "response": {
+                "$ref": "UserPhoto"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user",
+                "https://www.googleapis.com/auth/admin.directory.user.readonly"
+              ],
+              "description": "Retrieves the user's photo."
+            },
+            "update": {
+              "id": "directory.users.photos.update",
+              "path": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "flatPath": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "httpMethod": "PUT",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "request": {
+                "$ref": "UserPhoto"
+              },
+              "response": {
+                "$ref": "UserPhoto"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user"
+              ],
+              "description": "Adds a photo for the user."
+            },
+            "patch": {
+              "id": "directory.users.photos.patch",
+              "path": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "flatPath": "admin/directory/v1/users/{userKey}/photos/thumbnail",
+              "httpMethod": "PATCH",
+              "parameters": {
+                "userKey": {
+                  "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+                  "location": "path",
+                  "required": true,
+                  "type": "string"
+                }
+              },
+              "parameterOrder": [
+                "userKey"
+              ],
+              "request": {
+                "$ref": "UserPhoto"
+              },
+              "response": {
+                "$ref": "UserPhoto"
+              },
+              "scopes": [
+                "https://www.googleapis.com/auth/admin.directory.user"
+              ],
+              "description": "Adds a photo for the user. This method supports [patch semantics](https://developers.google.com/workspace/admin/directory/v1/guides/performance#pat
+ch)."
+            }
+          }
+        }
+      }
+    },
+    "verificationCodes": {
+      "methods": {
+        "generate": {
+          "id": "directory.verificationCodes.generate",
+          "path": "admin/directory/v1/users/{userKey}/verificationCodes/generate",
+          "flatPath": "admin/directory/v1/users/{userKey}/verificationCodes/generate",
+          "httpMethod": "POST",
+          "parameters": {
+            "userKey": {
+              "description": "Email or immutable ID of the user",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Generates new backup verification codes for the user."
+        },
+        "invalidate": {
+          "id": "directory.verificationCodes.invalidate",
+          "path": "admin/directory/v1/users/{userKey}/verificationCodes/invalidate",
+          "flatPath": "admin/directory/v1/users/{userKey}/verificationCodes/invalidate",
+          "httpMethod": "POST",
+          "parameters": {
+            "userKey": {
+              "description": "Email or immutable ID of the user",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Invalidates the current backup verification codes for the user."
+        },
+        "list": {
+          "id": "directory.verificationCodes.list",
+          "path": "admin/directory/v1/users/{userKey}/verificationCodes",
+          "flatPath": "admin/directory/v1/users/{userKey}/verificationCodes",
+          "httpMethod": "GET",
+          "parameters": {
+            "userKey": {
+              "description": "Identifies the user in the API request. The value can be the user's primary email address, alias email address, or unique user ID.",
+              "location": "path",
+              "required": true,
+              "type": "string"
+            }
+          },
+          "parameterOrder": [
+            "userKey"
+          ],
+          "response": {
+            "$ref": "VerificationCodes"
+          },
+          "scopes": [
+            "https://www.googleapis.com/auth/admin.directory.user.security"
+          ],
+          "description": "Returns the current set of valid backup verification codes for the specified user."
+        }
+      }
+    }
+  },
+  "discoveryVersion": "v1",
+  "protocol": "rest",
+  "packagePath": "admin",
+  "icons": {
+    "x16": "http://www.google.com/images/icons/product/search-16.gif",
+    "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  },
+  "mtlsRootUrl": "https://admin.mtls.googleapis.com/"
+}
+admin.googleapis.comdiscoveryrestversion=reports_v1,65dcfd093981a72907dfbcaee1c0fdce: command not found
+iam.googleapis.comdiscoveryrestversion=v1,eaa3575de9b19edde4761b9e43b6831b: command not found
+licensing.googleapis.comdiscoveryrestversion=v1,0d85bdf4284700df925abfa6c8a4b424: command not found
+www.googleapis.comdiscoveryv1apisdrivev3rest,9df7bd48bf964bd41ab30be7084dc28e: command not found
+www.googleapis.comdiscoveryv1apisoauth2v2rest,66ab2d006d5ecd6909ed5522fc687302: command not found
+~/.gam/gamcache $

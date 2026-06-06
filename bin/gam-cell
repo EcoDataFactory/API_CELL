@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -e
+
+export TEC_GAM_CELL="$HOME/GAM_CELL"
+export TEC_GAM_SRC="$TEC_GAM_CELL/gam-src"
+export TEC_GAM_CONFIG="$TEC_GAM_CELL/config"
+export TEC_GAM_AUDIT="$TEC_GAM_CELL/audit"
+
+export GAMCFGDIR="$TEC_GAM_CONFIG"
+
+exec python "$TEC_GAM_SRC/src/gam.py" "$@"
