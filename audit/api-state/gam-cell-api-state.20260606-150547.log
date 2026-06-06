@@ -1,0 +1,103 @@
+### Fecha
+2026-06-06T15:05:47-06:00
+
+### GAM CELL
+GAM 7.45.00 - https://github.com/GAM-team/GAM - pythonsource
+GAM Team <google-apps-manager@googlegroups.com>
+Python 3.13.13 64-bit final
+Android Android-16-aarch64-64bit-ELF aarch64
+Path: /data/data/com.termux/files/home/GAM_CELL/gam-src/src/gam
+Config File: /data/data/com.termux/files/home/GAM_CELL/config/gam.cfg, Section: DEFAULT, customer_id: my_customer, domain: tec-kio.com
+Time: 2026-06-06T21:05:00+00:00
+
+### API connectivity
+Checking api.github.com (140.82.112.5) (1)...                                                       [32mOK[0m
+Checking raw.githubusercontent.com (2606:50c0:8001::154) (2)...                                     [32mOK[0m
+Checking accounts.google.com (2607:f8b0:4002:c08::54) (3)...                                        [32mOK[0m
+Checking oauth2.googleapis.com (2607:f8b0:4002:c0c::5f) (4)...                                      [32mOK[0m
+Checking www.googleapis.com (2607:f8b0:4002:c10::5f) (5)...                                         [32mOK[0m
+Checking apps-apis.google.com (2607:f8b0:4002:c06::76) (6)...                                       [32mOK[0m
+Checking www.google.com (2001:4860:482b:7700::) (7)...                                              [32mOK[0m
+Checking accesscontextmanager.googleapis.com (2001:4860:4802:32::223) (8)...                        [32mOK[0m
+Checking alertcenter.googleapis.com (2607:f8b0:4002:c0c::5f) (9)...                                 [32mOK[0m
+Checking analyticsadmin.googleapis.com (2607:f8b0:4002:c0c::5f) (10)...                             [32mOK[0m
+Checking mybusinessaccountmanagement.googleapis.com (2001:4860:4802:38::223) (11)...                [32mOK[0m
+Checking calendar-json.googleapis.com (2001:4860:4802:38::223) (12)...                              [32mOK[0m
+Checking cbcm.googleapis.com (2001:4860:4802:38::223) (13)...                                       [32mOK[0m
+Checking chat.googleapis.com (2607:f8b0:4002:c08::5f) (14)...                                       [32mOK[0m
+Checking classroom.googleapis.com (2607:f8b0:4002:c05::5f) (15)...                                  [32mOK[0m
+Checking chromemanagement.googleapis.com (2001:4860:4802:36::223) (16)...                           [32mOK[0m
+Checking chromepolicy.googleapis.com (2607:f8b0:4002:c10::5f) (17)...                               [32mOK[0m
+Checking versionhistory.googleapis.com (2001:4860:4802:32::223) (18)...                             [32mOK[0m
+Checking cloudchannel.googleapis.com (2607:f8b0:4002:c05::5f) (19)...                               [32mOK[0m
+Checking cloudidentity.googleapis.com (2001:4860:4802:38::223) (20)...                              [32mOK[0m
+Checking cloudresourcemanager.googleapis.com (2607:f8b0:4002:c11::5f) (21)...                       [32mOK[0m
+Checking contactdelegation.googleapis.com (2001:4860:4802:38::223) (22)...                          [32mOK[0m
+Checking admin.googleapis.com (2607:f8b0:4002:c05::5f) (23)...                                      [32mOK[0m
+Checking docs.googleapis.com (2607:f8b0:4002:c08::5f) (24)...                                       [32mOK[0m
+Checking driveactivity.googleapis.com (2607:f8b0:4002:c05::5f) (25)...                              [32mOK[0m
+Checking drivelabels.googleapis.com (2607:f8b0:4002:c10::5f) (26)...                                [32mOK[0m
+Checking forms.googleapis.com (2001:4860:4802:34::223) (27)...                                      [32mOK[0m
+Checking gmail.googleapis.com (2001:4860:4802:36::223) (28)...                                      [32mOK[0m
+Checking groupsmigration.googleapis.com (2001:4860:4802:34::223) (29)...                            [32mOK[0m
+Checking groupssettings.googleapis.com (2001:4860:4802:34::223) (30)...                             [32mOK[0m
+Checking iam.googleapis.com (2001:4860:4802:38::223) (31)...                                        [32mOK[0m
+Checking iamcredentials.googleapis.com (2607:f8b0:4002:c06::5f) (32)...                             [32mOK[0m
+Checking keep.googleapis.com (2001:4860:4802:34::223) (33)...                                       [32mOK[0m
+Checking licensing.googleapis.com (2001:4860:4802:34::223) (34)...                                  [32mOK[0m
+Checking datastudio.googleapis.com (2001:4860:4802:38::223) (35)...                                 [32mOK[0m
+Checking meet.googleapis.com (2607:f8b0:4002:c11::5f) (36)...                                       [32mOK[0m
+Checking orgpolicy.googleapis.com (2607:f8b0:4002:c05::5f) (37)...                                  [32mOK[0m
+Checking people.googleapis.com (2001:4860:4802:34::223) (38)...                                     [32mOK[0m
+Checking pubsub.googleapis.com (2607:f8b0:4002:c0c::5f) (39)...                                     [32mOK[0m
+Checking reseller.googleapis.com (2607:f8b0:4002:c0c::5f) (40)...                                   [32mOK[0m
+Checking searchconsole.googleapis.com (2607:f8b0:4002:c02::5f) (41)...                              [32mOK[0m
+Checking serviceaccountlookup.googleapis.com (2001:4860:4802:36::223) (42)...                       [32mOK[0m
+Checking servicemanagement.googleapis.com (2001:4860:4802:32::223) (43)...                          [32mOK[0m
+Checking serviceusage.googleapis.com (2001:4860:4802:34::223) (44)...                               [32mOK[0m
+Checking sheets.googleapis.com (2607:f8b0:4002:c06::5f) (45)...                                     [32mOK[0m
+Checking siteVerification.googleapis.com (2001:4860:4802:36::223) (46)...                           [32mOK[0m
+Checking storage.googleapis.com (2607:f8b0:4002:c06::cf) (47)...                                    [32mOK[0m
+Checking tagmanager.googleapis.com (2001:4860:4802:36::223) (48)...                                 [32mOK[0m
+Checking tasks.googleapis.com (2001:4860:4802:36::223) (49)...                                      [32mOK[0m
+Checking vault.googleapis.com (2001:4860:4802:34::223) (50)...                                      [32mOK[0m
+Checking youtube.googleapis.com (2001:4860:4802:36::223) (51)...                                    
+Control-C
+[32mOK[0m
+
+### Customer
+Customer ID: C01h8v8f5
+Primary Domain: tec-kio.com
+Primary Domain Verified: True
+Customer Creation Time: 2024-10-03T19:04:38Z
+Default Language: es-419
+Address:
+  contactName: Francisco Emmanuel  Casarrubias Jaimes
+  organizationName: Tec-Kio
+  addressLine1: Av. Hacienda Ahuehuete Mz. 98 Cs. 8-3
+  locality: Chalco
+  region: Méx.
+  postalCode: 56644
+  countryCode: MX
+Phone: +525648341404
+Admin Secondary Email: emmanuel.casarrubias.j@gmail.com
+User counts as of 2026-06-02:
+  Total Users: 5
+
+### Users sample
+Getting all Users, may take some time on a large Google Workspace Account...
+Got 1 User: emmanuel.casarrubias@tec-kio.com - emmanuel.casarrubias@tec-kio.com
+primaryEmail,name.givenName,name.familyName,name.fullName,name.displayName,suspended,suspensionReason,suspensionTime,orgUnitPath
+emmanuel.casarrubias@tec-kio.com,Francisco Emmanuel ,Casarrubias Jaimes,Francisco Emmanuel Casarrubias Jaimes,,False,,,/
+
+### Groups sample
+Getting all Groups, may take some time on a large Google Workspace Account...
+Got 1 Group: eco-data.factory@tec-kio.com - eco-data.factory@tec-kio.com
+email,name,directMembersCount
+eco-data.factory@tec-kio.com,Eco-Data Factory,1
+
+### OUs sample
+orgUnitPath,orgUnitId,name,parentOrgUnitId
+/Workspace Guests,id:03ph8a2z1v6a1jx,Workspace Guests,id:03ph8a2z1tgds56
+Getting all Organizational Units, may take some time on a large Google Workspace Account...
+Got 1 Organizational Unit
