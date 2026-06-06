@@ -1,4 +1,5 @@
 .env
+.venv/
 config/client_secrets.json
 config/oauth2.txt
 config/oauth2.local.json
@@ -6,5 +7,6 @@ config/oauth2service.json
 config/gam.cfg
 config/gam.cfg.bak.*
 config/gamcache/*
+gam-src/
 *.pyc
 __pycache__/
