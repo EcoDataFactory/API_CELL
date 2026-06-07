@@ -22,7 +22,9 @@ def _env():
     env.setdefault("GAM_CELL_CONFIG", str(CONFIG))
     env.setdefault("GAM_CELL_API_JSON", str(API_JSON))
     env.setdefault("GAM_CELL_RUNTIME", str(RUNTIME))
-    env.setdefault("GAM_CELL_CACERTS_PEM", str(PKI / "certs" / "cacerts.pem"))
+    env["GAMCFGDIR"] = str(CONFIG)
+    env["PYTHONDONTWRITEBYTECODE"] = "1"
+    env["GAM_CELL_CACERTS_PEM"] = str(PKI / "certs" / "cacerts.pem")
     env.setdefault("PYTHONPATH", str(LIVE_SRC))
     return env
 
