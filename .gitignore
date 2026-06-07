@@ -9,7 +9,6 @@
 *.env
 
 # PKI externa / runtime local
-CELL_CORE/
 ENV/
 GAM_arm/
 GAM_CELL_PKI/
@@ -94,8 +93,6 @@ __pycache__/
 venv/
 
 # Local backup/archive material
-CELL_CORE/archive/
-CELL_CORE/secrets/
 GAM_py/.env
 GAM_py/api-runtime/
 a.out
