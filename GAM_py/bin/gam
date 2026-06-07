@@ -1,70 +1,72 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
 
-PY="$HOME/GAM_CELL/GAM_py"
+CELL="$HOME/GAM_CELL"
+PY="$CELL/GAM_py"
+SRC="$PY/live-src"
+BIN="$PY/bin"
+PKI="$HOME/GAM_CELL_PKI/GAM_py"
+CONFIG="$PKI/config"
+RUNTIME="$PKI/runtime"
+DISCOVERY="$PKI/discovery"
+CERTS="$PKI/certs"
+CACERTS="$CERTS/cacerts.pem"
 
-if [ ! -f "$PY/.env" ]; then
-  echo "ERROR: falta $PY/.env"
-  exit 1
-fi
+export GAMCFGDIR="$CONFIG"
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$SRC${PYTHONPATH:+:$PYTHONPATH}"
 
-. "$PY/.env"
+export GAM_CELL="$CELL"
+export GAM_CELL_BASE="$PY"
+export GAM_CELL_LIVE_SRC="$SRC"
+export GAM_CELL_CONFIG="$CONFIG"
+export GAM_CELL_API_JSON="$PKI"
+export GAM_CELL_RUNTIME="$RUNTIME"
+export GAM_CELL_CACERTS_PEM="$CACERTS"
+
+# Compatibilidad temporal con nombres TEC_GAM_* usados por scripts viejos.
+export TEC_GAM_CELL="$CELL"
+export TEC_GAM_PY="$PY"
+export TEC_GAM_PY_SRC="$SRC"
+export TEC_GAM_PY_CONFIG="$CONFIG"
+export TEC_GAM_PY_PKI="$PKI"
+export TEC_GAM_API_JSON="$PKI"
+export TEC_GAM_API_RUNTIME="$RUNTIME"
+export TEC_GAM_API_PY="$BIN/gam-api-py"
 
 cmd="${1:-help}"
 shift || true
 
 case "$cmd" in
   live|run)
-    export GAMCFGDIR
-    export PYTHONDONTWRITEBYTECODE
-    export TEC_GAM_CELL
-    export TEC_GAM_CORE
-    export TEC_GAM_PY
-    export TEC_GAM_PY_SRC
-    export TEC_GAM_PY_CONFIG
-    export TEC_GAM_PY_JSON
-    export TEC_GAM_PY_JSON_SRC
-    export TEC_GAM_PY_JSON_CONFIG
-
     if [ ! -d "$GAMCFGDIR" ]; then
       echo "ERROR: falta GAMCFGDIR=$GAMCFGDIR"
       exit 1
     fi
-
-    cd "$TEC_GAM_PY_SRC"
-    exec python "$TEC_GAM_PY_SRC/gam.py" "$@"
+    if [ ! -f "$SRC/gam.py" ]; then
+      echo "ERROR: falta $SRC/gam.py"
+      exit 1
+    fi
+    cd "$SRC"
+    exec python "$SRC/gam.py" "$@"
     ;;
 
   api|api-py)
-    export TEC_GAM_CELL
-    export TEC_GAM_CORE
-    export TEC_GAM_PY
-    export TEC_GAM_PY_SRC
-    export TEC_GAM_PY_CONFIG
-    export TEC_GAM_API_JSON="${TEC_GAM_API_JSON:-$TEC_GAM_PY_PKI}"
-    export TEC_GAM_API_RUNTIME
-    export TEC_GAM_PY_JSON
-    export TEC_GAM_PY_JSON_SRC
-    export TEC_GAM_PY_JSON_CONFIG
-    export PYTHONDONTWRITEBYTECODE
-    export GAMCFGDIR
-
-    exec python "$TEC_GAM_API_PY" "$@"
+    exec "$BIN/gam-api-py" "$@"
     ;;
 
   json)
     sub="${1:-keys}"
     shift || true
-
     case "$sub" in
       keys)
-        exec "$0" api json keys
+        exec "$BIN/gam-api-py" json keys
         ;;
       list)
-        ls -la "$TEC_GAM_API_JSON"
+        ls -la "$PKI"
         ;;
       status)
-        exec "$0" api status
+        exec "$BIN/gam-api-py" status
         ;;
       *)
         echo "Uso:"
@@ -76,46 +78,38 @@ case "$cmd" in
     esac
     ;;
 
+  pki|config)
+    echo "GAM_py PKI externa"
+    echo "PKI=$PKI"
+    echo "GAMCFGDIR=$GAMCFGDIR"
+    echo "CACERTS=$CACERTS"
+    echo
+    for d in auth-client auth-user auth-service config certs discovery hashes cache runtime; do
+      if [ -d "$PKI/$d" ]; then
+        echo "$d:"
+        ls -la "$PKI/$d"
+        echo
+      fi
+    done
+    ;;
+
+  status)
+    echo "GAM_py bin unico"
+    echo "PY=$PY"
+    echo "SRC=$SRC"
+    echo "CONFIG=$CONFIG"
+    echo "PKI=$PKI"
+    echo "RUNTIME=$RUNTIME"
+    echo "API=$BIN/gam-api-py"
+    echo "CACERTS=$CACERTS"
+    ;;
+
   audit|auditar)
     exec bash "$HOME/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" audit
     ;;
 
   rotate|rotar|token|oauth-token)
     exec bash "$HOME/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" rotate
-    ;;
-
-  pki|config)
-    echo "GAM_py PKI externa"
-    echo "PKI=$TEC_GAM_PY_PKI"
-    echo "GAMCFGDIR=$GAMCFGDIR"
-    echo
-    for d in auth-client auth-user auth-service config hashes cache; do
-      if [ -d "$TEC_GAM_PY_PKI/$d" ]; then
-        echo "$d:"
-        ls -la "$TEC_GAM_PY_PKI/$d"
-        echo
-      fi
-    done
-    ;;
-
-  arm)
-    echo "Este bin pertenece a GAM_py."
-    echo "ARM esta aislado en:"
-    echo "  $HOME/GAM_CELL/GAM_arm"
-    echo
-    echo "Usa:"
-    echo "  $HOME/GAM_CELL/GAM_arm/bin/gam-arm audit"
-    exit 2
-    ;;
-
-  status)
-    echo "GAM_py bin unico"
-    echo "PY=$PY"
-    echo "SRC=$TEC_GAM_PY_SRC"
-    echo "CONFIG=$TEC_GAM_PY_CONFIG"
-    echo "API=$TEC_GAM_API_PY"
-    echo "JSON=${TEC_GAM_API_JSON:-$TEC_GAM_PY_PKI}"
-    echo "PKI=$TEC_GAM_PY_PKI"
     ;;
 
   help|-h|--help)
@@ -132,10 +126,6 @@ Uso:
   gam json keys
   gam json list
   gam json status
-
-  gam audit
-  gam rotate
-  gam token
 
   gam pki
   gam status
