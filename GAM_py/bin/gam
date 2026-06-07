@@ -14,7 +14,7 @@ CACERTS="$CERTS/cacerts.pem"
 
 export GAMCFGDIR="$CONFIG"
 export PYTHONDONTWRITEBYTECODE=1
-export PYTHONPATH="$SRC/vendor:$SRC${PYTHONPATH:+:$PYTHONPATH}"
+export PYTHONPATH="$SRC/gam:$SRC/vendor:$SRC${PYTHONPATH:+:$PYTHONPATH}"
 
 export GAM_CELL="$CELL"
 export GAM_CELL_BASE="$PY"
@@ -43,12 +43,12 @@ case "$cmd" in
       echo "ERROR: falta GAMCFGDIR=$GAMCFGDIR"
       exit 1
     fi
-    if [ ! -f "$SRC/gam.py" ]; then
-      echo "ERROR: falta $SRC/gam.py"
+    if [ ! -f "$SRC/gam/gam.py" ]; then
+      echo "ERROR: falta $SRC/gam/gam.py"
       exit 1
     fi
     cd "$SRC"
-    exec python "$SRC/gam.py" "$@"
+    exec python "$SRC/gam/gam.py" "$@"
     ;;
 
   api|api-py)
