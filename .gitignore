@@ -3,7 +3,6 @@
 # ============================================================
 
 # Env raíz/local
-.master_env
 .env
 **/.env
 *.env
@@ -75,7 +74,6 @@ GamCommands.html
 *.der
 *.csr
 .env
-.master_env
 *secret*
 *credential*
 oauth*.json
@@ -89,7 +87,6 @@ oauth2service*.json
 __pycache__/
 *.pyc
 *.pyo
-.venv/
 venv/
 
 # Local backup/archive material
