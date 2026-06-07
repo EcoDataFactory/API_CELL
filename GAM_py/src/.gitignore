@@ -84,3 +84,6 @@ audit/*
 # Stage 008 committed audit artifacts.
 !audit/STAGE_008_HARDENING.md
 !audit/GAM_py.stage008.sha256
+
+# Stage 009 committed audit artifact.
+!audit/STAGE_009_NEXT_RUNTIME.md
