@@ -100,3 +100,7 @@ audit/*
 
 # Stage 013 committed audit artifact.
 !audit/STAGE_013_FINAL_HASH.md
+
+# Stage 014 committed audit artifacts.
+!audit/GAM_py.runtime.stage014.sha256
+!audit/STAGE_014_RUNTIME_HASH.md
