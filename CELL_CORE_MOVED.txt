@@ -1,0 +1,9 @@
+CELL_CORE fue retirado del layout operativo.
+
+Ubicacion offrepo:
+/data/data/com.termux/files/home/GAM_CELL_OFFREPO/cell-core-20260607-105311/CELL_CORE
+
+Motivo:
+- GAM_py es la punta operativa.
+- CELL_CORE contenia auditorias, hashes y archivos historicos ignorados.
+- Los componentes runtime activos estan en GAM_py.
