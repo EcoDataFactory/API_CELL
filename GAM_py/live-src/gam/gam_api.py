@@ -73,11 +73,11 @@ def json_keys():
 
 def help_text():
     print("""Uso:
-  gam-api-py status
-  gam-api-py version
-  gam-api-py checkconn
-  gam-api-py json keys
-  gam-api-py gam <args...>
+  gam api status
+  gam api version
+  gam api checkconn
+  gam api json keys
+  gam api gam <args...>
 
 Descripción:
   API Python interna autosuficiente de GAM_CELL.
@@ -105,14 +105,14 @@ def main(argv):
         sub = rest[0] if rest else "keys"
         if sub == "keys":
             return json_keys()
-        print("Uso: gam-api-py json keys")
+        print("Uso: gam api json keys")
         return 2
 
     if cmd == "gam":
         return run_gam(rest).returncode
 
     print(f"ERROR: comando no reconocido: {cmd}")
-    print("Usa: gam-api-py help")
+    print("Usa: gam api help")
     return 2
 
 if __name__ == "__main__":
