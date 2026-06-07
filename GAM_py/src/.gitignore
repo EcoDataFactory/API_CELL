@@ -87,3 +87,6 @@ audit/*
 
 # Stage 009 committed audit artifact.
 !audit/STAGE_009_NEXT_RUNTIME.md
+
+# Stage 010 committed audit artifact.
+!audit/STAGE_010_RELEASE_CHECK.md

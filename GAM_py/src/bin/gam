@@ -233,6 +233,49 @@ stage_check_runtime() {
 }
 
 
+
+release_check_runtime() {
+  echo "GAM_py release-check"
+
+  echo
+  echo "### stage-check"
+  stage_check_runtime
+
+  echo
+  echo "### tags"
+  git -C "$CELL" tag --list 'stage-*' --sort=creatordate
+
+  echo
+  echo "### HEAD"
+  git -C "$CELL" log --oneline --decorate --graph --all --max-count=12
+
+  echo
+  echo "### audit artifacts"
+  for file in \
+    "$SRC/audit/STAGE_007_MANIFEST.md" \
+    "$SRC/audit/STAGE_008_HARDENING.md" \
+    "$SRC/audit/GAM_py.stage008.sha256" \
+    "$SRC/audit/STAGE_009_NEXT_RUNTIME.md"
+  do
+    if [ ! -f "$file" ]; then
+      echo "ERROR: falta audit artifact: $file" >&2
+      exit 1
+    fi
+    echo "OK audit: $file"
+  done
+
+  echo
+  echo "### command availability"
+  "$SRC/bin/gam" help | grep -E 'gam doctor|gam stage-check|gam release-check' || {
+    echo "ERROR: comandos runtime no aparecen en help" >&2
+    exit 1
+  }
+
+  echo
+  echo "OK: release-check completo"
+}
+
+
 cmd="${1:-help}"
 shift || true
 
@@ -301,6 +344,11 @@ case "$cmd" in
     stage_check_runtime
     ;;
 
+
+  release-check|release)
+    release_check_runtime
+    ;;
+
   status)
     echo "GAM_py bin unico"
     echo "PY=$PY"
@@ -339,6 +387,7 @@ Uso:
   gam status
   gam doctor
   gam stage-check
+  gam release-check
 HELP
     ;;
 
