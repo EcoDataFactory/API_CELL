@@ -97,3 +97,6 @@ audit/*
 # Stage 012 committed audit artifact.
 !audit/GAM_py.stage012.sha256
 !audit/STAGE_012_CURRENT_HASH.md
+
+# Stage 013 committed audit artifact.
+!audit/STAGE_013_FINAL_HASH.md

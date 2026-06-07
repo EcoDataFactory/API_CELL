@@ -285,19 +285,25 @@ final_check_runtime() {
   release_check_runtime
 
   echo
-  echo "### sha256 stage008"
-  if [ ! -f "$SRC/audit/GAM_py.stage008.sha256" ]; then
-    echo "ERROR: falta $SRC/audit/GAM_py.stage008.sha256" >&2
+  echo "### sha256 current runtime"
+  HASH_MANIFEST=""
+  if [ -f "$SRC/audit/GAM_py.stage012.sha256" ]; then
+    HASH_MANIFEST="GAM_py/src/audit/GAM_py.stage012.sha256"
+  elif [ -f "$SRC/audit/GAM_py.stage008.sha256" ]; then
+    HASH_MANIFEST="GAM_py/src/audit/GAM_py.stage008.sha256"
+  else
+    echo "ERROR: falta hash manifest stage012/stage008" >&2
     exit 1
   fi
 
   (
     cd "$CELL"
-    sha256sum -c GAM_py/src/audit/GAM_py.stage008.sha256 --status || {
-      echo "WARN: stage008 hash manifest no coincide con HEAD actual"
-      echo "INFO: esto puede ser esperado si hubo cambios posteriores a Stage 008"
+    sha256sum -c "$HASH_MANIFEST" --status || {
+      echo "ERROR: hash manifest no coincide: $HASH_MANIFEST" >&2
+      exit 1
     }
   )
+  echo "OK hash: $HASH_MANIFEST"
 
   echo
   echo "### git final"
