@@ -11,7 +11,7 @@ LIVE_SRC = BASE / "live-src"
 PKI = HOME / "GAM_CELL_PKI" / "GAM_py"
 CONFIG = PKI / "config"
 API_JSON = PKI
-RUNTIME = BASE / "api-runtime"
+RUNTIME = PKI / "runtime"
 GAM_PY = LIVE_SRC / "gam.py"
 
 def _env():
