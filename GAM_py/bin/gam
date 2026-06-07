@@ -52,7 +52,7 @@ case "$cmd" in
     ;;
 
   api|api-py)
-    exec "$BIN/gam-api-py" "$@"
+    exec python "$SRC/gam/gam_api.py" "$@"
     ;;
 
   json)
@@ -60,13 +60,13 @@ case "$cmd" in
     shift || true
     case "$sub" in
       keys)
-        exec "$BIN/gam-api-py" json keys
+        exec python "$SRC/gam/gam_api.py" json keys
         ;;
       list)
         ls -la "$PKI"
         ;;
       status)
-        exec "$BIN/gam-api-py" status
+        exec python "$SRC/gam/gam_api.py" status
         ;;
       *)
         echo "Uso:"
