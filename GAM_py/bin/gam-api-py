@@ -12,7 +12,7 @@ PKI = HOME / "GAM_CELL_PKI" / "GAM_py"
 CONFIG = PKI / "config"
 API_JSON = PKI
 RUNTIME = PKI / "runtime"
-GAM_PY = LIVE_SRC / "gam.py"
+GAM_PY = LIVE_SRC / "gam" / "gam.py"
 
 def _env():
     env = os.environ.copy()
@@ -25,7 +25,7 @@ def _env():
     env["GAMCFGDIR"] = str(CONFIG)
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     env["GAM_CELL_CACERTS_PEM"] = str(PKI / "certs" / "cacerts.pem")
-    env.setdefault("PYTHONPATH", f"{LIVE_SRC / 'vendor'}:{LIVE_SRC}")
+    env.setdefault("PYTHONPATH", f"{LIVE_SRC / 'gam'}:{LIVE_SRC / 'vendor'}:{LIVE_SRC}")
     return env
 
 def run_gam(args):
