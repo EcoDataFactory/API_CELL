@@ -33,8 +33,6 @@ TLS_CHOICE_MAP = {
   'tlsv1_3': 'TLSv1_3', 'tlsv1.3': 'TLSv1_3',
   }
 
-import os
-
 FN_CACERTS_PEM = os.environ.get(
     'GAM_CELL_CACERTS_PEM',
     os.path.join(
