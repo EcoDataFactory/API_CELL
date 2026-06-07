@@ -25,7 +25,7 @@ def _env():
     env["GAMCFGDIR"] = str(CONFIG)
     env["PYTHONDONTWRITEBYTECODE"] = "1"
     env["GAM_CELL_CACERTS_PEM"] = str(PKI / "certs" / "cacerts.pem")
-    env.setdefault("PYTHONPATH", str(LIVE_SRC))
+    env.setdefault("PYTHONPATH", f"{LIVE_SRC / 'vendor'}:{LIVE_SRC}")
     return env
 
 def run_gam(args):
