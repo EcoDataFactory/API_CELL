@@ -32,7 +32,7 @@ export TEC_GAM_PY_CONFIG="$CONFIG"
 export TEC_GAM_PY_PKI="$PKI"
 export TEC_GAM_API_JSON="$PKI"
 export TEC_GAM_API_RUNTIME="$RUNTIME"
-export TEC_GAM_API_PY="$BIN/gam-api-py"
+export TEC_GAM_API_PY="$SRC/gam/gam_api.py"
 
 cmd="${1:-help}"
 shift || true
@@ -100,7 +100,7 @@ case "$cmd" in
     echo "CONFIG=$CONFIG"
     echo "PKI=$PKI"
     echo "RUNTIME=$RUNTIME"
-    echo "API=$BIN/gam-api-py"
+    echo "API=$SRC/gam/gam_api.py"
     echo "CACERTS=$CACERTS"
     ;;
 
