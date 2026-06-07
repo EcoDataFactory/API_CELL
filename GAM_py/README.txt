@@ -1,4 +1,4 @@
-GAM_py_json limpio.
+GAM_py limpio.
 
 Este repo NO debe contener PKI activa ni secretos.
 
@@ -12,7 +12,7 @@ Estructura esperada:
   live-src/
 
 PKI externa:
-  /data/data/com.termux/files/home/GAM_CELL_PKI/GAM_py_json
+  /data/data/com.termux/files/home/GAM_CELL_PKI/GAM_py
 
 Archivos activos externos:
   auth-client/client_secrets.json

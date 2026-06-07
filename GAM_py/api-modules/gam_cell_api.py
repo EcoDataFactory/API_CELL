@@ -22,10 +22,10 @@ REDACTED_KEYS = {
 class GamCellApi:
     def __init__(self):
         self.cell = Path(os.environ.get("TEC_GAM_CELL", Path.home() / "GAM_CELL")).resolve()
-        self.base = Path(os.environ.get("TEC_GAM_PY_JSON", self.cell / "GAM_py_json")).resolve()
-        self.live_src = Path(os.environ.get("TEC_GAM_PY_JSON_SRC", self.base / "live-src")).resolve()
-        self.live_config = Path(os.environ.get("TEC_GAM_PY_JSON_CONFIG", Path.home() / "GAM_CELL_PKI" / "GAM_py_json" / "config")).resolve()
-        self.api_json = Path(os.environ.get("TEC_GAM_API_JSON", self.base / "api-json")).resolve()
+        self.base = Path(os.environ.get("TEC_GAM_PY", self.cell / "GAM_py")).resolve()
+        self.live_src = Path(os.environ.get("TEC_GAM_PY_SRC", self.base / "live-src")).resolve()
+        self.live_config = Path(os.environ.get("TEC_GAM_PY_CONFIG", Path.home() / "GAM_CELL_PKI" / "GAM_py" / "config")).resolve()
+        self.api_json = Path(os.environ.get("TEC_GAM_API_JSON", Path.home() / "GAM_CELL_PKI" / "GAM_py")).resolve()
         self.runtime = Path(os.environ.get("TEC_GAM_API_RUNTIME", self.base / "api-runtime")).resolve()
         self.gam_py = self.live_src / "gam.py"
 
@@ -34,9 +34,9 @@ class GamCellApi:
         e["GAMCFGDIR"] = str(self.live_config)
         e["PYTHONDONTWRITEBYTECODE"] = "1"
         e["TEC_GAM_CELL"] = str(self.cell)
-        e["TEC_GAM_PY_JSON"] = str(self.base)
-        e["TEC_GAM_PY_JSON_SRC"] = str(self.live_src)
-        e["TEC_GAM_PY_JSON_CONFIG"] = str(self.live_config)
+        e["TEC_GAM_PY"] = str(self.base)
+        e["TEC_GAM_PY_SRC"] = str(self.live_src)
+        e["TEC_GAM_PY_CONFIG"] = str(self.live_config)
         e["TEC_GAM_API_JSON"] = str(self.api_json)
         e["TEC_GAM_API_RUNTIME"] = str(self.runtime)
         return e
@@ -56,9 +56,28 @@ class GamCellApi:
         return self.run_gam(["checkconn"])
 
     def json_keys(self):
-        for path in sorted(self.api_json.glob("*.json")):
-            print(path.name)
-            self._print_json_keys(path)
+        roots = []
+        if self.api_json.is_dir():
+            roots.append(self.api_json)
+        if getattr(self, "pki", None) and self.pki.is_dir():
+            roots.extend([
+                self.pki / "auth-client",
+                self.pki / "auth-user",
+                self.pki / "auth-service",
+                self.pki / "config",
+            ])
+
+        seen = set()
+        for root in roots:
+            if not root.is_dir():
+                continue
+            for path in sorted(root.glob("*.json")):
+                key = str(path.resolve())
+                if key in seen:
+                    continue
+                seen.add(key)
+                print(str(path))
+                self._print_json_keys(path)
 
     def _print_json_keys(self, path):
         try:
@@ -93,9 +112,12 @@ class GamCellApi:
             self.base,
             self.live_src,
             self.live_config,
-            self.api_json,
             self.runtime,
             self.gam_py,
+        ]
+
+        optional = [
+            self.api_json,
         ]
 
         ok = True
@@ -103,5 +125,9 @@ class GamCellApi:
             exists = p.exists()
             print(f"{'OK' if exists else 'FAIL'}: {p}")
             ok = ok and exists
+
+        for p in locals().get("optional", []):
+            exists = p.exists()
+            print(f"{'OK' if exists else 'WARN'} optional: {p}")
 
         raise SystemExit(0 if ok else 1)

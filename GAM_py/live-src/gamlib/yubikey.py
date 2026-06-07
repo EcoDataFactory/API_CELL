@@ -30,7 +30,7 @@ from gam import systemErrorExit
 from gam import readStdin
 from gam import writeStdout
 
-from gam.gamlib import glmsgs as Msg
+from gamlib import glmsgs as Msg
 
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding

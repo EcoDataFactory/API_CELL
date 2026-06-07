@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -euo pipefail
 
-PY="$HOME/GAM_CELL/GAM_py_json"
+PY="$HOME/GAM_CELL/GAM_py"
 
 if [ ! -f "$PY/.env" ]; then
   echo "ERROR: falta $PY/.env"
@@ -10,7 +10,6 @@ fi
 
 . "$PY/.env"
 
-# GAM_CELL_TOKEN_AUDIT_ROTATE_PATCH
 cmd="${1:-help}"
 shift || true
 
@@ -20,6 +19,9 @@ case "$cmd" in
     export PYTHONDONTWRITEBYTECODE
     export TEC_GAM_CELL
     export TEC_GAM_CORE
+    export TEC_GAM_PY
+    export TEC_GAM_PY_SRC
+    export TEC_GAM_PY_CONFIG
     export TEC_GAM_PY_JSON
     export TEC_GAM_PY_JSON_SRC
     export TEC_GAM_PY_JSON_CONFIG
@@ -29,20 +31,23 @@ case "$cmd" in
       exit 1
     fi
 
-    cd "$TEC_GAM_PY_JSON_SRC"
-    exec python "$TEC_GAM_PY_JSON_SRC/gam.py" "$@"
+    cd "$TEC_GAM_PY_SRC"
+    exec python "$TEC_GAM_PY_SRC/gam.py" "$@"
     ;;
 
   api|api-py)
-    export GAMCFGDIR
-    export PYTHONDONTWRITEBYTECODE
     export TEC_GAM_CELL
     export TEC_GAM_CORE
+    export TEC_GAM_PY
+    export TEC_GAM_PY_SRC
+    export TEC_GAM_PY_CONFIG
+    export TEC_GAM_API_JSON="${TEC_GAM_API_JSON:-$TEC_GAM_PY_PKI}"
+    export TEC_GAM_API_RUNTIME
     export TEC_GAM_PY_JSON
     export TEC_GAM_PY_JSON_SRC
     export TEC_GAM_PY_JSON_CONFIG
-    export TEC_GAM_API_JSON
-    export TEC_GAM_API_RUNTIME
+    export PYTHONDONTWRITEBYTECODE
+    export GAMCFGDIR
 
     exec python "$TEC_GAM_API_PY" "$@"
     ;;
@@ -72,52 +77,45 @@ case "$cmd" in
     ;;
 
   audit|auditar)
-    exec bash "/data/data/com.termux/files/home/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" audit
+    exec bash "$HOME/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" audit
     ;;
 
   rotate|rotar|token|oauth-token)
-    exec bash "/data/data/com.termux/files/home/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" rotate
+    exec bash "$HOME/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" rotate
     ;;
 
   pki|config)
-    echo "GAM_py_json PKI externa"
-    echo "PKI=$TEC_GAM_PY_JSON_PKI"
+    echo "GAM_py PKI externa"
+    echo "PKI=$TEC_GAM_PY_PKI"
     echo "GAMCFGDIR=$GAMCFGDIR"
     echo
-    echo "auth-client:"
-    ls -la "$TEC_GAM_PKI_AUTH_CLIENT" 2>/dev/null || true
-    echo
-    echo "auth-user:"
-    ls -la "$TEC_GAM_PKI_AUTH_USER" 2>/dev/null || true
-    echo
-    echo "auth-service:"
-    ls -la "$TEC_GAM_PKI_AUTH_SERVICE" 2>/dev/null || true
-    echo
-    echo "config:"
-    ls -la "$TEC_GAM_PKI_CONFIG" 2>/dev/null || true
-    echo
-    echo "hashes:"
-    ls -la "$TEC_GAM_PKI_HASHES" 2>/dev/null || true
-    ;;
-
-  status)
-    echo "GAM_py_json bin unico"
-    echo "PY=$PY"
-    echo "SRC=$TEC_GAM_PY_JSON_SRC"
-    echo "CONFIG=$TEC_GAM_PY_JSON_CONFIG"
-    echo "API=$TEC_GAM_API_PY"
-    echo "JSON=$TEC_GAM_API_JSON"
-    echo "PKI=$TEC_GAM_PY_JSON_PKI"
+    for d in auth-client auth-user auth-service config hashes cache; do
+      if [ -d "$TEC_GAM_PY_PKI/$d" ]; then
+        echo "$d:"
+        ls -la "$TEC_GAM_PY_PKI/$d"
+        echo
+      fi
+    done
     ;;
 
   arm)
-    echo "Este bin pertenece a GAM_py_json."
+    echo "Este bin pertenece a GAM_py."
     echo "ARM esta aislado en:"
     echo "  $HOME/GAM_CELL/GAM_arm"
     echo
     echo "Usa:"
     echo "  $HOME/GAM_CELL/GAM_arm/bin/gam-arm audit"
     exit 2
+    ;;
+
+  status)
+    echo "GAM_py bin unico"
+    echo "PY=$PY"
+    echo "SRC=$TEC_GAM_PY_SRC"
+    echo "CONFIG=$TEC_GAM_PY_CONFIG"
+    echo "API=$TEC_GAM_API_PY"
+    echo "JSON=${TEC_GAM_API_JSON:-$TEC_GAM_PY_PKI}"
+    echo "PKI=$TEC_GAM_PY_PKI"
     ;;
 
   help|-h|--help)

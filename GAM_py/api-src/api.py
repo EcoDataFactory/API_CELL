@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 CELL = Path.home() / "GAM_CELL"
-MOD = CELL / "GAM_py_json" / "api-modules"
+MOD = CELL / "GAM_py" / "api-modules"
 sys.path.insert(0, str(MOD))
 
 from gam_cell_api import GamCellApi
@@ -24,7 +24,7 @@ def main(argv):
 
 Descripción:
   API Python interna autosuficiente de GAM_CELL.
-  Usa únicamente rutas internas de GAM_py_json.
+  Usa rutas internas de GAM_py y PKI externa.
 """)
         return 0
 
