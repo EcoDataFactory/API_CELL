@@ -155,6 +155,84 @@ PYDOCTOR
 }
 
 
+
+stage_check_runtime() {
+  echo "GAM_py stage-check"
+
+  echo
+  echo "### git"
+  git -C "$CELL" branch --show-current
+  git -C "$CELL" status --short
+  if [ -n "$(git -C "$CELL" status --short)" ]; then
+    echo "ERROR: working tree no esta limpio" >&2
+    exit 1
+  fi
+  echo "OK: working tree limpio"
+
+  echo
+  echo "### doctor"
+  doctor_runtime
+
+  echo
+  echo "### runtime smoke"
+  "$SRC/bin/gam" status
+  "$SRC/bin/gam" api status
+  "$SRC/bin/gam" live --version | sed -n '1,12p'
+
+  echo
+  echo "### bytecode"
+  BYTECODE="$(
+    find "$PY" \( -type d -name __pycache__ -o -type f -name '*.pyc' -o -type f -name '*.pyo' \) -print
+  )"
+  if [ -n "$BYTECODE" ]; then
+    echo "ERROR: bytecode residual:" >&2
+    echo "$BYTECODE" >&2
+    exit 1
+  fi
+  echo "OK: sin bytecode"
+
+  echo
+  echo "### referencias obsoletas operativas"
+  OBSOLETE="$(
+    grep -RInE 'GAM_py/bin/[g]am|GAM_py/live-[s]rc|live-[s]rc/gam.py|live-[s]rc/gamlib|gam-api-[p]y|CELL_[C]ORE|gam-[c]ell' \
+      "$CELL/.gitignore" \
+      "$CELL/.env.example" \
+      "$SRC/bin" \
+      "$SRC/gam" \
+      "$SRC/atom" \
+      "$SRC/vendor" \
+      "$SRC/IMPORT_CONTRACT.md" \
+      "$PY/README.md" \
+      2>/dev/null || true
+  )"
+  if [ -n "$OBSOLETE" ]; then
+    echo "ERROR: referencias obsoletas operativas encontradas:" >&2
+    echo "$OBSOLETE" >&2
+    exit 1
+  fi
+  echo "OK: sin referencias obsoletas operativas"
+
+  echo
+  echo "### secretos tracked"
+  SENSITIVE="$(
+    git -C "$CELL" ls-files | grep -Ei '(^|/)(\.env|\.master_env)$|oauth|token\.json|secret|private|credential|client_secrets|oauth2service|etc\.json|conf\.json|\.pem$|\.p12$|\.key$|\.crt$|\.cer$' || true
+  )"
+  if [ -n "$SENSITIVE" ]; then
+    echo "ERROR: sensitive tracked paths:" >&2
+    echo "$SENSITIVE" >&2
+    exit 1
+  fi
+  echo "OK: no sensitive tracked paths"
+
+  echo
+  echo "### layout"
+  tree -a -I '.git|__pycache__|*.pyc|*.pyo' -L 7 "$CELL"
+
+  echo
+  echo "OK: stage-check completo"
+}
+
+
 cmd="${1:-help}"
 shift || true
 
@@ -218,6 +296,11 @@ case "$cmd" in
     doctor_runtime
     ;;
 
+
+  stage-check|check)
+    stage_check_runtime
+    ;;
+
   status)
     echo "GAM_py bin unico"
     echo "PY=$PY"
@@ -255,6 +338,7 @@ Uso:
   gam pki
   gam status
   gam doctor
+  gam stage-check
 HELP
     ;;
 
