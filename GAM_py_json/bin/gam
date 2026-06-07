@@ -1,0 +1,152 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+PY="$HOME/GAM_CELL/GAM_py_json"
+
+if [ ! -f "$PY/.env" ]; then
+  echo "ERROR: falta $PY/.env"
+  exit 1
+fi
+
+. "$PY/.env"
+
+# GAM_CELL_TOKEN_AUDIT_ROTATE_PATCH
+cmd="${1:-help}"
+shift || true
+
+case "$cmd" in
+  live|run)
+    export GAMCFGDIR
+    export PYTHONDONTWRITEBYTECODE
+    export TEC_GAM_CELL
+    export TEC_GAM_CORE
+    export TEC_GAM_PY_JSON
+    export TEC_GAM_PY_JSON_SRC
+    export TEC_GAM_PY_JSON_CONFIG
+
+    if [ ! -d "$GAMCFGDIR" ]; then
+      echo "ERROR: falta GAMCFGDIR=$GAMCFGDIR"
+      exit 1
+    fi
+
+    cd "$TEC_GAM_PY_JSON_SRC"
+    exec python "$TEC_GAM_PY_JSON_SRC/gam.py" "$@"
+    ;;
+
+  api|api-py)
+    export GAMCFGDIR
+    export PYTHONDONTWRITEBYTECODE
+    export TEC_GAM_CELL
+    export TEC_GAM_CORE
+    export TEC_GAM_PY_JSON
+    export TEC_GAM_PY_JSON_SRC
+    export TEC_GAM_PY_JSON_CONFIG
+    export TEC_GAM_API_JSON
+    export TEC_GAM_API_RUNTIME
+
+    exec python "$TEC_GAM_API_PY" "$@"
+    ;;
+
+  json)
+    sub="${1:-keys}"
+    shift || true
+
+    case "$sub" in
+      keys)
+        exec "$0" api json keys
+        ;;
+      list)
+        ls -la "$TEC_GAM_API_JSON"
+        ;;
+      status)
+        exec "$0" api status
+        ;;
+      *)
+        echo "Uso:"
+        echo "  gam json keys"
+        echo "  gam json list"
+        echo "  gam json status"
+        exit 2
+        ;;
+    esac
+    ;;
+
+  audit|auditar)
+    exec bash "/data/data/com.termux/files/home/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" audit
+    ;;
+
+  rotate|rotar|token|oauth-token)
+    exec bash "/data/data/com.termux/files/home/GAM_CELL_ROTATE_REVOKE_AUDIT.sh" rotate
+    ;;
+
+  pki|config)
+    echo "GAM_py_json PKI externa"
+    echo "PKI=$TEC_GAM_PY_JSON_PKI"
+    echo "GAMCFGDIR=$GAMCFGDIR"
+    echo
+    echo "auth-client:"
+    ls -la "$TEC_GAM_PKI_AUTH_CLIENT" 2>/dev/null || true
+    echo
+    echo "auth-user:"
+    ls -la "$TEC_GAM_PKI_AUTH_USER" 2>/dev/null || true
+    echo
+    echo "auth-service:"
+    ls -la "$TEC_GAM_PKI_AUTH_SERVICE" 2>/dev/null || true
+    echo
+    echo "config:"
+    ls -la "$TEC_GAM_PKI_CONFIG" 2>/dev/null || true
+    echo
+    echo "hashes:"
+    ls -la "$TEC_GAM_PKI_HASHES" 2>/dev/null || true
+    ;;
+
+  status)
+    echo "GAM_py_json bin unico"
+    echo "PY=$PY"
+    echo "SRC=$TEC_GAM_PY_JSON_SRC"
+    echo "CONFIG=$TEC_GAM_PY_JSON_CONFIG"
+    echo "API=$TEC_GAM_API_PY"
+    echo "JSON=$TEC_GAM_API_JSON"
+    echo "PKI=$TEC_GAM_PY_JSON_PKI"
+    ;;
+
+  arm)
+    echo "Este bin pertenece a GAM_py_json."
+    echo "ARM esta aislado en:"
+    echo "  $HOME/GAM_CELL/GAM_arm"
+    echo
+    echo "Usa:"
+    echo "  $HOME/GAM_CELL/GAM_arm/bin/gam-arm audit"
+    exit 2
+    ;;
+
+  help|-h|--help)
+    cat <<HELP
+Uso:
+  gam live --version
+  gam live checkconn
+
+  gam api status
+  gam api version
+  gam api checkconn
+  gam api json keys
+
+  gam json keys
+  gam json list
+  gam json status
+
+  gam audit
+  gam rotate
+  gam token
+
+  gam pki
+  gam status
+HELP
+    ;;
+
+  *)
+    echo "ERROR: comando no reconocido: $cmd"
+    echo "Usa: gam help"
+    exit 2
+    ;;
+esac

@@ -1,5 +1,0 @@
-Policy local:
-- No usar tbatch con archivos externos.
-- No usar execute en batches de producción.
-- No ejecutar CSV/batch descargados de Drive/correo sin revisión.
-- Toda acción delete/purge/transfer/turnoff2sv/signout requiere revisión manual.

@@ -1,12 +1,68 @@
+# ============================================================
+# Secrets / PKI / Auth - never version
+# ============================================================
+
+# Env raíz/local
+.master_env
 .env
-.venv/
-config/client_secrets.json
-config/oauth2.txt
-config/oauth2.local.json
-config/oauth2service.json
-config/gam.cfg
-config/gam.cfg.bak.*
-config/gamcache/*
-gam-src/
-*.pyc
+**/.env
+*.env
+
+# PKI externa / runtime local
+CELL_CORE/
+ENV/
+GAM_arm/
+GAM_CELL_PKI/
+GAM_CELL_*_QUARANTINE*/
+*QUARANTINE*/
+
+# OAuth / Workspace / service accounts
+**/client_secrets.json
+**/oauth2.json
+**/oauth2.local.json
+**/oauth2.txt
+**/oauth2service.json
+**/token.json
+**/etc.json
+**/conf.json
+
+# Llaves, certificados, credenciales
+**/*.pem
+**/*.key
+**/*.p12
+**/*.crt
+**/*.cer
+**/*secret*
+**/*token*
+**/*credential*
+**/*private*
+
+# Runtime / cache / auditoría
+**/gamcache/
+**/cache/
+**/hashes/
+**/audit/
+**/archive/
+**/tmp/
+tmp/
+*.log
+*.audit.txt
+*.sha256
+
+# Python
 __pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editor / sistema
+*.swp
+*.swo
+*~
+.DS_Store
+
+# GAM generated
+apicachegam.discovery.json
+GamCommands.html
