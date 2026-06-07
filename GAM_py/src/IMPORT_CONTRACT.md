@@ -46,7 +46,7 @@ Do not rewrite atom or gdata imports unless doing a controlled namespace migrati
 
 Required validation:
 
-    PYTHONPATH="$PWD/GAM_py/src/gam:$PWD/GAM_py/src/vendor:$PWD/GAM_py/src" python -c "import atom, gdata, gamlib; print(atom.__file__); print(gdata.__file__); print(gamlib.__file__)"
+    PYTHONDONTWRITEBYTECODE=1 PYTHONPATH="$PWD/GAM_py/src/gam:$PWD/GAM_py/src/vendor:$PWD/GAM_py/src" python -c "import atom, gdata, gamlib; print(atom.__file__); print(gdata.__file__); print(gamlib.__file__)"
 
     GAM_py/src/bin/gam status
     GAM_py/src/bin/gam api status
