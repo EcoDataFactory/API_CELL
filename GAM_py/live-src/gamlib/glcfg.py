@@ -33,7 +33,18 @@ TLS_CHOICE_MAP = {
   'tlsv1_3': 'TLSv1_3', 'tlsv1.3': 'TLSv1_3',
   }
 
-FN_CACERTS_PEM = 'cacerts.pem'
+import os
+
+FN_CACERTS_PEM = os.environ.get(
+    'GAM_CELL_CACERTS_PEM',
+    os.path.join(
+        os.environ.get('HOME', ''),
+        'GAM_CELL_PKI',
+        'GAM_py',
+        'certs',
+        'cacerts.pem',
+    ),
+)
 FN_CLIENT_SECRETS_JSON = 'client_secrets.json'
 FN_EXTRA_ARGS_TXT = 'extra-args.txt'
 FN_OAUTH2_TXT = 'oauth2.txt'

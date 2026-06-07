@@ -66,3 +66,33 @@ __pycache__/
 # GAM generated
 apicachegam.discovery.json
 GamCommands.html
+
+# Local runtime / PKI / secrets
+*.pem
+*.p12
+*.key
+*.crt
+*.cer
+*.der
+*.csr
+.env
+.master_env
+*secret*
+*credential*
+oauth*.json
+token*.json
+conf.json
+etc.json
+client_secrets*.json
+oauth2service*.json
+
+# Python bytecode / local env
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Local backup/archive material
+CELL_CORE/archive/
+CELL_CORE/secrets/
