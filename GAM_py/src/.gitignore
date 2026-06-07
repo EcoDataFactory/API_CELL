@@ -90,3 +90,6 @@ audit/*
 
 # Stage 010 committed audit artifact.
 !audit/STAGE_010_RELEASE_CHECK.md
+
+# Stage 011 committed audit artifact.
+!audit/STAGE_011_FINAL_CHECK.md

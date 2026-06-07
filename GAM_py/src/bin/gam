@@ -276,6 +276,39 @@ release_check_runtime() {
 }
 
 
+
+final_check_runtime() {
+  echo "GAM_py final-check"
+
+  echo
+  echo "### release-check"
+  release_check_runtime
+
+  echo
+  echo "### sha256 stage008"
+  if [ ! -f "$SRC/audit/GAM_py.stage008.sha256" ]; then
+    echo "ERROR: falta $SRC/audit/GAM_py.stage008.sha256" >&2
+    exit 1
+  fi
+
+  (
+    cd "$CELL"
+    sha256sum -c GAM_py/src/audit/GAM_py.stage008.sha256 --status || {
+      echo "WARN: stage008 hash manifest no coincide con HEAD actual"
+      echo "INFO: esto puede ser esperado si hubo cambios posteriores a Stage 008"
+    }
+  )
+
+  echo
+  echo "### git final"
+  git -C "$CELL" status --short
+  git -C "$CELL" log --oneline --decorate --graph --all --max-count=16
+
+  echo
+  echo "OK: final-check completo"
+}
+
+
 cmd="${1:-help}"
 shift || true
 
@@ -349,6 +382,11 @@ case "$cmd" in
     release_check_runtime
     ;;
 
+
+  final-check|final)
+    final_check_runtime
+    ;;
+
   status)
     echo "GAM_py bin unico"
     echo "PY=$PY"
@@ -388,6 +426,7 @@ Uso:
   gam doctor
   gam stage-check
   gam release-check
+  gam final-check
 HELP
     ;;
 
