@@ -34,6 +34,127 @@ export TEC_GAM_API_JSON="$PKI"
 export TEC_GAM_API_RUNTIME="$RUNTIME"
 export TEC_GAM_API_PY="$SRC/gam/gam_api.py"
 
+
+doctor_runtime() {
+  echo "GAM_py runtime doctor"
+
+  echo
+  echo "### rutas"
+  for path in \
+    "$CELL" \
+    "$PY" \
+    "$SRC" \
+    "$CONFIG" \
+    "$PKI" \
+    "$RUNTIME" \
+    "$SRC/atom" \
+    "$SRC/vendor" \
+    "$SRC/vendor/gdata" \
+    "$SRC/gam" \
+    "$SRC/gam/gamlib"
+  do
+    if [ ! -d "$path" ]; then
+      echo "ERROR: falta directorio: $path" >&2
+      exit 1
+    fi
+    echo "OK dir: $path"
+  done
+
+  for file in \
+    "$SRC/bin/gam" \
+    "$SRC/gam/gam.py" \
+    "$SRC/gam/gam_api.py" \
+    "$SRC/atom/__init__.py" \
+    "$SRC/vendor/gdata/__init__.py" \
+    "$SRC/gam/gamlib/__init__.py"
+  do
+    if [ ! -f "$file" ]; then
+      echo "ERROR: falta archivo: $file" >&2
+      exit 1
+    fi
+    echo "OK file: $file"
+  done
+
+  echo
+  echo "### permisos"
+  if [ ! -x "$SRC/bin/gam" ]; then
+    echo "ERROR: no ejecutable: $SRC/bin/gam" >&2
+    exit 1
+  fi
+  echo "OK executable: $SRC/bin/gam"
+
+  if [ ! -x "$SRC/gam/gam.py" ]; then
+    echo "ERROR: no ejecutable: $SRC/gam/gam.py" >&2
+    exit 1
+  fi
+  echo "OK executable: $SRC/gam/gam.py"
+
+  if [ ! -r "$SRC/gam/gam_api.py" ]; then
+    echo "ERROR: no legible: $SRC/gam/gam_api.py" >&2
+    exit 1
+  fi
+  echo "OK readable: $SRC/gam/gam_api.py"
+
+  echo
+  echo "### PYTHONPATH"
+  EXPECTED="$SRC/gam:$SRC/vendor:$SRC"
+  case "$PYTHONPATH" in
+    "$EXPECTED"|"$EXPECTED:"*)
+      echo "OK PYTHONPATH: $PYTHONPATH"
+      ;;
+    *)
+      echo "ERROR: PYTHONPATH inesperado: $PYTHONPATH" >&2
+      echo "EXPECTED prefix: $EXPECTED" >&2
+      exit 1
+      ;;
+  esac
+
+  echo
+  echo "### imports"
+  PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONPATH="$SRC/gam:$SRC/vendor:$SRC${PYTHONPATH:+:$PYTHONPATH}" \
+  python - <<'PYDOCTOR'
+import atom
+import gdata
+import gamlib
+print("OK import atom:", atom.__file__)
+print("OK import gdata:", gdata.__file__)
+print("OK import gamlib:", gamlib.__file__)
+PYDOCTOR
+
+  echo
+  echo "### bytecode"
+  BYTECODE="$(
+    find "$PY" \( -type d -name __pycache__ -o -type f -name '*.pyc' -o -type f -name '*.pyo' \) -print
+  )"
+  if [ -n "$BYTECODE" ]; then
+    echo "ERROR: bytecode residual:" >&2
+    echo "$BYTECODE" >&2
+    exit 1
+  fi
+  echo "OK: sin bytecode"
+
+  echo
+  echo "### sensibles tracked"
+  SENSITIVE="$(
+    git -C "$CELL" ls-files | grep -Ei '(^|/)(\.env|\.master_env)$|oauth|token\.json|secret|private|credential|client_secrets|oauth2service|etc\.json|conf\.json|\.pem$|\.p12$|\.key$|\.crt$|\.cer$' || true
+  )"
+  if [ -n "$SENSITIVE" ]; then
+    echo "ERROR: sensitive tracked paths:" >&2
+    echo "$SENSITIVE" >&2
+    exit 1
+  fi
+  echo "OK: no sensitive tracked paths"
+
+  echo
+  echo "### api status"
+  python "$SRC/gam/gam_api.py" status
+
+  echo
+  echo "OK: doctor completo"
+}
+
+
 cmd="${1:-help}"
 shift || true
 
@@ -93,6 +214,10 @@ case "$cmd" in
     done
     ;;
 
+  doctor)
+    doctor_runtime
+    ;;
+
   status)
     echo "GAM_py bin unico"
     echo "PY=$PY"
@@ -129,6 +254,7 @@ Uso:
 
   gam pki
   gam status
+  gam doctor
 HELP
     ;;
 
