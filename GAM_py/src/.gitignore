@@ -80,3 +80,7 @@ audit/*
 *.pyo
 
 # Audit policy: ignore ad-hoc audit output, allow committed stage manifests.
+
+# Stage 008 committed audit artifacts.
+!audit/STAGE_008_HARDENING.md
+!audit/GAM_py.stage008.sha256
