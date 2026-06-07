@@ -1,0 +1,7 @@
+# Notas de licencias
+
+| Componente | Origen | Editable | Nota |
+|---|---|---|---|
+| gam.py | GAM upstream | No | Respetar licencia original |
+| gamlib | GAM upstream | No | Igual |
+| atom,gdata | Vendorizado | Revisar | Mantener avisos/licencias originales |
