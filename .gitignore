@@ -96,3 +96,5 @@ venv/
 # Local backup/archive material
 CELL_CORE/archive/
 CELL_CORE/secrets/
+GAM_py/.env
+GAM_py/api-runtime/
