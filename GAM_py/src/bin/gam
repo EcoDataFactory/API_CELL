@@ -3,7 +3,7 @@ set -euo pipefail
 
 CELL="$HOME/GAM_CELL"
 PY="$CELL/GAM_py"
-SRC="$PY/live-src"
+SRC="$PY/src"
 BIN="$PY/bin"
 PKI="$HOME/GAM_CELL_PKI/GAM_py"
 CONFIG="$PKI/config"

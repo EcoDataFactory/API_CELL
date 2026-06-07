@@ -101,10 +101,10 @@ GAM_py/api-runtime/
 a.out
 
 # Source exceptions: these names are code, not secrets
-!GAM_py/live-src/atom/token_store.py
-!GAM_py/live-src/vendor/
-!GAM_py/live-src/vendor/gdata/
-!GAM_py/live-src/vendor/gdata/apps/
-!GAM_py/live-src/vendor/gdata/apps/audit/
-!GAM_py/live-src/vendor/gdata/apps/audit/__init__.py
-!GAM_py/live-src/vendor/gdata/apps/audit/service.py
+!GAM_py/src/atom/token_store.py
+!GAM_py/src/vendor/
+!GAM_py/src/vendor/gdata/
+!GAM_py/src/vendor/gdata/apps/
+!GAM_py/src/vendor/gdata/apps/audit/
+!GAM_py/src/vendor/gdata/apps/audit/__init__.py
+!GAM_py/src/vendor/gdata/apps/audit/service.py

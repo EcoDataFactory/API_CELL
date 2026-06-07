@@ -7,7 +7,7 @@ from pathlib import Path
 HOME = Path.home()
 CELL = HOME / "GAM_CELL"
 BASE = CELL / "GAM_py"
-LIVE_SRC = BASE / "live-src"
+LIVE_SRC = BASE / "src"
 PKI = HOME / "GAM_CELL_PKI" / "GAM_py"
 CONFIG = PKI / "config"
 API_JSON = PKI
