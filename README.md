@@ -93,3 +93,19 @@ Do not track:
 Initial public API_CELL derivation.
 
 This branch is intentionally independent from the private runtime tree.
+
+## Local HTTP server
+
+Run local HTTP server:
+
+    python API_CELL/src/api_cell/server.py 127.0.0.1 8765
+
+Then test:
+
+    curl http://127.0.0.1:8765/health
+    curl http://127.0.0.1:8765/status
+    curl -X POST http://127.0.0.1:8765/echo -H "Content-Type: application/json" --data '{"message":"hello"}'
+    curl -X PUT http://127.0.0.1:8765/echo -H "Content-Type: application/json" --data '{"message":"updated"}'
+    curl -X DELETE http://127.0.0.1:8765/echo
+
+Stop server with Ctrl-C when running foreground, or kill the saved PID if launched in background.
