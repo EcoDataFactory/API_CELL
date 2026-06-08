@@ -1,0 +1,8 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+
+curl -sS "http://${HOST}:${PORT}/status"
+echo

@@ -1,0 +1,20 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+echo "### cycle start"
+API_CELL/bin/api-cell-start
+
+echo
+echo "### cycle test"
+API_CELL/bin/api-cell-test-all
+
+echo
+echo "### cycle stop"
+API_CELL/bin/api-cell-stop
+
+echo
+echo "### cycle final port"
+API_CELL/bin/api-cell-port || true
+
+echo
+echo "OK: API_CELL cycle completo"

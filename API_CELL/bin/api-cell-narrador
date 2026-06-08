@@ -1,0 +1,39 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+URL="http://${HOST}:${PORT}"
+
+CACHE="${API_CELL_CACHE:-$HOME/.cache/api_cell}"
+TMP="$CACHE/tmp"
+STATE_FILE="$CACHE/API_CELL_narrador_${PORT}.state"
+PORT_STATE="$TMP/api_cell_port_state_${PORT}.txt"
+
+mkdir -p "$TMP"
+chmod 700 "$CACHE" "$TMP" 2>/dev/null || true
+
+N="0"
+if [ -f "$STATE_FILE" ]; then
+  N="$(cat "$STATE_FILE" 2>/dev/null || echo 0)"
+fi
+
+case "$N" in
+  ''|*[!0-9]*) N="0" ;;
+esac
+
+N=$((N + 1))
+printf '%s\n' "$N" > "$STATE_FILE"
+
+echo "### NARRADOR API_CELL +$N"
+echo "url=$URL"
+
+if API_CELL/bin/api-cell-port > "$PORT_STATE" 2>&1; then
+  cat "$PORT_STATE"
+  echo "narrador=API_CELL esta ARRIBA. Puerto abierto. Servidor responde en $URL."
+else
+  cat "$PORT_STATE" || true
+  echo "narrador=API_CELL esta ABAJO. Puerto cerrado o proceso detenido."
+fi
+
+rm -f "$PORT_STATE" 2>/dev/null || true

@@ -24,7 +24,7 @@ def utc_now() -> str:
 
 class ApiCell:
     name = "API_CELL"
-    version = "0.1.0-public-api-cell"
+    version = "0.1.2-public-api-cell"
 
     def response(self, method: str, path: str, data: Any, message: str, ok: bool = True) -> ApiResponse:
         return ApiResponse(

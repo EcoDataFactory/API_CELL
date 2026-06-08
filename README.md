@@ -109,3 +109,47 @@ Then test:
     curl -X DELETE http://127.0.0.1:8765/echo
 
 Stop server with Ctrl-C when running foreground, or kill the saved PID if launched in background.
+
+## Versioned operational commands
+
+The public API_CELL branch includes versioned operational helpers under `API_CELL/bin`.
+
+Start server:
+
+    API_CELL/bin/api-cell-start
+
+Stop server:
+
+    API_CELL/bin/api-cell-stop
+
+Restart server:
+
+    API_CELL/bin/api-cell-restart
+
+Check port state:
+
+    API_CELL/bin/api-cell-port
+
+Narrated state:
+
+    API_CELL/bin/api-cell-narrador
+
+Run all endpoint tests:
+
+    API_CELL/bin/api-cell-test-all
+
+Start, test, and stop in one cycle:
+
+    API_CELL/bin/api-cell-cycle
+
+Run local doctor:
+
+    API_CELL/bin/api-cell-doctor
+
+Default bind:
+
+    127.0.0.1:8765
+
+Override port:
+
+    API_CELL_PORT=9000 API_CELL/bin/api-cell-start

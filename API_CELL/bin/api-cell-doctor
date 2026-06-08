@@ -1,0 +1,47 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+echo "### API_CELL DOCTOR"
+
+echo
+echo "### comandos"
+for c in git python curl API_CELL/bin/api-cell-start API_CELL/bin/api-cell-stop API_CELL/bin/api-cell-port API_CELL/bin/api-cell-narrador API_CELL/bin/api-cell-test-all; do
+  if command -v "$c" >/dev/null 2>&1 || [ -x "$c" ]; then
+    echo "OK command: $c"
+  else
+    echo "MISSING command: $c"
+  fi
+done
+
+echo
+echo "### archivos"
+for f in \
+  README.md \
+  API_CELL/src/api_cell/app.py \
+  API_CELL/src/api_cell/core.py \
+  API_CELL/src/api_cell/routes.py \
+  API_CELL/src/api_cell/server.py \
+  API_CELL/bin/api-cell \
+  API_CELL/bin/api-cell-start \
+  API_CELL/bin/api-cell-stop \
+  API_CELL/bin/api-cell-port \
+  API_CELL/bin/api-cell-narrador
+do
+  if [ -e "$f" ]; then
+    echo "OK file: $f"
+  else
+    echo "MISSING file: $f"
+  fi
+done
+
+echo
+echo "### puerto"
+API_CELL/bin/api-cell-port || true
+
+echo
+echo "### git"
+git status --short
+git --no-pager log --oneline --decorate --graph --max-count=5
+
+echo
+echo "OK: doctor terminado"

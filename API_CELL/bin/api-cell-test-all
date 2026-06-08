@@ -1,0 +1,28 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+echo "### health"
+API_CELL/bin/api-cell-health
+
+echo
+echo "### status"
+API_CELL/bin/api-cell-get-status
+
+echo
+echo "### get anything"
+API_CELL/bin/api-cell-get-anything
+
+echo
+echo "### post echo"
+API_CELL/bin/api-cell-post-echo "hello desde api-cell-test-all"
+
+echo
+echo "### put echo"
+API_CELL/bin/api-cell-put-echo "updated desde api-cell-test-all"
+
+echo
+echo "### delete echo"
+API_CELL/bin/api-cell-delete-echo
+
+echo
+echo "OK: API_CELL test-all completo"

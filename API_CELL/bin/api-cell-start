@@ -1,0 +1,73 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+PIDFILE="${API_CELL_PIDFILE:-$HOME/API_CELL_server_${PORT}.pid}"
+LOG="${API_CELL_LOG:-$HOME/API_CELL_server_${PORT}.log}"
+
+CACHE="${API_CELL_CACHE:-$HOME/.cache/api_cell}"
+TMP="$CACHE/tmp"
+
+mkdir -p "$TMP"
+
+PRE="$TMP/api_cell_port_start_${PORT}.txt"
+POST="$TMP/api_cell_port_after_start_${PORT}.txt"
+
+echo "### precheck puerto"
+if API_CELL/bin/api-cell-port > "$PRE" 2>&1; then
+  cat "$PRE"
+  rm -f "$PRE"
+  echo "OK: API_CELL ya esta corriendo"
+  echo "URL=http://$HOST:$PORT"
+  exit 0
+fi
+
+cat "$PRE" || true
+rm -f "$PRE"
+
+if [ -f "$PIDFILE" ]; then
+  PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+  if [ -n "$PID" ] && kill -0 "$PID" >/dev/null 2>&1; then
+    echo "WARN: PID vivo pero puerto cerrado. Matando proceso viejo PID=$PID"
+    kill "$PID" >/dev/null 2>&1 || true
+    sleep 1
+    if kill -0 "$PID" >/dev/null 2>&1; then
+      kill -9 "$PID" >/dev/null 2>&1 || true
+    fi
+  fi
+  rm -f "$PIDFILE"
+fi
+
+rm -f "$LOG"
+
+PYTHONDONTWRITEBYTECODE=1 python API_CELL/src/api_cell/server.py "$HOST" "$PORT" > "$LOG" 2>&1 &
+PID="$!"
+
+printf '%s\n' "$PID" > "$PIDFILE"
+
+sleep 1
+
+if ! kill -0 "$PID" >/dev/null 2>&1; then
+  echo "ERROR: API_CELL no arranco"
+  cat "$LOG" 2>/dev/null || true
+  rm -f "$PIDFILE"
+  exit 1
+fi
+
+if ! API_CELL/bin/api-cell-port > "$POST" 2>&1; then
+  echo "ERROR: proceso arranco pero puerto no abrio"
+  cat "$POST" || true
+  cat "$LOG" 2>/dev/null || true
+  kill "$PID" >/dev/null 2>&1 || true
+  rm -f "$PIDFILE" "$POST"
+  exit 1
+fi
+
+cat "$POST"
+rm -f "$POST"
+
+echo "OK: API_CELL arrancada"
+echo "PID=$PID"
+echo "URL=http://$HOST:$PORT"
+echo "LOG=$LOG"

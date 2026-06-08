@@ -1,0 +1,52 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+PIDFILE="${API_CELL_PIDFILE:-$HOME/API_CELL_server_${PORT}.pid}"
+
+python - "$HOST" "$PORT" "$PIDFILE" <<'PY'
+import os
+import socket
+import sys
+
+host = sys.argv[1]
+port = int(sys.argv[2])
+pidfile = sys.argv[3]
+
+def port_open(host: str, port: int) -> bool:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(0.5)
+    try:
+        return sock.connect_ex((host, port)) == 0
+    finally:
+        sock.close()
+
+def pid_alive(pid: str) -> bool:
+    if not pid:
+        return False
+    try:
+        os.kill(int(pid), 0)
+        return True
+    except Exception:
+        return False
+
+pid = ""
+if os.path.exists(pidfile):
+    try:
+        pid = open(pidfile, "r", encoding="utf-8").read().strip()
+    except Exception:
+        pid = ""
+
+is_open = port_open(host, port)
+is_pid_alive = pid_alive(pid)
+
+print(f"host={host}")
+print(f"port={port}")
+print(f"port_state={'open' if is_open else 'closed'}")
+print(f"pidfile={pidfile if os.path.exists(pidfile) else 'missing'}")
+print(f"pid={pid if pid else 'none'}")
+print(f"pid_state={'alive' if is_pid_alive else 'dead-or-missing'}")
+
+raise SystemExit(0 if is_open else 1)
+PY

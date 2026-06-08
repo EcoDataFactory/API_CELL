@@ -1,0 +1,41 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+PORT="${API_CELL_PORT:-8765}"
+PIDFILE="${API_CELL_PIDFILE:-$HOME/API_CELL_server_${PORT}.pid}"
+
+CACHE="${API_CELL_CACHE:-$HOME/.cache/api_cell}"
+TMP="$CACHE/tmp"
+PORT_STATE="$TMP/api_cell_port_stop_${PORT}.txt"
+
+mkdir -p "$TMP"
+
+echo "### detener API_CELL"
+
+if [ -f "$PIDFILE" ]; then
+  PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+  if [ -n "$PID" ] && kill -0 "$PID" >/dev/null 2>&1; then
+    kill "$PID" >/dev/null 2>&1 || true
+    sleep 1
+    if kill -0 "$PID" >/dev/null 2>&1; then
+      kill -9 "$PID" >/dev/null 2>&1 || true
+    fi
+    echo "OK: proceso detenido PID=$PID"
+  else
+    echo "OK: PIDFILE existia pero proceso no estaba vivo"
+  fi
+  rm -f "$PIDFILE"
+else
+  echo "OK: no habia PIDFILE"
+fi
+
+if API_CELL/bin/api-cell-port > "$PORT_STATE" 2>&1; then
+  echo "WARN: puerto sigue abierto despues de stop"
+  cat "$PORT_STATE"
+  rm -f "$PORT_STATE"
+  exit 1
+else
+  cat "$PORT_STATE" || true
+  rm -f "$PORT_STATE"
+  echo "OK: puerto cerrado"
+fi
