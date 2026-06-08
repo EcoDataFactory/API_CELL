@@ -1,0 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+PORT="${API_CELL_PORT:-8765}"
+LOG="${API_CELL_LOG:-$HOME/API_CELL_server_${PORT}.log}"
+
+if [ ! -f "$LOG" ]; then
+  echo "[WARN] log not found: $LOG"
+  exit 0
+fi
+
+tail -f "$LOG"

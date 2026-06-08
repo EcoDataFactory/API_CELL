@@ -1,0 +1,280 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+REPO="${API_CELL_REPO:-$HOME/GAM_CELL}"
+BRANCH="${API_CELL_BRANCH:-tec-kio/public-api-cell}"
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+BASE="http://${HOST}:${PORT}"
+PIDFILE="${API_CELL_PIDFILE:-$HOME/API_CELL_server_${PORT}.pid}"
+LOG="${API_CELL_LOG:-$HOME/API_CELL_server_${PORT}.log}"
+CACHE="${API_CELL_CACHE:-$HOME/.cache/api_cell}"
+TMP="$CACHE/tmp"
+
+mkdir -p "$TMP"
+chmod 700 "$CACHE" "$TMP" 2>/dev/null || true
+
+GREEN="$(printf '\033[32m')"
+RED="$(printf '\033[31m')"
+YELLOW="$(printf '\033[33m')"
+BLUE="$(printf '\033[34m')"
+BOLD="$(printf '\033[1m')"
+RESET="$(printf '\033[0m')"
+
+START_TS="$(date +%s)"
+
+info() { printf '%s[INFO]%s %s\n' "$BLUE" "$RESET" "$*"; }
+ok() { printf '%s[ OK ]%s %s\n' "$GREEN" "$RESET" "$*"; }
+warn() { printf '%s[WARN]%s %s\n' "$YELLOW" "$RESET" "$*"; }
+fail() { printf '%s[FAIL]%s %s\n' "$RED" "$RESET" "$*"; }
+
+phase() {
+  printf '\n%s--- %s ---%s\n' "$BOLD" "$1" "$RESET"
+}
+
+duration() {
+  END_TS="$(date +%s)"
+  printf '%ss' "$((END_TS - START_TS))"
+}
+
+die() {
+  fail "$*"
+  echo
+  printf '%sBUILD FAILURE%s\n' "$RED" "$RESET"
+  exit 1
+}
+
+port_open() {
+  python - "$HOST" "$PORT" <<'PY' >/dev/null 2>&1
+import socket
+import sys
+
+host = sys.argv[1]
+port = int(sys.argv[2])
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.settimeout(0.5)
+try:
+    raise SystemExit(0 if sock.connect_ex((host, port)) == 0 else 1)
+finally:
+    sock.close()
+PY
+}
+
+json_field() {
+  python - "$1" "$2" <<'PY'
+import json
+import sys
+
+path = sys.argv[1]
+field = sys.argv[2]
+
+with open(path, "r", encoding="utf-8") as fh:
+    data = json.load(fh)
+
+value = data
+for part in field.split("."):
+    value = value[part]
+
+if isinstance(value, (dict, list)):
+    print(json.dumps(value, ensure_ascii=False))
+else:
+    print(value)
+PY
+}
+
+safe_name() {
+  METHOD="$1"
+  PATH_URL="$2"
+  printf '%s' "api_cell_${METHOD}_${PATH_URL}" | sed 's#[^A-Za-z0-9_.-]#_#g'
+}
+
+request() {
+  METHOD="$1"
+  PATH_URL="$2"
+  DATA="${3:-}"
+  OUT="$TMP/$(safe_name "$METHOD" "$PATH_URL").json"
+
+  if [ -n "$DATA" ]; then
+    curl -fsS -X "$METHOD" "$BASE$PATH_URL" \
+      -H "Content-Type: application/json" \
+      --data "$DATA" > "$OUT"
+  else
+    curl -fsS -X "$METHOD" "$BASE$PATH_URL" > "$OUT"
+  fi
+
+  OK_VALUE="$(json_field "$OUT" "ok" 2>/dev/null || echo false)"
+  MSG_VALUE="$(json_field "$OUT" "message" 2>/dev/null || echo "no message")"
+  API_METHOD="$(json_field "$OUT" "method" 2>/dev/null || echo "$METHOD")"
+  API_PATH="$(json_field "$OUT" "path" 2>/dev/null || echo "$PATH_URL")"
+
+  if [ "$OK_VALUE" = "True" ] || [ "$OK_VALUE" = "true" ]; then
+    ok "endpoint called: $API_METHOD $API_PATH :: $MSG_VALUE"
+  else
+    die "endpoint failed: $METHOD $PATH_URL"
+  fi
+}
+
+cleanup_old_server() {
+  if [ -f "$PIDFILE" ]; then
+    PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+    if [ -n "$PID" ] && kill -0 "$PID" >/dev/null 2>&1; then
+      warn "stopping previous API_CELL pid=$PID"
+      kill "$PID" >/dev/null 2>&1 || true
+      sleep 1
+      if kill -0 "$PID" >/dev/null 2>&1; then
+        kill -9 "$PID" >/dev/null 2>&1 || true
+      fi
+    fi
+    rm -f "$PIDFILE"
+  fi
+
+  if port_open; then
+    die "port $PORT is already open but no valid API_CELL pidfile controls it"
+  fi
+}
+
+start_server() {
+  rm -f "$LOG"
+
+  PYTHONDONTWRITEBYTECODE=1 python API_CELL/src/api_cell/server.py "$HOST" "$PORT" > "$LOG" 2>&1 &
+  PID="$!"
+
+  printf '%s\n' "$PID" > "$PIDFILE"
+  sleep 1
+
+  if ! kill -0 "$PID" >/dev/null 2>&1; then
+    cat "$LOG" 2>/dev/null || true
+    rm -f "$PIDFILE"
+    die "server process did not stay alive"
+  fi
+
+  if ! port_open; then
+    cat "$LOG" 2>/dev/null || true
+    kill "$PID" >/dev/null 2>&1 || true
+    rm -f "$PIDFILE"
+    die "server started but port $PORT did not open"
+  fi
+
+  ok "server started pid=$PID"
+  ok "listening on $BASE"
+}
+
+stop_server() {
+  if [ -f "$PIDFILE" ]; then
+    PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+    if [ -n "$PID" ] && kill -0 "$PID" >/dev/null 2>&1; then
+      kill "$PID" >/dev/null 2>&1 || true
+      sleep 1
+      if kill -0 "$PID" >/dev/null 2>&1; then
+        kill -9 "$PID" >/dev/null 2>&1 || true
+      fi
+      ok "server stopped pid=$PID"
+    else
+      warn "pidfile existed but process was not alive"
+    fi
+    rm -f "$PIDFILE"
+  else
+    warn "pidfile missing"
+  fi
+
+  if port_open; then
+    die "port $PORT is still open after stop"
+  fi
+
+  ok "port $PORT closed"
+}
+
+failure_trap() {
+  CODE="$?"
+  if [ "$CODE" -ne 0 ]; then
+    printf '\n%s============================================================%s\n' "$BOLD" "$RESET"
+    printf '%sBUILD FAILURE%s\n' "$RED" "$RESET"
+    printf '%s============================================================%s\n' "$BOLD" "$RESET"
+    info "exit code   : $CODE"
+    info "log         : $LOG"
+    if [ -f "$LOG" ]; then
+      tail -n 20 "$LOG" | sed 's/^/  /'
+    fi
+  fi
+  exit "$CODE"
+}
+
+trap failure_trap EXIT
+
+printf '\n%s============================================================%s\n' "$BOLD" "$RESET"
+printf '%s API_CELL endpoint build%s\n' "$BOLD" "$RESET"
+printf '%s============================================================%s\n' "$BOLD" "$RESET"
+info "repo        : $REPO"
+info "branch      : $BRANCH"
+info "bind        : $BASE"
+info "pidfile     : $PIDFILE"
+info "log         : $LOG"
+info "tmp         : $TMP"
+
+phase "api-cell:preflight"
+cd "$REPO" || die "repo not found: $REPO"
+ok "repo found"
+
+if [ "$(git branch --show-current)" != "$BRANCH" ]; then
+  info "checkout $BRANCH"
+  git checkout "$BRANCH" >/dev/null 2>&1 || die "cannot checkout $BRANCH"
+fi
+ok "branch ready"
+
+for cmd in git python curl; do
+  command -v "$cmd" >/dev/null 2>&1 || die "missing command: $cmd"
+  ok "command found: $cmd"
+done
+
+[ -f API_CELL/src/api_cell/app.py ] || die "missing app.py"
+[ -f API_CELL/src/api_cell/core.py ] || die "missing core.py"
+[ -f API_CELL/src/api_cell/routes.py ] || die "missing routes.py"
+[ -f API_CELL/src/api_cell/server.py ] || die "missing server.py"
+ok "source files ready"
+
+phase "api-cell:compile"
+python -m py_compile API_CELL/src/api_cell/app.py
+python -m py_compile API_CELL/src/api_cell/core.py
+python -m py_compile API_CELL/src/api_cell/routes.py
+python -m py_compile API_CELL/src/api_cell/server.py
+find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+find . \( -name '*.pyc' -o -name '*.pyo' \) -delete 2>/dev/null || true
+ok "python modules compiled"
+
+phase "api-cell:start"
+cleanup_old_server
+start_server
+
+phase "api-cell:endpoints"
+request GET /health
+request GET /status
+request GET /anything
+request POST /echo '{"message":"hello desde api-cell-build"}'
+request PUT /echo '{"message":"updated desde api-cell-build"}'
+request DELETE /echo
+
+phase "api-cell:stop"
+stop_server
+
+phase "api-cell:log"
+if [ -f "$LOG" ]; then
+  info "last log lines"
+  tail -n 8 "$LOG" | sed 's/^/  /'
+else
+  warn "log not found"
+fi
+
+DURATION="$(duration)"
+
+printf '\n%s============================================================%s\n' "$BOLD" "$RESET"
+printf '%sBUILD SUCCESS%s\n' "$GREEN" "$RESET"
+printf '%s============================================================%s\n' "$BOLD" "$RESET"
+info "total time  : $DURATION"
+info "server      : stopped"
+info "port        : closed"
+info "branch      : $(git branch --show-current 2>/dev/null || echo unknown)"
+info "head        : $(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
+printf '\n'
+
+trap - EXIT
+exit 0

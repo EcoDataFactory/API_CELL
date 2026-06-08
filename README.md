@@ -179,3 +179,34 @@ Recommended full local validation:
     API_CELL/bin/api-cell-cycle
 
 The status endpoint now reports server mode, command mode, public branch flag, and supported methods.
+
+## Endpoint build console
+
+Run a clean endpoint-oriented build:
+
+    API_CELL/bin/api-cell-build
+
+Keep the server open:
+
+    API_CELL/bin/api-cell-run
+
+Follow logs:
+
+    API_CELL/bin/api-cell-tail
+
+Stop the server:
+
+    API_CELL/bin/api-cell-down
+
+The build output reports each endpoint as it is called:
+
+    endpoint called: HEALTH /health
+    endpoint called: STATUS /status
+    endpoint called: GET /anything
+    endpoint called: POST /echo
+    endpoint called: PUT /echo
+    endpoint called: DELETE /echo
+
+Default bind:
+
+    127.0.0.1:8765

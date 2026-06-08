@@ -1,0 +1,58 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+REPO="${API_CELL_REPO:-$HOME/GAM_CELL}"
+BRANCH="${API_CELL_BRANCH:-tec-kio/public-api-cell}"
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+BASE="http://${HOST}:${PORT}"
+PIDFILE="${API_CELL_PIDFILE:-$HOME/API_CELL_server_${PORT}.pid}"
+LOG="${API_CELL_LOG:-$HOME/API_CELL_server_${PORT}.log}"
+
+GREEN="$(printf '\033[32m')"
+BLUE="$(printf '\033[34m')"
+BOLD="$(printf '\033[1m')"
+RESET="$(printf '\033[0m')"
+
+info() { printf '%s[INFO]%s %s\n' "$BLUE" "$RESET" "$*"; }
+ok() { printf '%s[ OK ]%s %s\n' "$GREEN" "$RESET" "$*"; }
+
+cd "$REPO" || exit 1
+
+if [ "$(git branch --show-current)" != "$BRANCH" ]; then
+  git checkout "$BRANCH"
+fi
+
+if [ -f "$PIDFILE" ]; then
+  PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+  if [ -n "$PID" ] && kill -0 "$PID" >/dev/null 2>&1; then
+    ok "API_CELL already running"
+    info "pid  : $PID"
+    info "url  : $BASE"
+    info "log  : $LOG"
+    exit 0
+  fi
+  rm -f "$PIDFILE"
+fi
+
+rm -f "$LOG"
+
+printf '\n%s--- api-cell:run ---%s\n' "$BOLD" "$RESET"
+
+PYTHONDONTWRITEBYTECODE=1 python API_CELL/src/api_cell/server.py "$HOST" "$PORT" > "$LOG" 2>&1 &
+PID="$!"
+
+printf '%s\n' "$PID" > "$PIDFILE"
+sleep 1
+
+if ! kill -0 "$PID" >/dev/null 2>&1; then
+  cat "$LOG" 2>/dev/null || true
+  rm -f "$PIDFILE"
+  exit 1
+fi
+
+ok "API_CELL started"
+info "pid  : $PID"
+info "url  : $BASE"
+info "log  : $LOG"
+info "stop : API_CELL/bin/api-cell-down"
