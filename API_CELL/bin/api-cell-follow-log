@@ -1,0 +1,8 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+PORT="${API_CELL_PORT:-8765}"
+LOG="${API_CELL_LOG:-$HOME/API_CELL_server_${PORT}.log}"
+
+touch "$LOG"
+tail -f "$LOG"

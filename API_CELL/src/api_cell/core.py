@@ -24,7 +24,7 @@ def utc_now() -> str:
 
 class ApiCell:
     name = "API_CELL"
-    version = "0.1.2-public-api-cell"
+    version = "0.1.3-public-api-cell"
 
     def response(self, method: str, path: str, data: Any, message: str, ok: bool = True) -> ApiResponse:
         return ApiResponse(
@@ -43,7 +43,14 @@ class ApiCell:
         return self.response(
             "STATUS",
             "/status",
-            {"name": self.name, "version": self.version},
+            {
+                "name": self.name,
+                "version": self.version,
+                "server": "local-http",
+                "commands": "versioned",
+                "public_branch": True,
+                "methods": ["GET", "POST", "PUT", "DELETE", "HEALTH", "STATUS"],
+            },
             "API_CELL status ready",
         )
 

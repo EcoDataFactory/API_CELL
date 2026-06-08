@@ -1,0 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/sh
+set -eu
+
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+URL="http://${HOST}:${PORT}/status"
+
+if command -v termux-open-url >/dev/null 2>&1; then
+  termux-open-url "$URL"
+else
+  echo "$URL"
+fi

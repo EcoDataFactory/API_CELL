@@ -153,3 +153,29 @@ Default bind:
 Override port:
 
     API_CELL_PORT=9000 API_CELL/bin/api-cell-start
+
+## API_CELL v0.1.3 operational layer
+
+This stage adds a complete versioned operational layer under `API_CELL/bin`.
+
+Main commands:
+
+    API_CELL/bin/api-cell-help
+    API_CELL/bin/api-cell-start
+    API_CELL/bin/api-cell-stop
+    API_CELL/bin/api-cell-restart
+    API_CELL/bin/api-cell-status
+    API_CELL/bin/api-cell-port
+    API_CELL/bin/api-cell-narrador
+    API_CELL/bin/api-cell-test-all
+    API_CELL/bin/api-cell-cycle
+    API_CELL/bin/api-cell-doctor
+    API_CELL/bin/api-cell-log
+    API_CELL/bin/api-cell-follow-log
+    API_CELL/bin/api-cell-open
+
+Recommended full local validation:
+
+    API_CELL/bin/api-cell-cycle
+
+The status endpoint now reports server mode, command mode, public branch flag, and supported methods.

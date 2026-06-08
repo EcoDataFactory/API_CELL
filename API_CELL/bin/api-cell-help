@@ -1,0 +1,48 @@
+#!/data/data/com.termux/files/usr/bin/sh
+cat <<'HELP'
+API_CELL comandos versionados:
+
+Arrancar:
+  API_CELL/bin/api-cell-start
+
+Cerrar:
+  API_CELL/bin/api-cell-stop
+
+Reiniciar:
+  API_CELL/bin/api-cell-restart
+
+Estado narrado:
+  API_CELL/bin/api-cell-status
+  API_CELL/bin/api-cell-narrador
+
+Puerto:
+  API_CELL/bin/api-cell-port
+
+Pruebas:
+  API_CELL/bin/api-cell-health
+  API_CELL/bin/api-cell-get-status
+  API_CELL/bin/api-cell-get-anything
+  API_CELL/bin/api-cell-post-echo "mensaje"
+  API_CELL/bin/api-cell-put-echo "mensaje"
+  API_CELL/bin/api-cell-delete-echo
+  API_CELL/bin/api-cell-test-all
+
+Ciclo completo:
+  API_CELL/bin/api-cell-cycle
+
+Logs:
+  API_CELL/bin/api-cell-log
+  API_CELL/bin/api-cell-follow-log
+
+Abrir navegador:
+  API_CELL/bin/api-cell-open
+
+Doctor:
+  API_CELL/bin/api-cell-doctor
+
+Variables:
+  API_CELL_HOST=127.0.0.1
+  API_CELL_PORT=8765
+  API_CELL_LOG="$HOME/API_CELL_server_8765.log"
+  API_CELL_PIDFILE="$HOME/API_CELL_server_8765.pid"
+HELP
