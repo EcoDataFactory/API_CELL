@@ -15,7 +15,9 @@
     "API_CELL/bin/api-cell-down",
     "API_CELL/enforcing/orientation_map.json",
     "API_CELL/bin/api-cell-run-local",
-    "API_CELL/bin/api-cell-cicd"
+    "API_CELL/bin/api-cell-cicd",
+    "API_CELL/bin/api-cell-enforcing-gate",
+    "API_CELL/.tk_cicd/project.json"
   ],
   "python_source_roots": [
     "API_CELL/src/api_cell"
@@ -77,8 +79,8 @@
     "name": "api_cell_enforcing_strategy",
     "kind": "local_first_cicd_strategy",
     "purpose": "use tk_cicd to block promotion unless the required enforcing structure is present and validated",
-    "current_stage": "orientation_and_local_cicd_adapter",
-    "next_stage": "real_enforcing_gate",
+    "current_stage": "real_enforcing_gate",
+    "next_stage": "enforcing_policy_and_manifest",
     "required_enforcing_map": "API_CELL/enforcing/orientation_map.json",
     "future_gate": "API_CELL/bin/api-cell-enforcing-gate",
     "policy": {

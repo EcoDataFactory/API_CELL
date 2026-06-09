@@ -1,0 +1,177 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT" || exit 1
+
+MAP="API_CELL/enforcing/orientation_map.json"
+PROJECT="API_CELL/.tk_cicd/project.json"
+TK_M="$HOME/tk_cicd/M/M.json"
+TK_M1="$HOME/tk_cicd/M/m1/c_int.json"
+TK_M2="$HOME/tk_cicd/M/m2/c_del.json"
+TK_M3="$HOME/tk_cicd/M/m3/c_dep.json"
+TK_M4="$HOME/tk_cicd/M/m4/runs.json"
+
+echo "============================================================"
+echo " API_CELL enforcing gate"
+echo "============================================================"
+
+fail() {
+  echo "[FAIL] $*"
+  exit 1
+}
+
+ok() {
+  echo "[ OK ] $*"
+}
+
+phase() {
+  echo
+  echo "--- $1 ---"
+}
+
+phase "policy:files"
+
+for f in "$MAP" "$PROJECT" "$TK_M" "$TK_M1" "$TK_M2" "$TK_M3" "$TK_M4"; do
+  [ -f "$f" ] || fail "missing required file: $f"
+  python -m json.tool "$f" >/dev/null || fail "invalid json: $f"
+  ok "json valid: $f"
+done
+
+phase "policy:strategy"
+
+python - <<'PY'
+from pathlib import Path
+import json
+import sys
+
+project = json.loads(Path("API_CELL/.tk_cicd/project.json").read_text(encoding="utf-8"))
+
+strategy = project.get("strategy")
+if not strategy:
+    raise SystemExit("[FAIL] missing strategy block")
+
+required_strategy_keys = [
+    "name",
+    "kind",
+    "purpose",
+    "current_stage",
+    "next_stage",
+    "required_enforcing_map",
+    "future_gate",
+    "policy"
+]
+
+missing = [k for k in required_strategy_keys if k not in strategy]
+if missing:
+    raise SystemExit("[FAIL] missing strategy keys: " + ", ".join(missing))
+
+policy = strategy.get("policy", {})
+required_policy = [
+    "enforcing_map_required",
+    "full_enforcing_list_required",
+    "missing_enforcing_item_blocks_promotion",
+    "branch_drift_blocks_promotion",
+    "head_drift_blocks_promotion",
+    "sensitive_path_blocks_promotion",
+    "dirty_tree_blocks_promotion"
+]
+
+bad = [k for k in required_policy if policy.get(k) is not True]
+if bad:
+    raise SystemExit("[FAIL] strategy policy not enabled: " + ", ".join(bad))
+
+if strategy["required_enforcing_map"] != "API_CELL/enforcing/orientation_map.json":
+    raise SystemExit("[FAIL] wrong required_enforcing_map")
+
+if strategy["future_gate"] != "API_CELL/bin/api-cell-enforcing-gate":
+    raise SystemExit("[FAIL] wrong future_gate")
+
+print("[ OK ] strategy complete")
+PY
+
+phase "policy:orientation-map"
+
+python - <<'PY'
+from pathlib import Path
+import json
+
+m = json.loads(Path("API_CELL/enforcing/orientation_map.json").read_text(encoding="utf-8"))
+
+required_names = [
+    "boundary",
+    "policy_shape",
+    "manifest_shape",
+    "positive_execution",
+    "negative_execution",
+    "ttl_gate",
+    "replay_gate",
+    "hash_gate",
+    "boundary_gate",
+    "zero_trust_discipline",
+    "anti_scale_discipline",
+    "api_cell_first_sequence",
+    "private_later_sequence",
+    "acceptance_language"
+]
+
+seq = m.get("sequence", [])
+names = [x.get("name") for x in seq]
+missing = [x for x in required_names if x not in names]
+
+if missing:
+    raise SystemExit("[FAIL] missing enforcing stages: " + ", ".join(missing))
+
+required_min_items = {
+    "boundary": 8,
+    "policy_shape": 12,
+    "manifest_shape": 10,
+    "positive_execution": 10,
+    "negative_execution": 13,
+    "ttl_gate": 10,
+    "replay_gate": 8,
+    "hash_gate": 11,
+    "boundary_gate": 16,
+    "zero_trust_discipline": 10,
+    "anti_scale_discipline": 9,
+    "api_cell_first_sequence": 11,
+    "private_later_sequence": 9,
+    "acceptance_language": 9
+}
+
+by_name = {x.get("name"): x for x in seq}
+for name, minimum in required_min_items.items():
+    items = by_name[name].get("items", [])
+    if len(items) < minimum:
+        raise SystemExit(f"[FAIL] stage {name} incomplete: {len(items)} < {minimum}")
+
+print("[ OK ] enforcing stage list complete")
+PY
+
+phase "boundary:public"
+
+BAD_TRACKED="$(git ls-files API_CELL | grep -Ei '(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$' || true)"
+BAD_UNTRACKED="$(git ls-files --others --exclude-standard API_CELL | grep -Ei '(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$' || true)"
+
+if [ -n "$BAD_TRACKED$BAD_UNTRACKED" ]; then
+  echo "$BAD_TRACKED"
+  echo "$BAD_UNTRACKED"
+  fail "sensitive public material detected"
+fi
+
+ok "no sensitive public material"
+
+phase "repo:state"
+
+if [ -n "$(git status --short)" ]; then
+  echo "[INFO] working tree has pending changes"
+  git status --short
+  fail "enforcing gate requires clean tree"
+fi
+
+ok "working tree clean"
+
+echo
+echo "============================================================"
+echo "ENFORCEMENT SUCCESS"
+echo "============================================================"
