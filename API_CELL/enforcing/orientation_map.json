@@ -1,0 +1,271 @@
+{
+  "artifact": "api_cell_enforcing_orientation_map",
+  "version_seed": "0.1.5-public-api-cell",
+  "intent": "microservice enforcement orientation",
+  "public_surface": "API_CELL",
+  "private_runtime": "GAM_CELL",
+  "rule": "public surface teaches shape; private runtime keeps recipe",
+  "sequence": [
+    {
+      "stage": "A",
+      "name": "boundary",
+      "applies_to": "API_CELL",
+      "kind": "code_and_policy",
+      "items": [
+        "define public surface",
+        "define private runtime boundary",
+        "deny GAM runtime exposure",
+        "deny PKI exposure",
+        "deny OAuth exposure",
+        "deny service credential exposure",
+        "deny replayable capability exposure",
+        "deny durable sensitive state"
+      ]
+    },
+    {
+      "stage": "B",
+      "name": "policy_shape",
+      "applies_to": "API_CELL",
+      "kind": "code",
+      "items": [
+        "create ENFORCING_POLICY json",
+        "declare deny by default",
+        "declare allowed methods",
+        "declare allowed routes",
+        "declare denied route patterns",
+        "declare denied path patterns",
+        "declare denied file extensions",
+        "declare denied secret names",
+        "declare maximum TTL",
+        "declare maximum cache age",
+        "declare maximum token age",
+        "declare log sensitivity"
+      ]
+    },
+    {
+      "stage": "C",
+      "name": "manifest_shape",
+      "applies_to": "API_CELL",
+      "kind": "code",
+      "items": [
+        "create ENFORCING_MANIFEST json",
+        "record version",
+        "record branch",
+        "record commit",
+        "record tag",
+        "record build start time",
+        "record build end time",
+        "record endpoint decisions",
+        "record policy hash",
+        "record manifest hash",
+        "record non sensitive denial reasons"
+      ]
+    },
+    {
+      "stage": "D",
+      "name": "positive_execution",
+      "applies_to": "API_CELL",
+      "kind": "code",
+      "items": [
+        "health responds",
+        "status responds",
+        "GET route responds",
+        "POST echo responds",
+        "PUT echo responds",
+        "DELETE echo responds",
+        "server opens configured port",
+        "server closes configured port",
+        "logs are created",
+        "logs remain non sensitive",
+        "temporary files stay outside repository root"
+      ]
+    },
+    {
+      "stage": "E",
+      "name": "negative_execution",
+      "applies_to": "API_CELL",
+      "kind": "code",
+      "items": [
+        "missing policy rejected",
+        "missing manifest rejected",
+        "missing TTL rejected when required",
+        "expired TTL rejected",
+        "negative TTL rejected",
+        "excessive TTL rejected",
+        "replayed nonce rejected",
+        "replayed token rejected",
+        "hash mismatch rejected",
+        "private path exposure rejected",
+        "tracked secret material rejected",
+        "repository root cache garbage rejected",
+        "sensitive extension exposure rejected"
+      ]
+    },
+    {
+      "stage": "F",
+      "name": "ttl_gate",
+      "applies_to": "API_CELL_first_GAM_CELL_later",
+      "kind": "code_first_private_stronger_later",
+      "items": [
+        "created at",
+        "expires at",
+        "current time",
+        "maximum allowed lifetime",
+        "expired capability",
+        "capability without TTL",
+        "capability with excessive TTL",
+        "runtime session age",
+        "temporary manifest age",
+        "temporary cache age"
+      ]
+    },
+    {
+      "stage": "G",
+      "name": "replay_gate",
+      "applies_to": "API_CELL_first_GAM_CELL_later",
+      "kind": "code_first_private_authority_later",
+      "items": [
+        "nonce creation",
+        "nonce storage",
+        "nonce invalidation",
+        "request replay",
+        "token replay",
+        "manifest replay",
+        "expired replay",
+        "valid looking replay denied"
+      ]
+    },
+    {
+      "stage": "H",
+      "name": "hash_gate",
+      "applies_to": "API_CELL_first_GAM_CELL_later",
+      "kind": "code",
+      "items": [
+        "policy hash",
+        "manifest hash",
+        "critical file hash",
+        "expected hash",
+        "actual hash",
+        "changed policy",
+        "changed manifest",
+        "changed enforcement script",
+        "changed route behavior",
+        "changed public boundary",
+        "unexpected drift blocks promotion"
+      ]
+    },
+    {
+      "stage": "I",
+      "name": "boundary_gate",
+      "applies_to": "API_CELL",
+      "kind": "code",
+      "items": [
+        "deny GAM_py",
+        "deny GAM_CELL_PKI",
+        "deny client_secrets",
+        "deny oauth2",
+        "deny token json",
+        "deny pem",
+        "deny p12",
+        "deny key",
+        "deny crt",
+        "deny cer",
+        "deny env",
+        "deny master env",
+        "deny generated JSON in repository root",
+        "deny bytecode caches",
+        "deny private runtime caches",
+        "deny private service credentials"
+      ]
+    },
+    {
+      "stage": "J",
+      "name": "zero_trust_discipline",
+      "applies_to": "discipline_then_code",
+      "kind": "discipline",
+      "items": [
+        "never trust by default",
+        "always verify",
+        "least privilege",
+        "short lived capability",
+        "explicit policy",
+        "continuous validation",
+        "visible decision",
+        "bounded surface",
+        "no silent allow",
+        "no implicit privilege inheritance"
+      ]
+    },
+    {
+      "stage": "K",
+      "name": "anti_scale_discipline",
+      "applies_to": "discipline_then_code",
+      "kind": "discipline",
+      "items": [
+        "no capability grows without TTL",
+        "no worker inherits permanent permission",
+        "no fork remains alive without policy",
+        "no runtime accumulates state outside manifest rules",
+        "no endpoint opens persistent surface without review",
+        "no cache survives outside allowed lifetime",
+        "no socket remains open without owner process",
+        "no log becomes a secret sink",
+        "no build promotes unknown state"
+      ]
+    },
+    {
+      "stage": "L",
+      "name": "api_cell_first_sequence",
+      "applies_to": "API_CELL",
+      "kind": "order",
+      "items": [
+        "write policy shape",
+        "write manifest shape",
+        "write enforcing gate command",
+        "scan public boundary",
+        "prove positive endpoint behavior",
+        "prove negative policy behavior",
+        "prove TTL rejection",
+        "prove replay rejection",
+        "prove hash rejection",
+        "block build on failure",
+        "open MR only after gate success",
+        "release only after gate success"
+      ]
+    },
+    {
+      "stage": "M",
+      "name": "private_later_sequence",
+      "applies_to": "GAM_CELL",
+      "kind": "private_later",
+      "items": [
+        "carry policy semantics into private runtime",
+        "bind capabilities to private process ownership",
+        "bind runtime sessions to private manifests",
+        "bind fork behavior to private policy",
+        "bind PKI access to private boundary",
+        "bind private state to hash gate",
+        "bind runtime replay defense to private nonce authority",
+        "bind ephemeral sessions to private TTL rules",
+        "bind audit closure to private release gates"
+      ]
+    },
+    {
+      "stage": "N",
+      "name": "acceptance_language",
+      "applies_to": "API_CELL_and_GAM_CELL",
+      "kind": "criteria",
+      "items": [
+        "a name is not enough",
+        "a document is not enough",
+        "a passing happy path is not enough",
+        "permitted behavior must be shown",
+        "denied behavior must be shown",
+        "violations must block execution",
+        "build must fail on enforcement failure",
+        "MR must wait for gate success",
+        "release must wait for gate success"
+      ]
+    }
+  ]
+}

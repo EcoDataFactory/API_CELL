@@ -1,0 +1,94 @@
+{
+  "schema": "tk_cicd_project_v1",
+  "project": "API_CELL",
+  "public_scope": "API_CELL",
+  "m_root": "$HOME/tk_cicd/M",
+  "public_remote": "api-cell",
+  "public_remote_url": "git@github.com:EcoDataFactory/API_CELL.git",
+  "allowed_branch_patterns": [
+    "^tec-kio/api-cell-",
+    "^tec-kio/public-api-cell$"
+  ],
+  "required_files": [
+    "API_CELL/src/api_cell/server.py",
+    "API_CELL/bin/api-cell-run",
+    "API_CELL/bin/api-cell-down",
+    "API_CELL/enforcing/orientation_map.json",
+    "API_CELL/bin/api-cell-run-local",
+    "API_CELL/bin/api-cell-cicd"
+  ],
+  "python_source_roots": [
+    "API_CELL/src/api_cell"
+  ],
+  "forbidden_public_patterns": [
+    "(^|/)GAM_py(/|$)",
+    "(^|/)GAM_CELL_PKI(/|$)",
+    "client_secrets",
+    "oauth2",
+    "token\\.json$",
+    "\\.pem$",
+    "\\.p12$",
+    "\\.key$",
+    "\\.crt$",
+    "\\.cer$",
+    "\\.env$",
+    "\\.master_env$"
+  ],
+  "local_deploy": {
+    "mode": "local",
+    "base_url": "http://127.0.0.1:8765",
+    "run": [
+      "API_CELL/bin/api-cell-run-local"
+    ],
+    "down": [
+      "API_CELL/bin/api-cell-down"
+    ],
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/health"
+      },
+      {
+        "method": "GET",
+        "path": "/status"
+      },
+      {
+        "method": "GET",
+        "path": "/anything"
+      },
+      {
+        "method": "POST",
+        "path": "/echo",
+        "json": {}
+      },
+      {
+        "method": "PUT",
+        "path": "/echo",
+        "json": {}
+      },
+      {
+        "method": "DELETE",
+        "path": "/echo"
+      }
+    ],
+    "leave_running": true
+  },
+  "strategy": {
+    "name": "api_cell_enforcing_strategy",
+    "kind": "local_first_cicd_strategy",
+    "purpose": "use tk_cicd to block promotion unless the required enforcing structure is present and validated",
+    "current_stage": "orientation_and_local_cicd_adapter",
+    "next_stage": "real_enforcing_gate",
+    "required_enforcing_map": "API_CELL/enforcing/orientation_map.json",
+    "future_gate": "API_CELL/bin/api-cell-enforcing-gate",
+    "policy": {
+      "enforcing_map_required": true,
+      "full_enforcing_list_required": true,
+      "missing_enforcing_item_blocks_promotion": true,
+      "branch_drift_blocks_promotion": true,
+      "head_drift_blocks_promotion": true,
+      "sensitive_path_blocks_promotion": true,
+      "dirty_tree_blocks_promotion": true
+    }
+  }
+}

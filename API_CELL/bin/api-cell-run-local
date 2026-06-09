@@ -1,0 +1,30 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT" || exit 1
+
+HOST="${API_CELL_HOST:-127.0.0.1}"
+PORT="${API_CELL_PORT:-8765}"
+PIDFILE="${API_CELL_PIDFILE:-$HOME/API_CELL_server_${PORT}.pid}"
+LOGFILE="${API_CELL_LOGFILE:-$HOME/API_CELL_server_${PORT}.log}"
+
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONPATH="$ROOT/API_CELL/src${PYTHONPATH:+:$PYTHONPATH}"
+
+if [ -f "$PIDFILE" ]; then
+  OLD_PID="$(cat "$PIDFILE" 2>/dev/null || true)"
+  if [ -n "$OLD_PID" ] && kill -0 "$OLD_PID" 2>/dev/null; then
+    echo "[ OK ] already running pid=$OLD_PID"
+    exit 0
+  fi
+  rm -f "$PIDFILE"
+fi
+
+nohup python -m api_cell.server "$HOST" "$PORT" > "$LOGFILE" 2>&1 &
+PID="$!"
+echo "$PID" > "$PIDFILE"
+
+echo "[ OK ] server started pid=$PID"
+echo "[INFO] bind : http://$HOST:$PORT"
+echo "[INFO] log  : $LOGFILE"
