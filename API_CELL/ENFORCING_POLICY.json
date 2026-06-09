@@ -1,0 +1,95 @@
+{
+  "id": "API_CELL_ENFORCING_POLICY",
+  "version": "0.1.6",
+  "stage": "enforcing_megastage",
+  "deny_by_default": true,
+  "scope": "API_CELL",
+  "required_files": [
+    "API_CELL/enforcing/orientation_map.json",
+    "API_CELL/.tk_cicd/project.json",
+    "API_CELL/ENFORCING_POLICY.json",
+    "API_CELL/ENFORCING_MANIFEST.json",
+    "API_CELL/bin/api-cell-enforcing-gate",
+    "API_CELL/bin/api-cell-cicd",
+    "API_CELL/bin/api-cell-run-local"
+  ],
+  "required_m": [
+    "$HOME/tk_cicd/M/M.json",
+    "$HOME/tk_cicd/M/m1/c_int.json",
+    "$HOME/tk_cicd/M/m2/c_del.json",
+    "$HOME/tk_cicd/M/m3/c_dep.json",
+    "$HOME/tk_cicd/M/m4/runs.json"
+  ],
+  "required_orientation_stages": [
+    "boundary",
+    "policy_shape",
+    "manifest_shape",
+    "positive_execution",
+    "negative_execution",
+    "ttl_gate",
+    "replay_gate",
+    "hash_gate",
+    "boundary_gate",
+    "zero_trust_discipline",
+    "anti_scale_discipline",
+    "api_cell_first_sequence",
+    "private_later_sequence",
+    "acceptance_language"
+  ],
+  "required_gates": {
+    "ttl_gate": true,
+    "replay_gate": true,
+    "hash_gate": true,
+    "boundary_gate": true,
+    "branch_drift_gate": true,
+    "head_drift_gate": true,
+    "dirty_tree_gate": true,
+    "strategy_gate": true,
+    "manifest_gate": true
+  },
+  "ttl": {
+    "required": true,
+    "max_seconds": 3600,
+    "block_missing": true,
+    "block_expired": true,
+    "block_excessive": true
+  },
+  "replay": {
+    "required": true,
+    "nonce_required": true,
+    "block_reused_nonce": true,
+    "block_reused_run_id": true
+  },
+  "hash": {
+    "required": true,
+    "policy_hash_required": true,
+    "manifest_hash_required": true,
+    "tracked_file_hash_required": true
+  },
+  "boundary": {
+    "forbidden_public_patterns": [
+      "(^|/)GAM_py(/|$)",
+      "(^|/)GAM_CELL_PKI(/|$)",
+      "client_secrets",
+      "oauth2",
+      "token\\.json$",
+      "\\.pem$",
+      "\\.p12$",
+      "\\.key$",
+      "\\.crt$",
+      "\\.cer$",
+      "\\.env$",
+      "\\.master_env$"
+    ]
+  },
+  "promotion": {
+    "block_on_missing_policy": true,
+    "block_on_missing_manifest": true,
+    "block_on_incomplete_orientation_map": true,
+    "block_on_sensitive_path": true,
+    "block_on_dirty_tree": true,
+    "block_on_branch_drift": true,
+    "block_on_head_drift": true,
+    "block_on_tk_cicd_failure": true
+  }
+}

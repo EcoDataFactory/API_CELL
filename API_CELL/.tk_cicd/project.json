@@ -15,7 +15,11 @@
     "API_CELL/bin/api-cell-down",
     "API_CELL/enforcing/orientation_map.json",
     "API_CELL/bin/api-cell-run-local",
-    "API_CELL/bin/api-cell-cicd"
+    "API_CELL/bin/api-cell-cicd",
+    "API_CELL/bin/api-cell-enforcing-gate",
+    "API_CELL/.tk_cicd/project.json",
+    "API_CELL/ENFORCING_POLICY.json",
+    "API_CELL/ENFORCING_MANIFEST.json"
   ],
   "python_source_roots": [
     "API_CELL/src/api_cell"
@@ -76,19 +80,24 @@
   "strategy": {
     "name": "api_cell_enforcing_strategy",
     "kind": "local_first_cicd_strategy",
-    "purpose": "use tk_cicd to block promotion unless the required enforcing structure is present and validated",
-    "current_stage": "orientation_and_local_cicd_adapter",
-    "next_stage": "real_enforcing_gate",
+    "purpose": "block promotion unless API_CELL enforcing policy, manifest, map, strategy, tk_cicd, and public boundary all pass",
+    "current_stage": "enforcing_megastage",
+    "next_stage": "negative_enforcement_vectors",
     "required_enforcing_map": "API_CELL/enforcing/orientation_map.json",
-    "future_gate": "API_CELL/bin/api-cell-enforcing-gate",
+    "required_policy": "API_CELL/ENFORCING_POLICY.json",
+    "required_manifest": "API_CELL/ENFORCING_MANIFEST.json",
+    "gate": "API_CELL/bin/api-cell-enforcing-gate",
     "policy": {
       "enforcing_map_required": true,
+      "enforcing_policy_required": true,
+      "enforcing_manifest_required": true,
       "full_enforcing_list_required": true,
       "missing_enforcing_item_blocks_promotion": true,
       "branch_drift_blocks_promotion": true,
       "head_drift_blocks_promotion": true,
       "sensitive_path_blocks_promotion": true,
-      "dirty_tree_blocks_promotion": true
+      "dirty_tree_blocks_promotion": true,
+      "tk_cicd_failure_blocks_promotion": true
     }
   }
 }

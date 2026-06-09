@@ -1,0 +1,258 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT" || exit 1
+
+POLICY="API_CELL/ENFORCING_POLICY.json"
+MANIFEST="API_CELL/ENFORCING_MANIFEST.json"
+MAP="API_CELL/enforcing/orientation_map.json"
+PROJECT="API_CELL/.tk_cicd/project.json"
+TK_M="$HOME/tk_cicd/M/M.json"
+TK_M1="$HOME/tk_cicd/M/m1/c_int.json"
+TK_M2="$HOME/tk_cicd/M/m2/c_del.json"
+TK_M3="$HOME/tk_cicd/M/m3/c_dep.json"
+TK_M4="$HOME/tk_cicd/M/m4/runs.json"
+
+fail() { echo "[FAIL] $*"; exit 1; }
+ok() { echo "[ OK ] $*"; }
+phase() { echo; echo "--- $1 ---"; }
+
+echo "============================================================"
+echo " API_CELL enforcing megastage gate"
+echo "============================================================"
+
+START_BRANCH="$(git branch --show-current)"
+START_HEAD="$(git rev-parse HEAD)"
+
+phase "files:json"
+
+for f in "$POLICY" "$MANIFEST" "$MAP" "$PROJECT" "$TK_M" "$TK_M1" "$TK_M2" "$TK_M3" "$TK_M4"; do
+  [ -f "$f" ] || fail "missing required file: $f"
+  python -m json.tool "$f" >/dev/null || fail "invalid json: $f"
+  ok "json valid: $f"
+done
+
+phase "strategy:required"
+
+python - <<'PY'
+from pathlib import Path
+import json
+
+project = json.loads(Path("API_CELL/.tk_cicd/project.json").read_text(encoding="utf-8"))
+strategy = project.get("strategy") or {}
+policy = strategy.get("policy") or {}
+
+required_strategy = [
+    "name",
+    "kind",
+    "purpose",
+    "current_stage",
+    "next_stage",
+    "required_enforcing_map",
+    "required_policy",
+    "required_manifest",
+    "gate",
+    "policy"
+]
+
+missing = [x for x in required_strategy if x not in strategy]
+if missing:
+    raise SystemExit("[FAIL] missing strategy keys: " + ", ".join(missing))
+
+required_flags = [
+    "enforcing_map_required",
+    "enforcing_policy_required",
+    "enforcing_manifest_required",
+    "full_enforcing_list_required",
+    "missing_enforcing_item_blocks_promotion",
+    "branch_drift_blocks_promotion",
+    "head_drift_blocks_promotion",
+    "sensitive_path_blocks_promotion",
+    "dirty_tree_blocks_promotion",
+    "tk_cicd_failure_blocks_promotion"
+]
+
+bad = [x for x in required_flags if policy.get(x) is not True]
+if bad:
+    raise SystemExit("[FAIL] strategy flags disabled: " + ", ".join(bad))
+
+print("[ OK ] strategy complete")
+PY
+
+phase "policy:required"
+
+python - <<'PY'
+from pathlib import Path
+import json
+
+policy = json.loads(Path("API_CELL/ENFORCING_POLICY.json").read_text(encoding="utf-8"))
+
+if policy.get("deny_by_default") is not True:
+    raise SystemExit("[FAIL] deny_by_default not enabled")
+
+required_top = [
+    "required_files",
+    "required_m",
+    "required_orientation_stages",
+    "required_gates",
+    "ttl",
+    "replay",
+    "hash",
+    "boundary",
+    "promotion"
+]
+
+missing = [x for x in required_top if x not in policy]
+if missing:
+    raise SystemExit("[FAIL] missing policy keys: " + ", ".join(missing))
+
+for gate in [
+    "ttl_gate",
+    "replay_gate",
+    "hash_gate",
+    "boundary_gate",
+    "branch_drift_gate",
+    "head_drift_gate",
+    "dirty_tree_gate",
+    "strategy_gate",
+    "manifest_gate"
+]:
+    if policy["required_gates"].get(gate) is not True:
+        raise SystemExit("[FAIL] gate disabled: " + gate)
+
+for section, keys in {
+    "ttl": ["required", "block_missing", "block_expired", "block_excessive"],
+    "replay": ["required", "nonce_required", "block_reused_nonce", "block_reused_run_id"],
+    "hash": ["required", "policy_hash_required", "manifest_hash_required", "tracked_file_hash_required"],
+    "promotion": [
+        "block_on_missing_policy",
+        "block_on_missing_manifest",
+        "block_on_incomplete_orientation_map",
+        "block_on_sensitive_path",
+        "block_on_dirty_tree",
+        "block_on_branch_drift",
+        "block_on_head_drift",
+        "block_on_tk_cicd_failure"
+    ]
+}.items():
+    for key in keys:
+        if policy[section].get(key) is not True:
+            raise SystemExit(f"[FAIL] policy {section}.{key} disabled")
+
+print("[ OK ] policy complete")
+PY
+
+phase "manifest:required"
+
+python - <<'PY'
+from pathlib import Path
+import json
+
+manifest = json.loads(Path("API_CELL/ENFORCING_MANIFEST.json").read_text(encoding="utf-8"))
+
+required = [
+    "id",
+    "version",
+    "stage",
+    "created_at_utc",
+    "repo",
+    "branch",
+    "head",
+    "m_root",
+    "m_index",
+    "m_blocks",
+    "policy",
+    "orientation_map",
+    "strategy",
+    "gate",
+    "ci_cd",
+    "evidence"
+]
+
+missing = [x for x in required if x not in manifest]
+if missing:
+    raise SystemExit("[FAIL] missing manifest keys: " + ", ".join(missing))
+
+for block in ["m1", "m2", "m3", "m4"]:
+    if block not in manifest["m_blocks"]:
+        raise SystemExit("[FAIL] missing manifest m block: " + block)
+
+print("[ OK ] manifest complete")
+PY
+
+phase "orientation:complete"
+
+python - <<'PY'
+from pathlib import Path
+import json
+
+m = json.loads(Path("API_CELL/enforcing/orientation_map.json").read_text(encoding="utf-8"))
+policy = json.loads(Path("API_CELL/ENFORCING_POLICY.json").read_text(encoding="utf-8"))
+
+seq = m.get("sequence", [])
+by_name = {x.get("name"): x for x in seq}
+
+missing = [x for x in policy["required_orientation_stages"] if x not in by_name]
+if missing:
+    raise SystemExit("[FAIL] missing orientation stages: " + ", ".join(missing))
+
+minimums = {
+    "boundary": 8,
+    "policy_shape": 12,
+    "manifest_shape": 10,
+    "positive_execution": 10,
+    "negative_execution": 13,
+    "ttl_gate": 10,
+    "replay_gate": 8,
+    "hash_gate": 11,
+    "boundary_gate": 16,
+    "zero_trust_discipline": 10,
+    "anti_scale_discipline": 9,
+    "api_cell_first_sequence": 11,
+    "private_later_sequence": 9,
+    "acceptance_language": 9
+}
+
+for name, minimum in minimums.items():
+    count = len(by_name[name].get("items", []))
+    if count < minimum:
+        raise SystemExit(f"[FAIL] orientation stage incomplete: {name} {count} < {minimum}")
+
+print("[ OK ] orientation complete")
+PY
+
+phase "boundary:public"
+
+BAD_TRACKED="$(git ls-files API_CELL | grep -Ei '(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$' || true)"
+BAD_UNTRACKED="$(git ls-files --others --exclude-standard API_CELL | grep -Ei '(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$' || true)"
+
+if [ -n "$BAD_TRACKED$BAD_UNTRACKED" ]; then
+  echo "$BAD_TRACKED"
+  echo "$BAD_UNTRACKED"
+  fail "sensitive public material detected"
+fi
+
+ok "public boundary clean"
+
+phase "repo:drift"
+
+END_BRANCH="$(git branch --show-current)"
+END_HEAD="$(git rev-parse HEAD)"
+
+[ "$END_BRANCH" = "$START_BRANCH" ] || fail "branch drift: $START_BRANCH -> $END_BRANCH"
+[ "$END_HEAD" = "$START_HEAD" ] || fail "HEAD drift"
+
+if [ -n "$(git status --short)" ]; then
+  git status --short
+  fail "dirty tree"
+fi
+
+ok "branch unchanged"
+ok "HEAD unchanged"
+ok "working tree clean"
+
+echo
+echo "============================================================"
+echo "ENFORCEMENT MEGASTAGE SUCCESS"
+echo "============================================================"

@@ -1,0 +1,46 @@
+{
+  "id": "API_CELL_ENFORCING_MANIFEST",
+  "version": "0.1.6",
+  "stage": "enforcing_megastage",
+  "created_at_utc": "2026-06-09T07:34:28Z",
+  "repo": "EcoDataFactory/API_CELL",
+  "local_repo_root": "/data/data/com.termux/files/home/GAM_CELL",
+  "branch": "tec-kio/api-cell-v016-enforcing-megastage",
+  "head": "6cf931fb270ba284639c8c23ac27b5bc65d704af",
+  "head_short": "6cf931f",
+  "m_root": "$HOME/tk_cicd/M",
+  "m_index": "$HOME/tk_cicd/M/M.json",
+  "m_blocks": {
+    "m1": "$HOME/tk_cicd/M/m1/c_int.json",
+    "m2": "$HOME/tk_cicd/M/m2/c_del.json",
+    "m3": "$HOME/tk_cicd/M/m3/c_dep.json",
+    "m4": "$HOME/tk_cicd/M/m4/runs.json"
+  },
+  "policy": {
+    "path": "API_CELL/ENFORCING_POLICY.json",
+    "sha256": "59fc5e6c763e8a614166e9fb82a4c0bf20bb65719bb75b4fb36c503b51a36723"
+  },
+  "orientation_map": {
+    "path": "API_CELL/enforcing/orientation_map.json"
+  },
+  "strategy": {
+    "path": "API_CELL/.tk_cicd/project.json",
+    "name": "api_cell_enforcing_strategy"
+  },
+  "gate": {
+    "path": "API_CELL/bin/api-cell-enforcing-gate"
+  },
+  "ci_cd": {
+    "adapter": "API_CELL/bin/api-cell-cicd",
+    "local_runner": "API_CELL/bin/api-cell-run-local",
+    "engine": "$HOME/tk_cicd/bin/tk-cicd"
+  },
+  "evidence": {
+    "runs_ledger": "$HOME/tk_cicd/M/m4/runs.json",
+    "artifacts_cache": "$HOME/.cache/tk_cicd/artifacts/API_CELL"
+  },
+  "manifest": {
+    "path": "API_CELL/ENFORCING_MANIFEST.json",
+    "sha256": "f1b5df035c6e4ab470684a384e5f0f840150cefe8c9312453ad58954f23efca3"
+  }
+}
