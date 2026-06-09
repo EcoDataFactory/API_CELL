@@ -1,0 +1,13 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+TK="$HOME/tk_cicd/bin/tk-cicd"
+PROJECT="$ROOT/API_CELL/.tk_cicd/project.json"
+
+if [ ! -x "$TK" ]; then
+  echo "[FAIL] missing tk-cicd engine: $TK"
+  exit 1
+fi
+
+exec "$TK" run --project "$PROJECT"

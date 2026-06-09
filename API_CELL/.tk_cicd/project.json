@@ -1,0 +1,74 @@
+{
+  "schema": "tk_cicd_project_v1",
+  "project": "API_CELL",
+  "public_scope": "API_CELL",
+  "m_root": "$HOME/tk_cicd/M",
+  "public_remote": "api-cell",
+  "public_remote_url": "git@github.com:EcoDataFactory/API_CELL.git",
+  "allowed_branch_patterns": [
+    "^tec-kio/api-cell-",
+    "^tec-kio/public-api-cell$"
+  ],
+  "required_files": [
+    "API_CELL/src/api_cell/server.py",
+    "API_CELL/bin/api-cell-run",
+    "API_CELL/bin/api-cell-down",
+    "API_CELL/enforcing/orientation_map.json"
+  ],
+  "python_source_roots": [
+    "API_CELL/src/api_cell"
+  ],
+  "forbidden_public_patterns": [
+    "(^|/)GAM_py(/|$)",
+    "(^|/)GAM_CELL_PKI(/|$)",
+    "client_secrets",
+    "oauth2",
+    "token\\.json$",
+    "\\.pem$",
+    "\\.p12$",
+    "\\.key$",
+    "\\.crt$",
+    "\\.cer$",
+    "\\.env$",
+    "\\.master_env$"
+  ],
+  "local_deploy": {
+    "mode": "local",
+    "base_url": "http://127.0.0.1:8765",
+    "run": [
+      "API_CELL/bin/api-cell-run"
+    ],
+    "down": [
+      "API_CELL/bin/api-cell-down"
+    ],
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/health"
+      },
+      {
+        "method": "GET",
+        "path": "/status"
+      },
+      {
+        "method": "GET",
+        "path": "/anything"
+      },
+      {
+        "method": "POST",
+        "path": "/echo",
+        "json": {}
+      },
+      {
+        "method": "PUT",
+        "path": "/echo",
+        "json": {}
+      },
+      {
+        "method": "DELETE",
+        "path": "/echo"
+      }
+    ],
+    "leave_running": true
+  }
+}
