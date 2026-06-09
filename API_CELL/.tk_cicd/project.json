@@ -13,7 +13,8 @@
     "API_CELL/src/api_cell/server.py",
     "API_CELL/bin/api-cell-run",
     "API_CELL/bin/api-cell-down",
-    "API_CELL/enforcing/orientation_map.json"
+    "API_CELL/enforcing/orientation_map.json",
+    "API_CELL/bin/api-cell-run-local"
   ],
   "python_source_roots": [
     "API_CELL/src/api_cell"
@@ -36,7 +37,7 @@
     "mode": "local",
     "base_url": "http://127.0.0.1:8765",
     "run": [
-      "API_CELL/bin/api-cell-run"
+      "API_CELL/bin/api-cell-run-local"
     ],
     "down": [
       "API_CELL/bin/api-cell-down"
