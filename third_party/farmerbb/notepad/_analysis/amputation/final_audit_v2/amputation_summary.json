@@ -2,7 +2,7 @@
   "compile_enabled": false,
   "integration_enabled": false,
   "status": "amputated_static_audit_v2_passed",
-  "file_count": 146,
+  "file_count": 147,
   "kotlin_file_count": 25,
   "xml_file_count": 36,
   "core_remaining": [
