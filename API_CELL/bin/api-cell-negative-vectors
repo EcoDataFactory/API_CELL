@@ -29,7 +29,6 @@ if [ -n "$(git status --short)" ]; then
   fail "primary working tree must be clean"
 fi
 
-PRIMARY_BRANCH="$(git branch --show-current)"
 BASE_HEAD="$(git rev-parse HEAD)"
 TMP_ROOT="$HOME/.cache/tk_cicd/negative_vectors"
 RUN_ID="neg-$(date -u +%Y%m%dT%H%M%SZ)"
@@ -170,9 +169,7 @@ run_vector "NEG_010_disabled_strategy_dirty_tree_flag" "strategy flags disabled"
 
 phase "primary repo check"
 
-if [ "$(git branch --show-current)" != "$PRIMARY_BRANCH" ]; then
-  echo "[INFO] expected branch: $PRIMARY_BRANCH"
-  echo "[INFO] current branch : $(git branch --show-current)"
+if [ "$(git branch --show-current)" != "tec-kio/api-cell-v017-negative-enforcement-vectors" ]; then
   fail "primary branch drift"
 fi
 
