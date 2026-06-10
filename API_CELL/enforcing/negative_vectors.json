@@ -1,0 +1,79 @@
+{
+  "id": "API_CELL_NEGATIVE_ENFORCEMENT_VECTORS",
+  "version": "0.1.7",
+  "stage": "negative_enforcement_vectors",
+  "purpose": "prove the enforcing gate fails when required structure, strategy, policy, manifest, boundary, or repository state is invalid",
+  "execution_model": {
+    "mode": "isolated_git_worktree",
+    "mutates_primary_repo": false,
+    "requires_clean_primary_repo": true,
+    "expected_result": "all negative vectors must fail"
+  },
+  "vectors": [
+    {
+      "id": "NEG_001",
+      "name": "missing_policy",
+      "mutation": "remove API_CELL/ENFORCING_POLICY.json",
+      "expected_failure_contains": "missing required file"
+    },
+    {
+      "id": "NEG_002",
+      "name": "missing_manifest",
+      "mutation": "remove API_CELL/ENFORCING_MANIFEST.json",
+      "expected_failure_contains": "missing required file"
+    },
+    {
+      "id": "NEG_003",
+      "name": "missing_strategy",
+      "mutation": "remove strategy block from API_CELL/.tk_cicd/project.json",
+      "expected_failure_contains": "missing strategy keys"
+    },
+    {
+      "id": "NEG_004",
+      "name": "missing_orientation_stage",
+      "mutation": "remove acceptance_language from API_CELL/enforcing/orientation_map.json",
+      "expected_failure_contains": "missing orientation stages"
+    },
+    {
+      "id": "NEG_005",
+      "name": "invalid_policy_json",
+      "mutation": "write invalid JSON into API_CELL/ENFORCING_POLICY.json",
+      "expected_failure_contains": "invalid json"
+    },
+    {
+      "id": "NEG_006",
+      "name": "dirty_tree",
+      "mutation": "create untracked non-sensitive file under API_CELL",
+      "expected_failure_contains": "dirty tree"
+    },
+    {
+      "id": "NEG_007",
+      "name": "sensitive_path_token_json",
+      "mutation": "create API_CELL/token.json",
+      "expected_failure_contains": "sensitive public material detected"
+    },
+    {
+      "id": "NEG_008",
+      "name": "missing_m_root",
+      "mutation": "run gate with isolated HOME without tk_cicd/M",
+      "expected_failure_contains": "missing required file"
+    },
+    {
+      "id": "NEG_009",
+      "name": "disabled_policy_hash_gate",
+      "mutation": "set required_gates.hash_gate to false",
+      "expected_failure_contains": "gate disabled"
+    },
+    {
+      "id": "NEG_010",
+      "name": "disabled_strategy_dirty_tree_flag",
+      "mutation": "set strategy policy dirty_tree_blocks_promotion to false",
+      "expected_failure_contains": "strategy flags disabled"
+    }
+  ],
+  "promotion_rule": {
+    "all_vectors_must_fail": true,
+    "unexpected_success_blocks_promotion": true,
+    "wrong_failure_blocks_promotion": true
+  }
+}
