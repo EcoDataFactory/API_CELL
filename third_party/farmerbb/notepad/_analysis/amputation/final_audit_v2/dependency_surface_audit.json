@@ -1,7 +1,5 @@
 {
-  "removed_dependency_hits": [
-    "richtext"
-  ],
+  "removed_dependency_hits": [],
   "compose_enabled": true,
   "sqldelight_enabled": true,
   "release_signing_removed": true
