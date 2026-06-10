@@ -1,7 +1,7 @@
 NOTEPAD ALL MAPS SUMMARY
 
 root: third_party/farmerbb/notepad
-files: 111
+files: 124
 kotlin_files: 35
 sqldelight_files: 3
 resources: 39

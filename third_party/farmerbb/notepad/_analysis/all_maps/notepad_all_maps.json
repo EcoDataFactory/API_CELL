@@ -1,9 +1,9 @@
 {
-  "generated_at_utc": "20260610T051228Z",
+  "generated_at_utc": "20260610T051304Z",
   "root": "third_party/farmerbb/notepad",
   "file_inventory": {
-    "file_count": 111,
-    "total_bytes": 551659,
+    "file_count": 124,
+    "total_bytes": 986821,
     "files": [
       {
         "path": ".gitignore",
@@ -40,6 +40,84 @@
         "size": 1647,
         "sha256": "5883a52e45274df906b14ab8bd31a2f29866f22783c26f2331b4acafe8f74973",
         "ext": ".md"
+      },
+      {
+        "path": "_analysis/all_maps/MAP_INDEX.json",
+        "size": 1235,
+        "sha256": "4a44d053e259216bddbdfdf728751aa113bbc6095134fda5451ad96238722e2b",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/database_sqldelight_map.json",
+        "size": 8646,
+        "sha256": "daf264a21cf7deacefc0bb6a08eb6c3ec5a8e392970b41bc5d96d534e0a8a9dd",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/external_surface_map.json",
+        "size": 2907,
+        "sha256": "8d48e14bd100f7612231edf9336c46db3d632562716befba93ec6754a9fad06f",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/flow_map.json",
+        "size": 1480,
+        "sha256": "2fa9bb731c47f648685275aabb45417d61845f16a1e816def0d0f6357daebe52",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/gradle_dependency_map.json",
+        "size": 2773,
+        "sha256": "fefd6edcfa83978da7afea60e44496b787e7aedd0f5d6fdfb555da26d728992b",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/integration_control_map.json",
+        "size": 941,
+        "sha256": "3917f85f9c8ab6405a1614f54fea54f13f78dbe236a449f48f2d6c59edbd4857",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/kotlin_symbol_map.json",
+        "size": 163117,
+        "sha256": "f3354fbe737c487b4f69a8fdf1915e457240f648ec139b27aea64839c06a8903",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/layer_map.json",
+        "size": 4523,
+        "sha256": "a1c45f93853c8a3d65e059e9319c77774f8d3954b883df47ecc418405a8a3509",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/manifest_map.json",
+        "size": 2937,
+        "sha256": "4cc62057c96b75c090e13361a3515395c0262e1ab1e9e901b0e7bfefc5ff7016",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/notepad_all_maps.json",
+        "size": 233193,
+        "sha256": "8e7c0317f1aa72a99d83626926c264123e86f682cdf3b19c1379c6f472f9369b",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/notepad_all_maps.summary.txt",
+        "size": 2589,
+        "sha256": "ea0ff65a6a24275cf6814a426844f9afbfb5c32359f1d4c6f6ea4b7123cfe57c",
+        "ext": ".txt"
+      },
+      {
+        "path": "_analysis/all_maps/risk_map.json",
+        "size": 986,
+        "sha256": "eca01331a99856c0f6d4b470931db0afdeb7d0a45c4775df2112f56c86373e84",
+        "ext": ".json"
+      },
+      {
+        "path": "_analysis/all_maps/storage_io_map.json",
+        "size": 9835,
+        "sha256": "c7bd976f3b8f6de97bd4af86387e7e6827bf220de2485bc44554f74ac5e64f7f",
+        "ext": ".json"
       },
       {
         "path": "_analysis/app_gradle.read.txt",
