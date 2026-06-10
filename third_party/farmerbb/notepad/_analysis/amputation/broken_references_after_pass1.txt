@@ -1,0 +1,54 @@
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt:28:import com.github.k1rakishou.fsaf.FileChooser
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt:29:import com.github.k1rakishou.fsaf.callback.FSAFActivityCallbacks
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt:35:    private val fileChooser: FileChooser = get()
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt:67:    override fun fsafStartActivityForResult(intent: Intent, requestCode: Int) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/di/NotepadModule.kt:29:import com.github.k1rakishou.fsaf.FileChooser
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/di/NotepadModule.kt:30:import com.github.k1rakishou.fsaf.FileManager
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/di/NotepadModule.kt:52:    single { FileChooser(appContext = androidContext()) }
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/model/ExportedNotesDirectory.kt:19:import com.github.k1rakishou.fsaf.manager.base_directory.BaseDirectory
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/components/AlertDialogs.kt:68:    checkForUpdates: () -> Unit
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/components/AlertDialogs.kt:82:                onClick = checkForUpdates,
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/components/Menus.kt:76:fun StandaloneEditorMenu(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:241:        vm.exportSingleNote(metadata, exportedText, filenameFormat)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:278:            checkForUpdates = {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:280:                vm.checkForUpdates()
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:481:                            vm.importNotes()
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:489:                            vm.exportAllNotes()
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:634:                    vm.exportNotes(notes, filenameFormat)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt:23:import com.farmerbb.notepad.ui.components.StandaloneEditorMenu
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt:29:fun StandaloneEditorRoute(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt:39:        StandaloneEditor(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt:48:private fun StandaloneEditor(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt:144:                    StandaloneEditorMenu(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/utils/ContextExtensions.kt:30:fun Context.checkForUpdates() {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/utils/ContextExtensions.kt:52:fun Context.showShareSheet(text: String) = try {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:35:import com.farmerbb.notepad.usecase.ArtVandelay
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:36:import com.farmerbb.notepad.usecase.DataMigrator
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:40:import com.farmerbb.notepad.utils.checkForUpdates
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:41:import com.farmerbb.notepad.utils.deserializeNoteJson
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:42:import com.farmerbb.notepad.utils.serializeNotes
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:43:import com.farmerbb.notepad.utils.showShareSheet
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:74:    private val dataMigrator: DataMigrator,
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:76:    private val artVandelay: ArtVandelay,
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:180:            context.showShareSheet(text)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:184:    fun checkForUpdates() = context.checkForUpdates()
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:318:    fun importNotes() = withArtVandelay(PLAIN_TEXT) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:321:        importNotes(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:338:    fun importAllNotes() = withArtVandelay(JSON) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:348:    fun exportAllNotes() = viewModelScope.launch(Dispatchers.IO) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:354:        withArtVandelay(JSON) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:355:            exportAllNotes { output ->
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:366:    fun exportNotes(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:380:            exportSingleNote(note.metadata, note.text, filenameFormat)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:386:        withArtVandelay(PLAIN_TEXT) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:387:            exportNotes(hydratedNotes, filenameFormat, ::clearSelectedNotes) { output, text ->
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:403:    fun exportSingleNote(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:409:            withArtVandelay(PLAIN_TEXT) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:410:                exportSingleNote(metadata, filenameFormat) { output->
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:472:                    val deserializedNotes = deserializeNoteJson(text)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:493:                it.writeUtf8(serializeNotes(notes))
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:542:    private fun withArtVandelay(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:544:        callback: ArtVandelay.() -> Unit,
+third_party/farmerbb/notepad/app/build.gradle.kts:110:    implementation(libs.fsaf)
+third_party/farmerbb/notepad/gradle/libs.versions.toml:26:fsaf = "v1.1.3"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:79:fsaf = { module = "com.github.K1rakishou:Fuck-Storage-Access-Framework", version.ref = "fsaf" }

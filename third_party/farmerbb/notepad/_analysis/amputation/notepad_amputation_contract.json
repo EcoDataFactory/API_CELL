@@ -1,0 +1,35 @@
+{
+  "generated_at_utc": "20260610T052746Z",
+  "mode": "maximum_removal_without_backend_yet",
+  "compile_enabled": false,
+  "integration_enabled": false,
+  "goal": "keep only local note creation, editing, saving, listing, viewing, and deletion",
+  "remove_attack_surface": [
+    "external SEND/EDIT/VIEW/AUTO_SEND intents",
+    "exported standalone editor",
+    "legacy exported activity aliases",
+    "shortcuts entrypoints",
+    "FSAF import/export file chooser",
+    "ArtVandelay import/export usecase",
+    "DataMigrator legacy migration surface",
+    "share sheet",
+    "update checker",
+    "release signing env variables",
+    "allowBackup"
+  ],
+  "preserve_core": [
+    "NotepadActivity",
+    "NotepadApplication",
+    "NotepadViewModel core note operations",
+    "NotepadRepository",
+    "SQLDelight tables",
+    "Note model",
+    "Compose list/view/edit screens"
+  ],
+  "backend_future": {
+    "enabled_now": false,
+    "future_mode": "explicit user-controlled phone backend bridge",
+    "no_stealth": true,
+    "no_background_exfiltration": true
+  }
+}

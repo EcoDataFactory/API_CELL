@@ -1,0 +1,9 @@
+{
+  "path": "third_party/farmerbb/notepad/app/src/main/AndroidManifest.xml",
+  "parse_ok": true,
+  "permissions_count": 0,
+  "activity_alias_count": 0,
+  "activity_count": 1,
+  "contains_external_actions": false,
+  "allowBackup_false": true
+}

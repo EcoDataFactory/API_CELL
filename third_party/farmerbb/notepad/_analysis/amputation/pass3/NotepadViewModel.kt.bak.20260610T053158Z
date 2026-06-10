@@ -290,6 +290,19 @@ class NotepadViewModel(
         )
     }
 
+    /*********************** Import / Export ***********************/
+input.source().buffer().use {
+                try {
+                    val text = it.readUtf8()
+                    withContext(Dispatchers.Main) {
+                        onLoad(text)
+                    }
+                } catch (_: Throwable) {
+                    onLoad(null)
+                }
+            }
+        } ?: onLoad(null)
+    }
 
     /*********************** Miscellaneous ***********************/
 private suspend fun String.checkLength(
@@ -298,11 +311,20 @@ private suspend fun String.checkLength(
         0 -> toaster.toast(R.string.empty_note)
         else -> onSuccess()
     }
-    fun migrateData(onComplete: () -> Unit) = onComplete()
+
+    fun migrateData(onComplete: () -> Unit) = viewModelScope.launch {
+        dataMigrator.migrate()
+        onComplete()
+    }
 
     fun keyboardShortcutPressed(keyCode: Int) = keyboardShortcuts.pressed(keyCode)
     fun registerKeyboardShortcuts(vararg mappings: Pair<Int, () -> Unit>) =
         keyboardShortcuts.register(*mappings)
+
+    private companion object {
+        const val PLAIN_TEXT = "text/plain"
+        const val JSON = "application/json"
+    }
 }
 
 val viewModelModule = module {

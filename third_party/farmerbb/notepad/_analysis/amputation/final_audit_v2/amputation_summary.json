@@ -1,0 +1,29 @@
+{
+  "compile_enabled": false,
+  "integration_enabled": false,
+  "status": "amputated_static_audit_v2_passed",
+  "file_count": 146,
+  "kotlin_file_count": 25,
+  "xml_file_count": 36,
+  "core_remaining": [
+    "NotepadActivity",
+    "NotepadApplication",
+    "NotepadViewModel",
+    "NotepadRepository",
+    "SQLDelight local database",
+    "Compose list/view/edit UI"
+  ],
+  "removed_surface": [
+    "external intent aliases",
+    "StandaloneEditorActivity",
+    "SEND/EDIT/VIEW/AUTO_SEND handlers",
+    "FSAF",
+    "ArtVandelay import/export",
+    "DataMigrator",
+    "Serialization import/export JSON",
+    "share sheet/update checker",
+    "debug/release shortcuts",
+    "release signing env block",
+    "allowBackup=true"
+  ]
+}

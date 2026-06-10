@@ -52,6 +52,8 @@ import kotlinx.coroutines.withContext
 import org.koin.core.module.dsl.new
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
+import java.text.SimpleDateFormat
+import java.util.Locale
 import java.util.Date
 
 class NotepadViewModel(
@@ -290,19 +292,250 @@ class NotepadViewModel(
         )
     }
 
+    /*********************** Import / Export ***********************/
+
+    fun importNotes() = withArtVandelay(PLAIN_TEXT) {
+        var notesToImport = -1
+
+        importNotes(
+            onNotesSelected = { size -> notesToImport = size }
+        ) { input, filePath ->
+            saveImportedNote(
+                input = input,
+                filePath = filePath,
+                onError = { showToast(R.string.error_importing_notes) },
+                onComplete = {
+                    notesToImport--
+                    if (notesToImport == 0) {
+                        showToast(R.string.notes_imported_successfully)
+                    }
+                },
+            )
+        }
+    }
+
+    fun importAllNotes() = withArtVandelay(JSON) {
+        importAllNotes { input ->
+            saveImportedNotes(
+                input = input,
+                onError = { showToast(R.string.error_importing_notes) },
+                onComplete = { showToast(R.string.notes_imported_successfully) },
+            )
+        }
+    }
+
+    fun exportAllNotes() = viewModelScope.launch(Dispatchers.IO) {
+        val allNoteMetadata = noteMetadata.first()
+        val hydratedNotes = repo.getNotes(
+            allNoteMetadata
+        )
+
+        withArtVandelay(JSON) {
+            exportAllNotes { output ->
+                saveExportedNotes(
+                    output = output,
+                    notes = hydratedNotes,
+                    onError = { showToast(R.string.error_exporting_notes) },
+                    onComplete = { showToast(R.string.notes_exported_to) },
+                )
+            }
+        }
+    }
+
+    fun exportNotes(
+        metadata: List<NoteMetadata>,
+        filenameFormat: FilenameFormat
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        val hydratedNotes = repo.getNotes(
+            metadata.filter {
+                selectedNotes.getOrDefault(it.metadataId, false)
+            }
+        ).also {
+            clearSelectedNotes()
+        }
+
+        if (hydratedNotes.size == 1) {
+            val note = hydratedNotes.first()
+            exportSingleNote(note.metadata, note.text, filenameFormat)
+            return@launch
+        }
+
+        var notesToImport = hydratedNotes.size
+
+        withArtVandelay(PLAIN_TEXT) {
+            exportNotes(hydratedNotes, filenameFormat, ::clearSelectedNotes) { output, text ->
+                saveExportedNote(
+                    output = output,
+                    text = text,
+                    onError = { showToast(R.string.error_exporting_notes) },
+                    onComplete = {
+                        notesToImport--
+                        if (notesToImport == 0) {
+                            showToast(R.string.notes_exported_to)
+                        }
+                    },
+                )
+            }
+        }
+    }
+
+    fun exportSingleNote(
+        metadata: NoteMetadata,
+        text: String,
+        filenameFormat: FilenameFormat
+    ) = viewModelScope.launch {
+        text.checkLength {
+            withArtVandelay(PLAIN_TEXT) {
+                exportSingleNote(metadata, filenameFormat) { output->
+                    saveExportedNote(
+                        output = output,
+                        text = text,
+                        onError = { showToast(R.string.error_exporting_notes) },
+                        onComplete = { showToast(R.string.note_exported_to) },
+                    )
+                }
+            }
+        }
+    }
+
+    private fun parseDateFromFileName(filePath: String): Date? {
+        // Extracting the filename from the full path
+        val fileName = filePath.substring(filePath.lastIndexOf('/') + 1)
+
+        // Pattern to match the date in the filename
+        val datePattern = Regex("\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}")
+
+        // Trying to find the date in the filename
+        val matchResult = datePattern.find(fileName)
+        return matchResult?.value?.let { dateString ->
+            try {
+                SimpleDateFormat("yyyy-MM-dd-HH-mm", Locale.getDefault()).parse(dateString)
+            } catch (_: Exception) {
+                null // Return null if the date cannot be parsed
+            }
+        }
+    }
+
+    private fun saveImportedNote(
+        input: InputStream,
+        filePath: String,
+        onError: () -> Unit,
+        onComplete: () -> Unit,
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        input.source().buffer().use {
+            try {
+                val text = it.readUtf8()
+                if (text.isNotEmpty()) {
+                    val modifiedDate = parseDateFromFileName(filePath)
+                    // If the modified date couldn't be parsed, use current date
+                    val nonNullModifiedDate: Date = modifiedDate ?: Date()
+                    repo.saveNote(text = text, date = nonNullModifiedDate)
+                }
+
+                onComplete()
+            } catch (_: Throwable) {
+                onError()
+            }
+        }
+    }
+
+    private fun saveImportedNotes(
+        input: InputStream,
+        onError: () -> Unit,
+        onComplete: () -> Unit,
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        input.source().buffer().use {
+            try {
+                val text = it.readUtf8()
+                if (text.isNotEmpty()) {
+                    val deserializedNotes = deserializeNoteJson(text)
+                    deserializedNotes.forEach { note ->
+                        repo.saveNote(text = note.text, date = note.date)
+                    }
+                }
+
+                onComplete()
+            } catch (_: Throwable) {
+                onError()
+            }
+        }
+    }
+
+    private fun saveExportedNotes(
+        output: OutputStream,
+        notes: List<Note>,
+        onError: () -> Unit,
+        onComplete: () -> Unit,
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        output.sink().buffer().use {
+            try {
+                it.writeUtf8(serializeNotes(notes))
+                onComplete()
+            } catch (_: Throwable) {
+                onError()
+            }
+        }
+    }
+
+    private fun saveExportedNote(
+        output: OutputStream,
+        text: String,
+        onError: () -> Unit,
+        onComplete: () -> Unit,
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        output.sink().buffer().use {
+            try {
+                it.writeUtf8(text)
+                onComplete()
+            } catch (_: Throwable) {
+                onError()
+            }
+        }
+    }
+
+            input.source().buffer().use {
+                try {
+                    val text = it.readUtf8()
+                    withContext(Dispatchers.Main) {
+                        onLoad(text)
+                    }
+                } catch (_: Throwable) {
+                    onLoad(null)
+                }
+            }
+        } ?: onLoad(null)
+    }
 
     /*********************** Miscellaneous ***********************/
-private suspend fun String.checkLength(
+
+    private fun withArtVandelay(
+        mimeType: String,
+        callback: ArtVandelay.() -> Unit,
+    ) {
+        currentMimeType = mimeType
+        with(artVandelay, callback)
+    }
+
+    private suspend fun String.checkLength(
         onSuccess: suspend () -> Unit
     ) = when(length) {
         0 -> toaster.toast(R.string.empty_note)
         else -> onSuccess()
     }
-    fun migrateData(onComplete: () -> Unit) = onComplete()
+
+    fun migrateData(onComplete: () -> Unit) = viewModelScope.launch {
+        dataMigrator.migrate()
+        onComplete()
+    }
 
     fun keyboardShortcutPressed(keyCode: Int) = keyboardShortcuts.pressed(keyCode)
     fun registerKeyboardShortcuts(vararg mappings: Pair<Int, () -> Unit>) =
         keyboardShortcuts.register(*mappings)
+
+    private companion object {
+        const val PLAIN_TEXT = "text/plain"
+        const val JSON = "application/json"
+    }
 }
 
 val viewModelModule = module {

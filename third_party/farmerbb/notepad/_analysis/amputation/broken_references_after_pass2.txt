@@ -1,0 +1,19 @@
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/components/AlertDialogs.kt:81:                onClick = checkForUpdates,
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt:277:            checkForUpdates = {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:297:    fun importNotes() = withArtVandelay(PLAIN_TEXT) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:300:        importNotes(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:317:    fun importAllNotes() = withArtVandelay(JSON) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:327:    fun exportAllNotes() = viewModelScope.launch(Dispatchers.IO) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:333:        withArtVandelay(JSON) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:334:            exportAllNotes { output ->
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:345:    fun exportNotes(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:359:            exportSingleNote(note.metadata, note.text, filenameFormat)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:365:        withArtVandelay(PLAIN_TEXT) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:366:            exportNotes(hydratedNotes, filenameFormat, ::clearSelectedNotes) { output, text ->
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:382:    fun exportSingleNote(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:388:            withArtVandelay(PLAIN_TEXT) {
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:389:                exportSingleNote(metadata, filenameFormat) { output->
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:451:                    val deserializedNotes = deserializeNoteJson(text)
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:472:                it.writeUtf8(serializeNotes(notes))
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:511:    private fun withArtVandelay(
+third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt:513:        callback: ArtVandelay.() -> Unit,

@@ -238,7 +238,8 @@ private fun NotepadComposeApp(
     }
     val onExportClick: (NoteMetadata, String) -> Unit = { metadata, exportedText ->
         onDismiss()
-}
+        vm.exportSingleNote(metadata, exportedText, filenameFormat)
+    }
     val onPrintClick: () -> Unit = {
         onDismiss()
 
@@ -274,6 +275,10 @@ private fun NotepadComposeApp(
             onDismiss = {
                 showAboutDialog = false
             },
+            checkForUpdates = {
+                showAboutDialog = false
+                vm.checkForUpdates()
+            }
         )
     }
 
@@ -473,15 +478,15 @@ private fun NotepadComposeApp(
                         },
                         onImportClick = {
                             onDismiss()
-                            Unit
+                            vm.importNotes()
                         },
                         onImportAllClick = {
                             onDismiss()
-                            Unit
+                            vm.importAllNotes()
                         },
                         onExportAllClick = {
                             onDismiss()
-                            Unit
+                            vm.exportAllNotes()
                         },
                         onAboutClick = {
                             onDismiss()
@@ -626,7 +631,8 @@ private fun NotepadComposeApp(
             SelectAllButton { vm.selectAllNotes(notes) }
             ExportButton {
                 vm.showToastIf(selectedNotes.isEmpty(), R.string.no_notes_to_export) {
-}
+                    vm.exportNotes(notes, filenameFormat)
+                }
             }
             DeleteButton {
                 vm.showToastIf(

@@ -58,8 +58,20 @@ android {
             "-opt-in=kotlin.RequiresOptIn"
         )
     }
-    buildTypes {
 
+    signingConfigs {
+        create("release") {
+            if(System.getenv("KSTOREFILE") != null) {
+                storeFile = File(System.getenv("KSTOREFILE"))
+            }
+
+            storePassword = System.getenv("KSTOREPWD")
+            keyAlias = System.getenv("KEYALIAS")
+            keyPassword = System.getenv("KEYPWD")
+        }
+    }
+
+    buildTypes {
         debug {
             applicationIdSuffix = ".debug"
             manifestPlaceholders["appName"] = "@string/app_name_debug"
@@ -70,6 +82,7 @@ android {
             isShrinkResources = true
             proguardFiles.add(getDefaultProguardFile("proguard-android-optimize.txt"))
             proguardFiles.add(file("proguard-rules.pro"))
+            signingConfig = signingConfigs.getByName("release")
             manifestPlaceholders["appName"] = "@string/app_name"
 
             applicationVariants.all {
@@ -94,9 +107,12 @@ dependencies {
     implementation(libs.bundles.richtext)
 
     implementation(libs.composePreferences)
+    implementation(libs.fsaf)
+    implementation(libs.linkifyText)
     implementation(libs.okio)
     implementation(libs.sqldelight)
     implementation(libs.systemuicontroller)
+    implementation(libs.kotlinjson)
     debugImplementation(libs.compose.ui.tooling)
     coreLibraryDesugaring(libs.android.coreLibraryDesugaring)
 }
