@@ -1,0 +1,637 @@
+
+### third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt
+/* Copyright 2021 Braden Farmer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@file:Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+
+package com.farmerbb.notepad.android
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
+import android.view.KeyEvent
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.farmerbb.notepad.ui.routes.NotepadComposeAppRoute
+import com.farmerbb.notepad.viewmodel.NotepadViewModel
+import com.github.k1rakishou.fsaf.FileChooser
+import com.github.k1rakishou.fsaf.callback.FSAFActivityCallbacks
+import org.koin.android.ext.android.get
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class NotepadActivity: ComponentActivity(), FSAFActivityCallbacks {
+    private val vm: NotepadViewModel by viewModel()
+    private val fileChooser: FileChooser = get()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fileChooser.setCallbacks(this)
+
+        vm.migrateData {
+            setContent {
+                NotepadComposeAppRoute(
+                    restoredFromState = savedInstanceState != null,
+                )
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        vm.deleteDraft()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!isChangingConfigurations) {
+            vm.saveDraft()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fileChooser.removeCallbacks()
+    }
+
+    override fun fsafStartActivityForResult(intent: Intent, requestCode: Int) {
+        when(intent.action) {
+            Intent.ACTION_OPEN_DOCUMENT -> intent.type = vm.currentMimeType
+            Intent.ACTION_OPEN_DOCUMENT_TREE -> intent.removeExtra(Intent.EXTRA_LOCAL_ONLY)
+        }
+
+        startActivityForResult(intent, requestCode)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        fileChooser.onActivityResult(requestCode, resultCode, data)
+    }
+
+    @SuppressLint("RestrictedApi")
+    override fun dispatchKeyShortcutEvent(event: KeyEvent): Boolean {
+        return if (event.action == KeyEvent.ACTION_DOWN && event.isCtrlPressed) {
+            vm.keyboardShortcutPressed(event.keyCode)
+        } else {
+            super.dispatchKeyShortcutEvent(event)
+        }
+    }
+}
+### third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/StandaloneEditorActivity.kt
+/* Copyright 2022 Braden Farmer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.farmerbb.notepad.android
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.farmerbb.notepad.R
+import com.farmerbb.notepad.ui.routes.StandaloneEditorRoute
+import com.farmerbb.notepad.viewmodel.NotepadViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class StandaloneEditorActivity: ComponentActivity() {
+    private val vm: NotepadViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        when(intent.action) {
+            Intent.ACTION_MAIN -> openEditor()
+
+            Intent.ACTION_SEND -> checkPlainText {
+                getExternalContent()?.let(::openEditor) ?: externalContentFailed()
+            }
+
+            Intent.ACTION_EDIT -> checkPlainText {
+                intent.getStringExtra(Intent.EXTRA_TEXT)?.let(::openEditor) ?: externalContentFailed()
+            }
+
+            Intent.ACTION_VIEW -> checkPlainText {
+                vm.loadFileFromIntent(intent) { file ->
+                    file?.let(::openEditor) ?: externalContentFailed()
+                }
+            }
+
+            else -> externalContentFailed()
+        }
+    }
+
+    private fun checkPlainText(onSuccess: () -> Unit) =
+        if (intent.type == "text/plain") onSuccess() else externalContentFailed()
+
+    private fun getExternalContent(): String? {
+        val text = intent.getStringExtra(Intent.EXTRA_TEXT) ?: return null
+        val subject = intent.getStringExtra(Intent.EXTRA_SUBJECT) ?: return text
+        return "$subject\n\n$text".trim()
+    }
+
+    private fun externalContentFailed() = run {
+        Toast.makeText(this, R.string.loading_external_file, Toast.LENGTH_LONG).show()
+        finish()
+    }
+
+    private fun openEditor(initialText: String = "") {
+        setContent {
+            StandaloneEditorRoute(
+                initialText = initialText
+            ) { finish() }
+        }
+    }
+}
+### third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/android/NotepadApplication.kt
+/* Copyright 2021 Braden Farmer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.farmerbb.notepad.android
+
+import android.app.Application
+import com.farmerbb.notepad.di.notepadModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
+
+class NotepadApplication: Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@NotepadApplication)
+            modules(notepadModule)
+        }
+    }
+}
+### third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt
+/* Copyright 2021 Braden Farmer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@file:OptIn(
+    ExperimentalCoroutinesApi::class,
+    FlowPreview::class,
+)
+
+package com.farmerbb.notepad.viewmodel
+
+import android.app.Application
+import android.content.Intent
+import androidx.annotation.StringRes
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.farmerbb.notepad.R
+import com.farmerbb.notepad.data.NotepadRepository
+import com.farmerbb.notepad.data.PreferenceManager.Companion.prefs
+import com.farmerbb.notepad.model.FilenameFormat
+import com.farmerbb.notepad.model.Note
+import com.farmerbb.notepad.model.NoteMetadata
+import com.farmerbb.notepad.model.PrefKeys
+import com.farmerbb.notepad.usecase.ArtVandelay
+import com.farmerbb.notepad.usecase.DataMigrator
+import com.farmerbb.notepad.usecase.KeyboardShortcuts
+import com.farmerbb.notepad.usecase.SystemTheme
+import com.farmerbb.notepad.usecase.Toaster
+import com.farmerbb.notepad.utils.checkForUpdates
+import com.farmerbb.notepad.utils.deserializeNoteJson
+import com.farmerbb.notepad.utils.serializeNotes
+import com.farmerbb.notepad.utils.showShareSheet
+import de.schnettler.datastore.manager.DataStoreManager
+import java.io.InputStream
+import java.io.OutputStream
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okio.buffer
+import okio.sink
+import okio.source
+import org.koin.core.module.dsl.new
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.Date
+
+class NotepadViewModel(
+    private val context: Application,
+    private val repo: NotepadRepository,
+    val dataStoreManager: DataStoreManager,
+    private val dataMigrator: DataMigrator,
+    private val toaster: Toaster,
+    private val artVandelay: ArtVandelay,
+    private val keyboardShortcuts: KeyboardShortcuts,
+    systemTheme: SystemTheme
+): ViewModel() {
+
+    /*********************** Data ***********************/
+
+    private val _noteState = MutableStateFlow(Note())
+    val noteState: StateFlow<Note> = _noteState
+
+    private val _text = MutableStateFlow("")
+    val text: StateFlow<String> = _text
+
+    private val selectedNotes = mutableMapOf<Long, Boolean>()
+    private val _selectedNotesFlow = MutableSharedFlow<Map<Long, Boolean>>(
+        replay = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
+    val selectedNotesFlow: SharedFlow<Map<Long, Boolean>> = _selectedNotesFlow
+
+    private val foundNotes = mutableMapOf<Long, Boolean>()
+    private val _foundNotesFlow = MutableSharedFlow<Map<Long, Boolean>>(
+        replay = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
+    val foundNotesFlow: SharedFlow<Map<Long, Boolean>> = _foundNotesFlow
+
+    val noteMetadata get() = prefs.sortOrder.flatMapConcat(repo::noteMetadataFlow)
+    val prefs = dataStoreManager.prefs(viewModelScope, systemTheme)
+
+    private val _savedDraftId = MutableStateFlow<Long?>(null)
+    val savedDraftId: StateFlow<Long?> = _savedDraftId
+    private var savedDraftIdJob: Job? = null
+
+    private var isEditing = false
+
+    var currentMimeType: String = ""
+
+    /*********************** UI Operations ***********************/
+
+    fun setText(text: String) {
+        _text.value = text
+    }
+
+    fun clearNote() {
+        _noteState.value = Note()
+        _text.value = ""
+    }
+
+    fun toggleSelectedNote(id: Long) {
+        selectedNotes[id] = !selectedNotes.getOrDefault(id, false)
+        _selectedNotesFlow.tryEmit(selectedNotes.filterValues { it })
+    }
+
+    fun clearSelectedNotes() {
+        selectedNotes.clear()
+        _selectedNotesFlow.tryEmit(emptyMap())
+    }
+
+    fun selectAllNotes(notes: List<NoteMetadata>) {
+        notes.forEach {
+            selectedNotes[it.metadataId] = true
+        }
+
+        _selectedNotesFlow.tryEmit(selectedNotes.filterValues { it })
+    }
+
+    fun setAllNotesAsFound(notes: List<NoteMetadata>) {
+        notes.forEach {
+            foundNotes[it.metadataId] = true
+        }
+
+        _foundNotesFlow.tryEmit(foundNotes.filterValues { it })
+    }
+
+    fun setSomeNotesAsNotFound(
+        notes: List<NoteMetadata>,
+        searchTerm: String,
+    ) {
+        // This is where the actual search is done
+        setAllNotesAsFound(notes)
+        repo.getNotes(notes).forEach {
+            if(!it.text.contains(searchTerm, ignoreCase = true)) {
+                foundNotes[it.id] = false
+            }
+        }
+
+        _foundNotesFlow.tryEmit(foundNotes.filterValues { it })
+    }
+
+    fun showToast(@StringRes text: Int) = viewModelScope.launch {
+        toaster.toast(text)
+    }
+
+    fun showToastIf(
+        condition: Boolean,
+        @StringRes text: Int,
+        block: () -> Unit
+    ) = viewModelScope.launch {
+        toaster.toastIf(condition, text, block)
+    }
+
+    fun shareNote(text: String) = viewModelScope.launch {
+        text.checkLength {
+            context.showShareSheet(text)
+        }
+    }
+
+    fun checkForUpdates() = context.checkForUpdates()
+
+    fun setIsEditing(value: Boolean) {
+        isEditing = value
+    }
+
+    /*********************** Database Operations ***********************/
+
+    fun getSavedDraftId() {
+        savedDraftIdJob = viewModelScope.launch(Dispatchers.IO) {
+            repo.savedDraftId.collect { id ->
+                _savedDraftId.value = id
+
+                if (id != -1L) {
+                    toaster.toast(R.string.draft_restored)
+                }
+
+                savedDraftIdJob?.cancel()
+            }
+        }
+    }
+
+    fun getNote(id: Long?) = viewModelScope.launch(Dispatchers.IO) {
+        id?.let {
+            _noteState.value = repo.getNote(it)
+
+            if (text.value.isEmpty()) {
+                _text.value = with(noteState.value) {
+                    draftText.ifEmpty { text }
+                }
+            }
+        } ?: run {
+            _noteState.value = Note()
+        }
+    }
+
+    fun deleteSelectedNotes(
+        onSuccess: () -> Unit
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        selectedNotes.filterValues { it }.keys.let { ids ->
+            repo.deleteNotes(ids.toList()) {
+                clearSelectedNotes()
+
+                val toastId = when (ids.size) {
+                    1 -> R.string.note_deleted
+                    else -> R.string.notes_deleted
+                }
+
+                toaster.toast(toastId)
+                onSuccess()
+            }
+        }
+    }
+
+    fun deleteNote(
+        id: Long,
+        onSuccess: () -> Unit
+
+### third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/data/NotepadRepository.kt
+/* Copyright 2021 Braden Farmer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.farmerbb.notepad.data
+
+import com.farmerbb.notepad.Database
+import com.farmerbb.notepad.model.CrossRef
+import com.farmerbb.notepad.model.Defaults
+import com.farmerbb.notepad.model.Note
+import com.farmerbb.notepad.model.NoteContents
+import com.farmerbb.notepad.model.NoteMetadata
+import com.farmerbb.notepad.model.SortOrder
+import com.farmerbb.notepad.model.SortOrder.DateAscending
+import com.farmerbb.notepad.model.SortOrder.DateDescending
+import com.farmerbb.notepad.model.SortOrder.TitleAscending
+import com.farmerbb.notepad.model.SortOrder.TitleDescending
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
+import java.text.Collator
+import java.util.Date
+import kotlinx.coroutines.flow.map
+
+class NotepadRepository(
+    private val database: Database
+) {
+    val savedDraftId get() = database.noteMetadataQueries.getDraftId()
+        .asFlow()
+        .mapToList()
+        .map {
+            it.firstOrNull() ?: -1L
+        }
+
+    fun noteMetadataFlow(order: SortOrder) = with(database.noteMetadataQueries) {
+        when(order) {
+            DateDescending -> getSortedByDateDescending().asFlow().mapToList()
+            DateAscending -> getSortedByDateAscending().asFlow().mapToList()
+            TitleDescending, TitleAscending -> {
+                // Use collator for locale-aware, case-insensitive sorting
+                val collator = Collator.getInstance()
+                getUnsorted().asFlow().mapToList().map { notes ->
+                    val sortedNotes = notes.sortedWith { a, b ->
+                        collator.compare(a.title, b.title)
+                    }
+                    if (order == TitleDescending) sortedNotes.reversed() else sortedNotes
+                }
+            }
+        }
+    }
+
+    fun getNote(id: Long): Note = with(database) {
+        transactionWithResult {
+            val metadata = noteMetadataQueries.get(id).executeAsList().lastOrNull() ?: Defaults.metadata
+            val crossRef = crossRefQueries.get(metadata.metadataId).executeAsList().lastOrNull() ?: Defaults.crossRef
+            val contents = noteContentsQueries.get(crossRef.contentsId).executeAsList().lastOrNull() ?: Defaults.contents
+
+            Note(
+                metadata = metadata,
+                contents = contents
+            )
+        }
+    }
+
+    fun getNotes(metadataList: List<NoteMetadata>): List<Note> = with(database) {
+        transactionWithResult {
+            val crossRefList = crossRefQueries.getMultiple(metadataList.map { it.metadataId }).executeAsList()
+            val contentsList = noteContentsQueries.getMultiple(crossRefList.map { it.contentsId }).executeAsList()
+
+            crossRefList.map { crossRef ->
+                Note(
+                    metadata = metadataList.find {
+                        it.metadataId == crossRef.metadataId
+                    } ?: Defaults.metadata,
+                    contents = contentsList.find {
+                        it.contentsId == crossRef.contentsId
+                    } ?: Defaults.contents
+                )
+            }
+        }
+    }
+
+    suspend fun saveNote(
+        id: Long = -1,
+        text: String,
+        date: Date = Date(),
+        draftText: String? = null,
+        onSuccess: suspend (Long) -> Unit = {}
+    ) = try {
+        val crossRef = database.crossRefQueries.get(id).executeAsOneOrNull()
+
+        val metadata = NoteMetadata(
+            metadataId = crossRef?.metadataId ?: -1,
+            title = text.substringBefore("\n"),
+            date = date,
+            hasDraft = draftText != null
+        )
+
+        val contents = NoteContents(
+            contentsId = crossRef?.contentsId ?: -1,
+            text = text,
+            draftText = draftText
+        )
+
+        with(database) {
+            crossRef?.let {
+                noteMetadataQueries.update(metadata)
+                noteContentsQueries.update(contents)
+                onSuccess(id)
+            } ?: run {
+                noteMetadataQueries.insert(metadata)
+                noteContentsQueries.insert(contents)
+
+                val newCrossRef = CrossRef(
+                    metadataId = noteMetadataQueries.getIndex().executeAsOne(),
+                    contentsId = noteContentsQueries.getIndex().executeAsOne()
+                )
+
+                crossRefQueries.insert(newCrossRef)
+                onSuccess(newCrossRef.metadataId)
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
+    suspend fun deleteNote(id: Long, onSuccess: suspend () -> Unit = {}) = try {
+        with(database) {
+            crossRefQueries.get(id).executeAsOneOrNull()?.let {
+                noteMetadataQueries.delete(it.metadataId)
+                noteContentsQueries.delete(it.contentsId)
+                crossRefQueries.delete(id)
+            }
+        }
+
+        onSuccess()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
+    suspend fun deleteNotes(ids: List<Long>, onSuccess: suspend () -> Unit) = try {
+        with(database) {
+            crossRefQueries.getMultiple(ids).executeAsList().let { refs ->
+                noteMetadataQueries.deleteMultiple(refs.map { it.metadataId })
+                noteContentsQueries.deleteMultiple(refs.map { it.contentsId })
+                crossRefQueries.deleteMultiple(ids)
+            }
+        }
+
+        onSuccess()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+### third_party/farmerbb/notepad/app/src/main/java/com/farmerbb/notepad/model/Note.kt
+/* Copyright 2021 Braden Farmer
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.farmerbb.notepad.model
+
+import java.util.Date
+
+data class Note(
+    val metadata: NoteMetadata = Defaults.metadata,
+    private val contents: NoteContents = Defaults.contents
+) {
+    val id: Long get() = metadata.metadataId
+    val text: String get() = contents.text ?: ""
+    val draftText: String get() = contents.draftText ?: ""
+    val title: String get() = metadata.title
+    val date: Date get() = metadata.date
+}

@@ -1,0 +1,90 @@
+
+### third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq
+CREATE TABLE IF NOT EXISTS CrossRef(
+    metadataId INTEGER NOT NULL,
+    contentsId INTEGER NOT NULL,
+    PRIMARY KEY(metadataId, contentsId)
+);
+
+CREATE INDEX IF NOT EXISTS index_CrossRef_contentsId ON CrossRef(contentsId);
+
+insert:
+INSERT OR REPLACE INTO CrossRef(metadataId, contentsId) VALUES ?;
+
+delete:
+DELETE FROM CrossRef WHERE metadataId = :id;
+
+deleteMultiple:
+DELETE FROM CrossRef WHERE metadataId IN ?;
+
+get:
+SELECT * FROM CrossRef WHERE metadataId = :id;
+
+getMultiple:
+SELECT * FROM CrossRef WHERE metadataId IN ?;
+### third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq
+CREATE TABLE IF NOT EXISTS NoteContents(
+    contentsId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    text TEXT,
+    draftText TEXT
+);
+
+update:
+INSERT OR REPLACE INTO NoteContents(contentsId, text, draftText) VALUES ?;
+
+insert:
+INSERT OR REPLACE INTO NoteContents(text, draftText) VALUES ?;
+
+delete:
+DELETE FROM NoteContents WHERE contentsId = :id;
+
+deleteMultiple:
+DELETE FROM NoteContents WHERE contentsId IN ?;
+
+get:
+SELECT * FROM NoteContents WHERE contentsId = :id;
+
+getMultiple:
+SELECT * FROM NoteContents WHERE contentsId IN ?;
+
+getIndex:
+SELECT last_insert_rowid();
+### third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq
+import java.util.Date;
+
+CREATE TABLE IF NOT EXISTS NoteMetadata(
+    metadataId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    title TEXT NOT NULL,
+    date INTEGER AS Date NOT NULL,
+    hasDraft INTEGER AS Boolean NOT NULL
+);
+
+update:
+INSERT OR REPLACE INTO NoteMetadata(metadataId, title, date, hasDraft) VALUES ?;
+
+insert:
+INSERT OR REPLACE INTO NoteMetadata(title, date, hasDraft) VALUES ?;
+
+delete:
+DELETE FROM NoteMetadata WHERE metadataId = :id;
+
+deleteMultiple:
+DELETE FROM NoteMetadata WHERE metadataId IN ?;
+
+getUnsorted:
+SELECT * FROM NoteMetadata;
+
+getSortedByDateDescending:
+SELECT * FROM NoteMetadata ORDER BY date DESC;
+
+getSortedByDateAscending:
+SELECT * FROM NoteMetadata ORDER BY date ASC;
+
+get:
+SELECT * FROM NoteMetadata WHERE metadataId = :id;
+
+getDraftId:
+SELECT metadataId FROM NoteMetadata WHERE hasDraft = 1;
+
+getIndex:
+SELECT last_insert_rowid();

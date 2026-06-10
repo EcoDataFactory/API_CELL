@@ -1,0 +1,74 @@
+third_party/farmerbb/notepad/app/build.gradle.kts:3:plugins {
+third_party/farmerbb/notepad/app/build.gradle.kts:4:    id("com.android.application")
+third_party/farmerbb/notepad/app/build.gradle.kts:5:    id("kotlin-android")
+third_party/farmerbb/notepad/app/build.gradle.kts:6:    id("org.jetbrains.kotlin.plugin.compose") version libs.versions.kotlin.get()
+third_party/farmerbb/notepad/app/build.gradle.kts:7:    id("com.squareup.sqldelight")
+third_party/farmerbb/notepad/app/build.gradle.kts:8:    kotlin("plugin.serialization") version "2.1.0"
+third_party/farmerbb/notepad/app/build.gradle.kts:20:    compileSdk = libs.versions.android.compileSdk.get().toInt()
+third_party/farmerbb/notepad/app/build.gradle.kts:21:    namespace = "com.farmerbb.notepad"
+third_party/farmerbb/notepad/app/build.gradle.kts:24:        applicationId = "com.farmerbb.notepad"
+third_party/farmerbb/notepad/app/build.gradle.kts:25:        minSdk = libs.versions.android.minSdk.get().toInt()
+third_party/farmerbb/notepad/app/build.gradle.kts:26:        targetSdk = libs.versions.android.targetSdk.get().toInt()
+third_party/farmerbb/notepad/app/build.gradle.kts:28:        versionCode = libs.versions.notepad.versionCode.get().toInt()
+third_party/farmerbb/notepad/app/build.gradle.kts:29:        versionName = libs.versions.notepad.versionName.get()
+third_party/farmerbb/notepad/app/build.gradle.kts:47:        compose = true
+third_party/farmerbb/notepad/app/build.gradle.kts:56:    kotlinOptions {
+third_party/farmerbb/notepad/app/build.gradle.kts:58:            "-opt-in=kotlin.RequiresOptIn"
+third_party/farmerbb/notepad/app/build.gradle.kts:76:            applicationIdSuffix = ".debug"
+third_party/farmerbb/notepad/app/build.gradle.kts:91:                        output.outputFileName = "${project.parent?.name}-${defaultConfig.versionName}.apk"
+third_party/farmerbb/notepad/app/build.gradle.kts:103:    implementation(libs.bundles.androidx)
+third_party/farmerbb/notepad/app/build.gradle.kts:104:    implementation(libs.bundles.compose)
+third_party/farmerbb/notepad/app/build.gradle.kts:105:    implementation(libs.bundles.coroutines)
+third_party/farmerbb/notepad/app/build.gradle.kts:106:    implementation(libs.bundles.koin)
+third_party/farmerbb/notepad/app/build.gradle.kts:107:    implementation(libs.bundles.richtext)
+third_party/farmerbb/notepad/app/build.gradle.kts:109:    implementation(libs.composePreferences)
+third_party/farmerbb/notepad/app/build.gradle.kts:110:    implementation(libs.fsaf)
+third_party/farmerbb/notepad/app/build.gradle.kts:111:    implementation(libs.linkifyText)
+third_party/farmerbb/notepad/app/build.gradle.kts:112:    implementation(libs.okio)
+third_party/farmerbb/notepad/app/build.gradle.kts:113:    implementation(libs.sqldelight)
+third_party/farmerbb/notepad/app/build.gradle.kts:114:    implementation(libs.systemuicontroller)
+third_party/farmerbb/notepad/app/build.gradle.kts:115:    implementation(libs.kotlinjson)
+third_party/farmerbb/notepad/app/build.gradle.kts:116:    debugImplementation(libs.compose.ui.tooling)
+third_party/farmerbb/notepad/build.gradle.kts:11:        classpath(libs.gradle.kotlin)
+third_party/farmerbb/notepad/build.gradle.kts:12:        classpath(libs.gradle.sqldelight)
+third_party/farmerbb/notepad/build.gradle.kts:16:plugins {
+third_party/farmerbb/notepad/build.gradle.kts:17:    id("com.github.ben-manes.versions") version libs.versions.versionsPlugin.get()
+third_party/farmerbb/notepad/gradle/libs.versions.toml:4:notepad-versionCode = "122"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:5:notepad-versionName = "3.0.6"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:8:android-compileSdk = "36"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:11:android-minSdk = "21"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:12:android-targetSdk = "35" # TODO need to properly handle window insets before bumping to 36
+third_party/farmerbb/notepad/gradle/libs.versions.toml:23:compose = "1.9.1"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:24:composePreferences = "0.1.5-9"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:28:kotlin = "2.2.20"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:33:sqldelight = "1.5.5"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:35:kotlinjson = "1.9.0"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:43:gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:44:gradle-sqldelight = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqldelight" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:53:compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:54:compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:55:compose-koin = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:56:compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:57:compose-material-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIcons" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:58:compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:59:compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:60:compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:61:compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:64:coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:65:coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:66:coroutines-sqldelight = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:73:richtext-commonmark = { module = "com.halilibo.compose-richtext:richtext-commonmark", version.ref = "richtext" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:74:richtext-printing = { module = "com.halilibo.compose-richtext:printing", version.ref = "richtext" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:78:composePreferences = { module = "com.github.NoelChew.ComposePreferences:preferences-material", version.ref = "composePreferences" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:82:sqldelight = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
+third_party/farmerbb/notepad/gradle/libs.versions.toml:84:kotlinjson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinjson"}
+third_party/farmerbb/notepad/gradle/libs.versions.toml:98:compose = [
+third_party/farmerbb/notepad/gradle/libs.versions.toml:99:    "compose-activity",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:100:    "compose-foundation",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:101:    "compose-koin",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:102:    "compose-material",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:103:    "compose-material-icons",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:104:    "compose-ui",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:105:    "compose-ui-tooling-preview",
+third_party/farmerbb/notepad/gradle/libs.versions.toml:106:    "compose-viewmodel"
+third_party/farmerbb/notepad/gradle/libs.versions.toml:112:    "coroutines-sqldelight"

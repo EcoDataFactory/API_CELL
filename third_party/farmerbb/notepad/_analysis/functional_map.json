@@ -1,0 +1,1389 @@
+{
+  "manifest": {
+    "path": "app/src/main/AndroidManifest.xml",
+    "permissions": [],
+    "activities": [
+      "com.farmerbb.notepad.MainActivity",
+      "com.farmerbb.notepad.activity.NoteEditActivity",
+      "com.farmerbb.notepad.android.NotepadActivity",
+      "com.farmerbb.notepad.android.StandaloneEditorActivity"
+    ]
+  },
+  "gradle": {
+    "app_gradle": "app/build.gradle.kts",
+    "plugins_raw": [
+      [
+        "",
+        "com.android.application"
+      ],
+      [
+        "",
+        "kotlin-android"
+      ],
+      [
+        "",
+        "org.jetbrains.kotlin.plugin.compose"
+      ],
+      [
+        "",
+        "com.squareup.sqldelight"
+      ]
+    ],
+    "dependencies_raw": [
+      [
+        "libs.bundles.androidx",
+        "",
+        ""
+      ],
+      [
+        "libs.bundles.compose",
+        "",
+        ""
+      ],
+      [
+        "libs.bundles.coroutines",
+        "",
+        ""
+      ],
+      [
+        "libs.bundles.koin",
+        "",
+        ""
+      ],
+      [
+        "libs.bundles.richtext",
+        "",
+        ""
+      ],
+      [
+        "libs.composePreferences",
+        "",
+        ""
+      ],
+      [
+        "libs.fsaf",
+        "",
+        ""
+      ],
+      [
+        "libs.linkifyText",
+        "",
+        ""
+      ],
+      [
+        "libs.okio",
+        "",
+        ""
+      ],
+      [
+        "libs.sqldelight",
+        "",
+        ""
+      ],
+      [
+        "libs.systemuicontroller",
+        "",
+        ""
+      ],
+      [
+        "libs.kotlinjson",
+        "",
+        ""
+      ],
+      [
+        "",
+        "libs.compose.ui.tooling",
+        ""
+      ]
+    ]
+  },
+  "kotlin": {
+    "file_count": 35,
+    "files": [
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "NotepadActivity"
+          }
+        ],
+        "function_count": 7,
+        "functions": [
+          "onCreate",
+          "onStart",
+          "onStop",
+          "onDestroy",
+          "fsafStartActivityForResult",
+          "onActivityResult",
+          "dispatchKeyShortcutEvent"
+        ],
+        "import_count": 12,
+        "imports_sample": [
+          "android.annotation.SuppressLint",
+          "android.content.Intent",
+          "android.os.Bundle",
+          "android.view.KeyEvent",
+          "androidx.activity.ComponentActivity",
+          "androidx.activity.compose.setContent",
+          "com.farmerbb.notepad.ui.routes.NotepadComposeAppRoute",
+          "com.farmerbb.notepad.viewmodel.NotepadViewModel",
+          "com.github.k1rakishou.fsaf.FileChooser",
+          "com.github.k1rakishou.fsaf.callback.FSAFActivityCallbacks",
+          "org.koin.android.ext.android.get",
+          "org.koin.androidx.viewmodel.ext.android.viewModel"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/android/NotepadApplication.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "NotepadApplication"
+          }
+        ],
+        "function_count": 1,
+        "functions": [
+          "onCreate"
+        ],
+        "import_count": 4,
+        "imports_sample": [
+          "android.app.Application",
+          "com.farmerbb.notepad.di.notepadModule",
+          "org.koin.android.ext.koin.androidContext",
+          "org.koin.core.context.GlobalContext.startKoin"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/android/StandaloneEditorActivity.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "StandaloneEditorActivity"
+          }
+        ],
+        "function_count": 5,
+        "functions": [
+          "onCreate",
+          "checkPlainText",
+          "getExternalContent",
+          "externalContentFailed",
+          "openEditor"
+        ],
+        "import_count": 9,
+        "imports_sample": [
+          "android.content.Intent",
+          "android.os.Bundle",
+          "android.widget.Toast",
+          "androidx.activity.ComponentActivity",
+          "androidx.activity.compose.setContent",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.ui.routes.StandaloneEditorRoute",
+          "com.farmerbb.notepad.viewmodel.NotepadViewModel",
+          "org.koin.androidx.viewmodel.ext.android.viewModel"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/data/NotepadRepository.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "NotepadRepository"
+          }
+        ],
+        "function_count": 6,
+        "functions": [
+          "noteMetadataFlow",
+          "getNote",
+          "getNotes",
+          "saveNote",
+          "deleteNote",
+          "deleteNotes"
+        ],
+        "import_count": 16,
+        "imports_sample": [
+          "com.farmerbb.notepad.Database",
+          "com.farmerbb.notepad.model.CrossRef",
+          "com.farmerbb.notepad.model.Defaults",
+          "com.farmerbb.notepad.model.Note",
+          "com.farmerbb.notepad.model.NoteContents",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.model.SortOrder",
+          "com.farmerbb.notepad.model.SortOrder.DateAscending",
+          "com.farmerbb.notepad.model.SortOrder.DateDescending",
+          "com.farmerbb.notepad.model.SortOrder.TitleAscending",
+          "com.farmerbb.notepad.model.SortOrder.TitleDescending",
+          "com.squareup.sqldelight.runtime.coroutines.asFlow",
+          "com.squareup.sqldelight.runtime.coroutines.mapToList",
+          "java.text.Collator",
+          "java.util.Date",
+          "kotlinx.coroutines.flow.map"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/data/PreferenceManager.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "PreferenceManager"
+          }
+        ],
+        "function_count": 3,
+        "functions": [
+          "toSortOrder",
+          "toFilenameFormat",
+          "toBoolean"
+        ],
+        "import_count": 13,
+        "imports_sample": [
+          "androidx.compose.ui.text.font.FontFamily",
+          "androidx.compose.ui.unit.sp",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.FilenameFormat",
+          "com.farmerbb.notepad.model.Prefs",
+          "com.farmerbb.notepad.model.SortOrder",
+          "com.farmerbb.notepad.usecase.SystemTheme",
+          "de.schnettler.datastore.manager.DataStoreManager",
+          "de.schnettler.datastore.manager.PreferenceRequest",
+          "kotlinx.coroutines.CoroutineScope",
+          "kotlinx.coroutines.flow.SharingStarted",
+          "kotlinx.coroutines.flow.map",
+          "kotlinx.coroutines.flow.stateIn"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/di/NotepadModule.kt",
+        "declares": [
+          {
+            "kind": "object",
+            "name": "DateAdapter"
+          }
+        ],
+        "function_count": 3,
+        "functions": [
+          "provideDatabase",
+          "decode",
+          "encode"
+        ],
+        "import_count": 19,
+        "imports_sample": [
+          "android.content.Context",
+          "com.farmerbb.notepad.Database",
+          "com.farmerbb.notepad.data.NotepadRepository",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.usecase.artVandelayModule",
+          "com.farmerbb.notepad.usecase.dataMigratorModule",
+          "com.farmerbb.notepad.usecase.keyboardShortcutsModule",
+          "com.farmerbb.notepad.usecase.systemThemeModule",
+          "com.farmerbb.notepad.usecase.toasterModule",
+          "com.farmerbb.notepad.utils.dataStore",
+          "com.farmerbb.notepad.viewmodel.viewModelModule",
+          "com.github.k1rakishou.fsaf.FileChooser",
+          "com.github.k1rakishou.fsaf.FileManager",
+          "com.squareup.sqldelight.ColumnAdapter",
+          "com.squareup.sqldelight.android.AndroidSqliteDriver",
+          "de.schnettler.datastore.manager.DataStoreManager",
+          "java.util.Date",
+          "org.koin.android.ext.koin.androidContext",
+          "org.koin.dsl.module"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/model/Defaults.kt",
+        "declares": [
+          {
+            "kind": "object",
+            "name": "Defaults"
+          }
+        ],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 1,
+        "imports_sample": [
+          "java.util.Date"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/model/ExportedNotesDirectory.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "ExportedNotesDirectory"
+          }
+        ],
+        "function_count": 3,
+        "functions": [
+          "getDirUri",
+          "getDirFile",
+          "currentActiveBaseDirType"
+        ],
+        "import_count": 2,
+        "imports_sample": [
+          "android.net.Uri",
+          "com.github.k1rakishou.fsaf.manager.base_directory.BaseDirectory"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/model/NavState.kt",
+        "declares": [
+          {
+            "kind": "interface",
+            "name": "NavState"
+          },
+          {
+            "kind": "object",
+            "name": "Empty"
+          },
+          {
+            "kind": "data class",
+            "name": "View"
+          },
+          {
+            "kind": "data class",
+            "name": "Edit"
+          }
+        ],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 4,
+        "imports_sample": [
+          "androidx.compose.runtime.MutableState",
+          "androidx.compose.runtime.mutableStateOf",
+          "androidx.compose.runtime.saveable.Saver",
+          "androidx.compose.ui.geometry.Offset"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/model/Note.kt",
+        "declares": [
+          {
+            "kind": "data class",
+            "name": "Note"
+          }
+        ],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 1,
+        "imports_sample": [
+          "java.util.Date"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/model/Prefs.kt",
+        "declares": [
+          {
+            "kind": "object",
+            "name": "PrefKeys"
+          },
+          {
+            "kind": "object",
+            "name": "Prefs"
+          },
+          {
+            "kind": "object",
+            "name": "Theme"
+          },
+          {
+            "kind": "object",
+            "name": "ColorScheme"
+          },
+          {
+            "kind": "object",
+            "name": "FontType"
+          },
+          {
+            "kind": "object",
+            "name": "FontSize"
+          },
+          {
+            "kind": "object",
+            "name": "SortBy"
+          },
+          {
+            "kind": "object",
+            "name": "ExportFilename"
+          },
+          {
+            "kind": "object",
+            "name": "ShowDialogs"
+          },
+          {
+            "kind": "object",
+            "name": "ShowDate"
+          },
+          {
+            "kind": "object",
+            "name": "DirectEdit"
+          },
+          {
+            "kind": "object",
+            "name": "Markdown"
+          },
+          {
+            "kind": "object",
+            "name": "RtlSupport"
+          },
+          {
+            "kind": "object",
+            "name": "ShowDoubleTapMessage"
+          },
+          {
+            "kind": "object",
+            "name": "FirstRun"
+          },
+          {
+            "kind": "object",
+            "name": "FirstLoad"
+          },
+          {
+            "kind": "enum class",
+            "name": "SortOrder"
+          },
+          {
+            "kind": "enum class",
+            "name": "FilenameFormat"
+          }
+        ],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 4,
+        "imports_sample": [
+          "androidx.datastore.preferences.core.booleanPreferencesKey",
+          "androidx.datastore.preferences.core.intPreferencesKey",
+          "androidx.datastore.preferences.core.stringPreferencesKey",
+          "de.schnettler.datastore.manager.PreferenceRequest"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/model/ReleaseType.kt",
+        "declares": [
+          {
+            "kind": "enum class",
+            "name": "ReleaseType"
+          }
+        ],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 0,
+        "imports_sample": []
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/components/AlertDialogs.kt",
+        "declares": [],
+        "function_count": 5,
+        "functions": [
+          "DeleteDialog",
+          "AboutDialog",
+          "SaveDialog",
+          "FirstRunDialog",
+          "FirstViewDialog"
+        ],
+        "import_count": 7,
+        "imports_sample": [
+          "androidx.compose.material.AlertDialog",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.ui.window.DialogProperties",
+          "com.farmerbb.notepad.BuildConfig",
+          "com.farmerbb.notepad.R",
+          "java.util.Calendar",
+          "java.util.TimeZone"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/components/IconButtons.kt",
+        "declares": [],
+        "function_count": 10,
+        "functions": [
+          "BackButton",
+          "EditButton",
+          "SaveButton",
+          "DeleteButton",
+          "MoreButton",
+          "MultiSelectButton",
+          "SelectAllButton",
+          "ExportButton",
+          "SearchTextField",
+          "SearchNotesButton"
+        ],
+        "import_count": 28,
+        "imports_sample": [
+          "androidx.compose.foundation.layout.fillMaxWidth",
+          "androidx.compose.material.Icon",
+          "androidx.compose.material.IconButton",
+          "androidx.compose.material.Text",
+          "androidx.compose.material.TextField",
+          "androidx.compose.material.TextFieldDefaults",
+          "androidx.compose.material.icons.Icons",
+          "androidx.compose.material.icons.automirrored.filled.ArrowBack",
+          "androidx.compose.material.icons.automirrored.filled.ArrowForward",
+          "androidx.compose.material.icons.automirrored.filled.PlaylistAddCheck",
+          "androidx.compose.material.icons.filled.Delete",
+          "androidx.compose.material.icons.filled.Edit",
+          "androidx.compose.material.icons.filled.MoreVert",
+          "androidx.compose.material.icons.filled.Save",
+          "androidx.compose.material.icons.filled.SdCard",
+          "androidx.compose.material.icons.filled.Search",
+          "androidx.compose.material.icons.filled.SelectAll",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.LaunchedEffect",
+          "androidx.compose.runtime.remember",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.focus.FocusRequester",
+          "androidx.compose.ui.focus.focusRequester",
+          "androidx.compose.ui.graphics.Color",
+          "androidx.compose.ui.platform.LocalLayoutDirection",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.unit.LayoutDirection",
+          "com.farmerbb.notepad.R"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/components/Menus.kt",
+        "declares": [],
+        "function_count": 4,
+        "functions": [
+          "NoteListMenu",
+          "NoteViewEditMenu",
+          "StandaloneEditorMenu",
+          "MenuItem"
+        ],
+        "import_count": 8,
+        "imports_sample": [
+          "androidx.annotation.StringRes",
+          "androidx.compose.foundation.layout.Box",
+          "androidx.compose.material.DropdownMenu",
+          "androidx.compose.material.DropdownMenuItem",
+          "androidx.compose.material.Text",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.ui.res.stringResource",
+          "com.farmerbb.notepad.R"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/components/NotepadTheme.kt",
+        "declares": [],
+        "function_count": 1,
+        "functions": [
+          "NotepadTheme"
+        ],
+        "import_count": 13,
+        "imports_sample": [
+          "androidx.compose.foundation.text.selection.LocalTextSelectionColors",
+          "androidx.compose.foundation.text.selection.TextSelectionColors",
+          "androidx.compose.material.MaterialTheme",
+          "androidx.compose.material.darkColors",
+          "androidx.compose.material.lightColors",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.CompositionLocalProvider",
+          "androidx.compose.runtime.LaunchedEffect",
+          "androidx.compose.ui.platform.LocalLayoutDirection",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.unit.LayoutDirection",
+          "com.farmerbb.notepad.R",
+          "com.google.accompanist.systemuicontroller.rememberSystemUiController"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/components/RtlTextWrapper.kt",
+        "declares": [],
+        "function_count": 1,
+        "functions": [
+          "RtlTextWrapper"
+        ],
+        "import_count": 5,
+        "imports_sample": [
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.CompositionLocalProvider",
+          "androidx.compose.ui.platform.LocalLayoutDirection",
+          "androidx.compose.ui.unit.LayoutDirection",
+          "java.text.Bidi"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/components/Texts.kt",
+        "declares": [],
+        "function_count": 4,
+        "functions": [
+          "AppBarText",
+          "DialogTitle",
+          "DialogText",
+          "DialogButton"
+        ],
+        "import_count": 10,
+        "imports_sample": [
+          "androidx.annotation.StringRes",
+          "androidx.compose.material.Text",
+          "androidx.compose.material.TextButton",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.ui.graphics.Color",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.text.font.FontWeight",
+          "androidx.compose.ui.text.style.TextOverflow",
+          "com.farmerbb.notepad.R"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/content/EditNoteContent.kt",
+        "declares": [],
+        "function_count": 2,
+        "functions": [
+          "EditNoteContent",
+          "EditNoteContentPreview"
+        ],
+        "import_count": 32,
+        "imports_sample": [
+          "androidx.compose.foundation.layout.fillMaxSize",
+          "androidx.compose.foundation.layout.padding",
+          "androidx.compose.foundation.text.BasicText",
+          "androidx.compose.foundation.text.BasicTextField",
+          "androidx.compose.foundation.text.KeyboardOptions",
+          "androidx.compose.foundation.text.input.OutputTransformation",
+          "androidx.compose.foundation.text.input.TextFieldState",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.LaunchedEffect",
+          "androidx.compose.runtime.getValue",
+          "androidx.compose.runtime.mutableStateOf",
+          "androidx.compose.runtime.remember",
+          "androidx.compose.runtime.setValue",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.focus.FocusRequester",
+          "androidx.compose.ui.focus.focusRequester",
+          "androidx.compose.ui.geometry.Offset",
+          "androidx.compose.ui.graphics.Color",
+          "androidx.compose.ui.graphics.SolidColor",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.text.TextLayoutResult",
+          "androidx.compose.ui.text.TextRange",
+          "androidx.compose.ui.text.TextStyle",
+          "androidx.compose.ui.text.input.KeyboardCapitalization",
+          "androidx.compose.ui.text.input.TextFieldValue",
+          "androidx.compose.ui.tooling.preview.Preview",
+          "androidx.compose.ui.unit.dp",
+          "androidx.compose.ui.unit.sp",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.ui.components.RtlTextWrapper",
+          "com.farmerbb.notepad.ui.previews.EditNotePreview",
+          "kotlinx.coroutines.delay"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/content/NoteListContent.kt",
+        "declares": [
+          {
+            "kind": "data class",
+            "name": "ListParams"
+          }
+        ],
+        "function_count": 3,
+        "functions": [
+          "RememberNoteListScrollState",
+          "NoteListContent",
+          "NoteListContentPreview"
+        ],
+        "import_count": 33,
+        "imports_sample": [
+          "androidx.compose.foundation.ExperimentalFoundationApi",
+          "androidx.compose.foundation.background",
+          "androidx.compose.foundation.combinedClickable",
+          "androidx.compose.foundation.layout.Arrangement",
+          "androidx.compose.foundation.layout.Column",
+          "androidx.compose.foundation.layout.fillMaxSize",
+          "androidx.compose.foundation.layout.fillMaxWidth",
+          "androidx.compose.foundation.layout.padding",
+          "androidx.compose.foundation.lazy.LazyColumn",
+          "androidx.compose.foundation.lazy.LazyListState",
+          "androidx.compose.foundation.lazy.itemsIndexed",
+          "androidx.compose.foundation.text.BasicText",
+          "androidx.compose.material.Divider",
+          "androidx.compose.material.Text",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.DisposableEffect",
+          "androidx.compose.runtime.saveable.rememberSaveable",
+          "androidx.compose.ui.Alignment",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.text.TextStyle",
+          "androidx.compose.ui.text.font.FontWeight",
+          "androidx.compose.ui.text.style.TextOverflow",
+          "androidx.compose.ui.tooling.preview.Preview",
+          "androidx.compose.ui.unit.dp",
+          "androidx.compose.ui.unit.sp",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.ui.components.RtlTextWrapper",
+          "com.farmerbb.notepad.ui.previews.NoteListPreview",
+          "java.text.DateFormat",
+          "java.util.Date"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/content/ViewNoteContent.kt",
+        "declares": [],
+        "function_count": 2,
+        "functions": [
+          "ViewNoteContent",
+          "ViewNoteContentPreview"
+        ],
+        "import_count": 36,
+        "imports_sample": [
+          "android.content.ActivityNotFoundException",
+          "android.view.MotionEvent",
+          "androidx.compose.foundation.layout.Box",
+          "androidx.compose.foundation.layout.Column",
+          "androidx.compose.foundation.layout.fillMaxSize",
+          "androidx.compose.foundation.layout.fillMaxWidth",
+          "androidx.compose.foundation.layout.padding",
+          "androidx.compose.foundation.rememberScrollState",
+          "androidx.compose.foundation.text.selection.SelectionContainer",
+          "androidx.compose.foundation.verticalScroll",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.CompositionLocalProvider",
+          "androidx.compose.runtime.compositionLocalOf",
+          "androidx.compose.runtime.getValue",
+          "androidx.compose.runtime.mutableStateOf",
+          "androidx.compose.runtime.remember",
+          "androidx.compose.runtime.setValue",
+          "androidx.compose.ui.ExperimentalComposeUiApi",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.geometry.Offset",
+          "androidx.compose.ui.geometry.Rect",
+          "androidx.compose.ui.graphics.Color",
+          "androidx.compose.ui.input.pointer.pointerInteropFilter",
+          "androidx.compose.ui.platform.LocalDensity",
+          "androidx.compose.ui.platform.LocalUriHandler",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.text.TextStyle",
+          "androidx.compose.ui.tooling.preview.Preview",
+          "androidx.compose.ui.unit.dp",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.ui.components.RtlTextWrapper",
+          "com.farmerbb.notepad.ui.previews.ViewNotePreview",
+          "com.halilibo.richtext.markdown.Markdown",
+          "com.halilibo.richtext.ui.RichText",
+          "com.halilibo.richtext.ui.RichTextThemeIntegration",
+          "com.linkifytext.LinkifyText"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/previews/EditNotePreview.kt",
+        "declares": [],
+        "function_count": 2,
+        "functions": [
+          "EditNote",
+          "EditNotePreview"
+        ],
+        "import_count": 17,
+        "imports_sample": [
+          "androidx.compose.material.MaterialTheme",
+          "androidx.compose.material.Scaffold",
+          "androidx.compose.material.TopAppBar",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.tooling.preview.Preview",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.Note",
+          "com.farmerbb.notepad.model.NoteContents",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.ui.components.AppBarText",
+          "com.farmerbb.notepad.ui.components.BackButton",
+          "com.farmerbb.notepad.ui.components.DeleteButton",
+          "com.farmerbb.notepad.ui.components.NoteViewEditMenu",
+          "com.farmerbb.notepad.ui.components.SaveButton",
+          "com.farmerbb.notepad.ui.content.EditNoteContent",
+          "java.util.Date"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/previews/NoteListPreview.kt",
+        "declares": [],
+        "function_count": 3,
+        "functions": [
+          "NoteList",
+          "NoteListPreview",
+          "NoteListEmptyPreview"
+        ],
+        "import_count": 13,
+        "imports_sample": [
+          "androidx.compose.material.MaterialTheme",
+          "androidx.compose.material.Scaffold",
+          "androidx.compose.material.TopAppBar",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.tooling.preview.Preview",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.ui.components.AppBarText",
+          "com.farmerbb.notepad.ui.components.MoreButton",
+          "com.farmerbb.notepad.ui.content.NoteListContent",
+          "java.util.Date"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/previews/ViewNotePreview.kt",
+        "declares": [],
+        "function_count": 2,
+        "functions": [
+          "ViewNote",
+          "ViewNotePreview"
+        ],
+        "import_count": 17,
+        "imports_sample": [
+          "androidx.compose.material.MaterialTheme",
+          "androidx.compose.material.Scaffold",
+          "androidx.compose.material.TopAppBar",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.tooling.preview.Preview",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.Note",
+          "com.farmerbb.notepad.model.NoteContents",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.ui.components.AppBarText",
+          "com.farmerbb.notepad.ui.components.BackButton",
+          "com.farmerbb.notepad.ui.components.DeleteButton",
+          "com.farmerbb.notepad.ui.components.EditButton",
+          "com.farmerbb.notepad.ui.components.NoteViewEditMenu",
+          "com.farmerbb.notepad.ui.content.ViewNoteContent",
+          "java.util.Date"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/AppSettings.kt",
+        "declares": [],
+        "function_count": 3,
+        "functions": [
+          "SettingsDialog",
+          "NotepadPreferenceScreen",
+          "listPrefEntries"
+        ],
+        "import_count": 21,
+        "imports_sample": [
+          "androidx.annotation.ArrayRes",
+          "androidx.compose.foundation.layout.PaddingValues",
+          "androidx.compose.material.ExperimentalMaterialApi",
+          "androidx.compose.material.MaterialTheme",
+          "androidx.compose.material.Surface",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.ReadOnlyComposable",
+          "androidx.compose.runtime.collectAsState",
+          "androidx.compose.runtime.getValue",
+          "androidx.compose.ui.ExperimentalComposeUiApi",
+          "androidx.compose.ui.res.stringArrayResource",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.unit.dp",
+          "androidx.compose.ui.window.Dialog",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.Prefs",
+          "com.farmerbb.notepad.viewmodel.NotepadViewModel",
+          "de.schnettler.datastore.compose.material.PreferenceScreen",
+          "de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.ListPreference",
+          "de.schnettler.datastore.compose.material.model.Preference.PreferenceItem.SwitchPreference",
+          "org.koin.androidx.compose.koinViewModel"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt",
+        "declares": [],
+        "function_count": 4,
+        "functions": [
+          "NotepadComposeAppRoute",
+          "NotepadComposeApp",
+          "NoteListContentShared",
+          "EmptyDetails"
+        ],
+        "import_count": 79,
+        "imports_sample": [
+          "android.view.KeyEvent",
+          "androidx.activity.compose.BackHandler",
+          "androidx.compose.animation.AnimatedVisibility",
+          "androidx.compose.animation.ExperimentalAnimationApi",
+          "androidx.compose.animation.scaleIn",
+          "androidx.compose.animation.scaleOut",
+          "androidx.compose.foundation.Image",
+          "androidx.compose.foundation.layout.Arrangement",
+          "androidx.compose.foundation.layout.Box",
+          "androidx.compose.foundation.layout.BoxScope",
+          "androidx.compose.foundation.layout.Column",
+          "androidx.compose.foundation.layout.Row",
+          "androidx.compose.foundation.layout.RowScope",
+          "androidx.compose.foundation.layout.fillMaxHeight",
+          "androidx.compose.foundation.layout.fillMaxSize",
+          "androidx.compose.foundation.layout.height",
+          "androidx.compose.foundation.layout.width",
+          "androidx.compose.material.Divider",
+          "androidx.compose.material.FloatingActionButton",
+          "androidx.compose.material.Icon",
+          "androidx.compose.material.Scaffold",
+          "androidx.compose.material.TopAppBar",
+          "androidx.compose.material.icons.Icons",
+          "androidx.compose.material.icons.filled.Add",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.LaunchedEffect",
+          "androidx.compose.runtime.collectAsState",
+          "androidx.compose.runtime.getValue",
+          "androidx.compose.runtime.mutableStateOf",
+          "androidx.compose.runtime.remember",
+          "androidx.compose.runtime.saveable.rememberSaveable",
+          "androidx.compose.runtime.setValue",
+          "androidx.compose.ui.Alignment",
+          "androidx.compose.ui.Modifier",
+          "androidx.compose.ui.draw.alpha",
+          "androidx.compose.ui.graphics.Color",
+          "androidx.compose.ui.hapticfeedback.HapticFeedbackType",
+          "androidx.compose.ui.platform.LocalConfiguration",
+          "androidx.compose.ui.platform.LocalHapticFeedback",
+          "androidx.compose.ui.res.colorResource"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt",
+        "declares": [],
+        "function_count": 2,
+        "functions": [
+          "StandaloneEditorRoute",
+          "StandaloneEditor"
+        ],
+        "import_count": 24,
+        "imports_sample": [
+          "androidx.activity.compose.BackHandler",
+          "androidx.compose.material.Scaffold",
+          "androidx.compose.material.TopAppBar",
+          "androidx.compose.runtime.Composable",
+          "androidx.compose.runtime.collectAsState",
+          "androidx.compose.runtime.getValue",
+          "androidx.compose.runtime.mutableStateOf",
+          "androidx.compose.runtime.saveable.rememberSaveable",
+          "androidx.compose.runtime.setValue",
+          "androidx.compose.ui.res.colorResource",
+          "androidx.compose.ui.res.stringResource",
+          "androidx.compose.ui.text.TextStyle",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.ui.components.AppBarText",
+          "com.farmerbb.notepad.ui.components.BackButton",
+          "com.farmerbb.notepad.ui.components.DeleteButton",
+          "com.farmerbb.notepad.ui.components.DeleteDialog",
+          "com.farmerbb.notepad.ui.components.NotepadTheme",
+          "com.farmerbb.notepad.ui.components.SaveButton",
+          "com.farmerbb.notepad.ui.components.SaveDialog",
+          "com.farmerbb.notepad.ui.components.StandaloneEditorMenu",
+          "com.farmerbb.notepad.ui.content.EditNoteContent",
+          "com.farmerbb.notepad.viewmodel.NotepadViewModel",
+          "org.koin.androidx.compose.koinViewModel"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/usecase/ArtVandelay.kt",
+        "declares": [
+          {
+            "kind": "interface",
+            "name": "ArtVandelay"
+          },
+          {
+            "kind": "class",
+            "name": "ArtVandelayImpl"
+          }
+        ],
+        "function_count": 27,
+        "functions": [
+          "importNotes",
+          "exportNotes",
+          "importAllNotes",
+          "exportAllNotes",
+          "exportSingleNote",
+          "importNotes",
+          "importAllNotes",
+          "exportAllNotes",
+          "exportNotes",
+          "exportSingleNote",
+          "importCallback",
+          "onResult",
+          "onCancel",
+          "importAllCallback",
+          "onResult",
+          "onCancel",
+          "exportAllCallback",
+          "onResult",
+          "onCancel",
+          "exportFolderCallback",
+          "onResult",
+          "onCancel",
+          "exportFileCallback",
+          "onResult",
+          "onCancel",
+          "generateExportFilename",
+          "generateFilename"
+        ],
+        "import_count": 22,
+        "imports_sample": [
+          "android.net.Uri",
+          "com.farmerbb.notepad.model.ExportedNotesDirectory",
+          "com.farmerbb.notepad.model.FilenameFormat",
+          "com.farmerbb.notepad.model.FilenameFormat.TimestampAndTitle",
+          "com.farmerbb.notepad.model.FilenameFormat.TitleAndTimestamp",
+          "com.farmerbb.notepad.model.FilenameFormat.TitleOnly",
+          "com.farmerbb.notepad.model.Note",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.github.k1rakishou.fsaf.FileChooser",
+          "com.github.k1rakishou.fsaf.FileManager",
+          "com.github.k1rakishou.fsaf.callback.FileChooserCallback",
+          "com.github.k1rakishou.fsaf.callback.FileCreateCallback",
+          "com.github.k1rakishou.fsaf.callback.FileMultiSelectChooserCallback",
+          "com.github.k1rakishou.fsaf.callback.directory.DirectoryChooserCallback",
+          "com.github.k1rakishou.fsaf.file.FileSegment",
+          "org.koin.core.module.dsl.new",
+          "java.io.InputStream",
+          "java.io.OutputStream",
+          "java.text.SimpleDateFormat",
+          "java.util.Locale",
+          "java.util.Date",
+          "org.koin.dsl.module"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/usecase/DataMigrator.kt",
+        "declares": [
+          {
+            "kind": "interface",
+            "name": "DataMigrator"
+          },
+          {
+            "kind": "class",
+            "name": "DataMigratorImpl"
+          }
+        ],
+        "function_count": 5,
+        "functions": [
+          "migrate",
+          "migrate",
+          "migratePreferences",
+          "loadNote",
+          "loadDraft"
+        ],
+        "import_count": 21,
+        "imports_sample": [
+          "android.content.Context",
+          "androidx.core.content.edit",
+          "androidx.core.text.isDigitsOnly",
+          "androidx.datastore.preferences.SharedPreferencesMigration",
+          "androidx.datastore.preferences.core.edit",
+          "androidx.datastore.preferences.preferencesDataStore",
+          "com.farmerbb.notepad.Database",
+          "com.farmerbb.notepad.model.CrossRef",
+          "com.farmerbb.notepad.model.NoteContents",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.model.Prefs",
+          "java.io.File",
+          "java.util.Date",
+          "kotlinx.coroutines.CoroutineScope",
+          "kotlinx.coroutines.Dispatchers",
+          "kotlinx.coroutines.Job",
+          "kotlinx.coroutines.withContext",
+          "okio.buffer",
+          "okio.source",
+          "org.koin.android.ext.koin.androidContext",
+          "org.koin.dsl.module"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/usecase/KeyboardShortcuts.kt",
+        "declares": [
+          {
+            "kind": "interface",
+            "name": "KeyboardShortcuts"
+          },
+          {
+            "kind": "class",
+            "name": "KeyboardShortcutsImpl"
+          }
+        ],
+        "function_count": 4,
+        "functions": [
+          "pressed",
+          "register",
+          "pressed",
+          "register"
+        ],
+        "import_count": 1,
+        "imports_sample": [
+          "org.koin.dsl.module"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/usecase/SystemTheme.kt",
+        "declares": [
+          {
+            "kind": "enum class",
+            "name": "ColorScheme"
+          },
+          {
+            "kind": "interface",
+            "name": "SystemTheme"
+          },
+          {
+            "kind": "class",
+            "name": "SystemThemeImpl"
+          }
+        ],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 4,
+        "imports_sample": [
+          "android.content.Context",
+          "android.content.res.Configuration",
+          "org.koin.android.ext.koin.androidContext",
+          "org.koin.dsl.module"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/usecase/Toaster.kt",
+        "declares": [
+          {
+            "kind": "interface",
+            "name": "Toaster"
+          },
+          {
+            "kind": "class",
+            "name": "ToasterImpl"
+          }
+        ],
+        "function_count": 4,
+        "functions": [
+          "toast",
+          "toastIf",
+          "toast",
+          "toastIf"
+        ],
+        "import_count": 7,
+        "imports_sample": [
+          "android.content.Context",
+          "android.widget.Toast",
+          "androidx.annotation.StringRes",
+          "kotlinx.coroutines.Dispatchers",
+          "kotlinx.coroutines.withContext",
+          "org.koin.android.ext.koin.androidContext",
+          "org.koin.dsl.module"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/utils/ContextExtensions.kt",
+        "declares": [],
+        "function_count": 0,
+        "functions": [],
+        "import_count": 11,
+        "imports_sample": [
+          "android.content.ActivityNotFoundException",
+          "android.content.Context",
+          "android.content.Intent",
+          "android.content.pm.PackageManager",
+          "android.content.pm.Signature",
+          "android.net.Uri",
+          "android.util.Base64",
+          "androidx.datastore.preferences.preferencesDataStore",
+          "com.farmerbb.notepad.BuildConfig",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.model.ReleaseType"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/utils/Serialization.kt",
+        "declares": [
+          {
+            "kind": "data class",
+            "name": "SerializableNote"
+          },
+          {
+            "kind": "data class",
+            "name": "DeserializedNote"
+          }
+        ],
+        "function_count": 2,
+        "functions": [
+          "serializeNotes",
+          "deserializeNoteJson"
+        ],
+        "import_count": 6,
+        "imports_sample": [
+          "com.farmerbb.notepad.model.Note",
+          "kotlinx.serialization.Serializable",
+          "kotlinx.serialization.json.Json",
+          "kotlinx.serialization.encodeToString",
+          "java.text.SimpleDateFormat",
+          "java.util.*"
+        ]
+      },
+      {
+        "path": "app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt",
+        "declares": [
+          {
+            "kind": "class",
+            "name": "NotepadViewModel"
+          }
+        ],
+        "function_count": 37,
+        "functions": [
+          "setText",
+          "clearNote",
+          "toggleSelectedNote",
+          "clearSelectedNotes",
+          "selectAllNotes",
+          "setAllNotesAsFound",
+          "setSomeNotesAsNotFound",
+          "showToast",
+          "showToastIf",
+          "shareNote",
+          "checkForUpdates",
+          "setIsEditing",
+          "getSavedDraftId",
+          "getNote",
+          "deleteSelectedNotes",
+          "deleteNote",
+          "saveNote",
+          "saveDraft",
+          "deleteDraft",
+          "firstRunComplete",
+          "firstViewComplete",
+          "doubleTapMessageShown",
+          "importNotes",
+          "importAllNotes",
+          "exportAllNotes",
+          "exportNotes",
+          "exportSingleNote",
+          "parseDateFromFileName",
+          "saveImportedNote",
+          "saveImportedNotes",
+          "saveExportedNotes",
+          "saveExportedNote",
+          "loadFileFromIntent",
+          "withArtVandelay",
+          "migrateData",
+          "keyboardShortcutPressed",
+          "registerKeyboardShortcuts"
+        ],
+        "import_count": 46,
+        "imports_sample": [
+          "android.app.Application",
+          "android.content.Intent",
+          "androidx.annotation.StringRes",
+          "androidx.lifecycle.ViewModel",
+          "androidx.lifecycle.viewModelScope",
+          "com.farmerbb.notepad.R",
+          "com.farmerbb.notepad.data.NotepadRepository",
+          "com.farmerbb.notepad.data.PreferenceManager.Companion.prefs",
+          "com.farmerbb.notepad.model.FilenameFormat",
+          "com.farmerbb.notepad.model.Note",
+          "com.farmerbb.notepad.model.NoteMetadata",
+          "com.farmerbb.notepad.model.PrefKeys",
+          "com.farmerbb.notepad.usecase.ArtVandelay",
+          "com.farmerbb.notepad.usecase.DataMigrator",
+          "com.farmerbb.notepad.usecase.KeyboardShortcuts",
+          "com.farmerbb.notepad.usecase.SystemTheme",
+          "com.farmerbb.notepad.usecase.Toaster",
+          "com.farmerbb.notepad.utils.checkForUpdates",
+          "com.farmerbb.notepad.utils.deserializeNoteJson",
+          "com.farmerbb.notepad.utils.serializeNotes",
+          "com.farmerbb.notepad.utils.showShareSheet",
+          "de.schnettler.datastore.manager.DataStoreManager",
+          "java.io.InputStream",
+          "java.io.OutputStream",
+          "kotlinx.coroutines.Dispatchers",
+          "kotlinx.coroutines.ExperimentalCoroutinesApi",
+          "kotlinx.coroutines.FlowPreview",
+          "kotlinx.coroutines.Job",
+          "kotlinx.coroutines.channels.BufferOverflow",
+          "kotlinx.coroutines.flow.MutableSharedFlow",
+          "kotlinx.coroutines.flow.MutableStateFlow",
+          "kotlinx.coroutines.flow.SharedFlow",
+          "kotlinx.coroutines.flow.StateFlow",
+          "kotlinx.coroutines.flow.flatMapConcat",
+          "kotlinx.coroutines.flow.first",
+          "kotlinx.coroutines.launch",
+          "kotlinx.coroutines.withContext",
+          "okio.buffer",
+          "okio.sink",
+          "okio.source"
+        ]
+      }
+    ]
+  },
+  "sqldelight": {
+    "file_count": 3,
+    "files": [
+      {
+        "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "tables": [
+          "IF"
+        ],
+        "queries": [
+          "insert",
+          "delete",
+          "deleteMultiple",
+          "get",
+          "getMultiple"
+        ]
+      },
+      {
+        "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "tables": [
+          "IF"
+        ],
+        "queries": [
+          "update",
+          "insert",
+          "delete",
+          "deleteMultiple",
+          "get",
+          "getMultiple",
+          "getIndex"
+        ]
+      },
+      {
+        "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "tables": [
+          "IF"
+        ],
+        "queries": [
+          "update",
+          "insert",
+          "delete",
+          "deleteMultiple",
+          "getUnsorted",
+          "getSortedByDateDescending",
+          "getSortedByDateAscending",
+          "get",
+          "getDraftId",
+          "getIndex"
+        ]
+      }
+    ]
+  },
+  "initial_read": {
+    "entrypoints": [
+      "android/NotepadActivity.kt",
+      "android/StandaloneEditorActivity.kt",
+      "android/NotepadApplication.kt"
+    ],
+    "state_layer": [
+      "viewmodel/NotepadViewModel.kt",
+      "data/NotepadRepository.kt",
+      "data/PreferenceManager.kt"
+    ],
+    "model_layer": [
+      "model/Note.kt",
+      "model/Prefs.kt",
+      "model/NavState.kt"
+    ],
+    "ui_layer": [
+      "ui/routes/NotepadComposeApp.kt",
+      "ui/content/NoteListContent.kt",
+      "ui/content/EditNoteContent.kt",
+      "ui/content/ViewNoteContent.kt"
+    ],
+    "migration_export_layer": [
+      "usecase/ArtVandelay.kt",
+      "usecase/DataMigrator.kt"
+    ]
+  }
+}

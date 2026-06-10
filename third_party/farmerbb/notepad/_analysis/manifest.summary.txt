@@ -1,0 +1,29 @@
+20:<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+25:        android:name="android.hardware.touchscreen"
+29:        android:name="android.hardware.type.pc"
+39:    <application
+40:        android:name=".android.NotepadApplication"
+48:        <activity-alias
+49:            android:name="com.farmerbb.notepad.MainActivity"
+53:            <intent-filter>
+54:                <action android:name="android.intent.action.MAIN" />
+56:                <category android:name="android.intent.category.LAUNCHER" />
+57:                <category android:name="android.intent.category.DEFAULT" />
+58:                <category android:name="android.intent.category.APP_MAPS" />
+59:            </intent-filter>
+60:            <meta-data android:name="android.app.shortcuts"
+63:        <activity-alias
+64:            android:name="com.farmerbb.notepad.activity.NoteEditActivity"
+69:            <intent-filter>
+70:                <action android:name="android.intent.action.VIEW" />
+71:                <action android:name="android.intent.action.EDIT" />
+72:                <action android:name="android.intent.action.SEND" />
+73:                <action android:name="com.google.android.gm.action.AUTO_SEND" />
+75:                <category android:name="android.intent.category.DEFAULT" />
+76:                <category android:name="com.google.android.voicesearch.SELF_NOTE" />
+78:                <data android:mimeType="text/plain" />
+79:            </intent-filter>
+82:        <activity
+83:            android:name="com.farmerbb.notepad.android.NotepadActivity"
+87:        <activity
+88:            android:name="com.farmerbb.notepad.android.StandaloneEditorActivity"

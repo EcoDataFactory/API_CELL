@@ -1,0 +1,48 @@
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:1:CREATE TABLE IF NOT EXISTS CrossRef(
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:7:CREATE INDEX IF NOT EXISTS index_CrossRef_contentsId ON CrossRef(contentsId);
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:9:insert:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:10:INSERT OR REPLACE INTO CrossRef(metadataId, contentsId) VALUES ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:12:delete:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:13:DELETE FROM CrossRef WHERE metadataId = :id;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:15:deleteMultiple:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:16:DELETE FROM CrossRef WHERE metadataId IN ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:18:get:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:19:SELECT * FROM CrossRef WHERE metadataId = :id;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:21:getMultiple:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq:22:SELECT * FROM CrossRef WHERE metadataId IN ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:1:CREATE TABLE IF NOT EXISTS NoteContents(
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:7:update:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:8:INSERT OR REPLACE INTO NoteContents(contentsId, text, draftText) VALUES ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:10:insert:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:11:INSERT OR REPLACE INTO NoteContents(text, draftText) VALUES ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:13:delete:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:14:DELETE FROM NoteContents WHERE contentsId = :id;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:16:deleteMultiple:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:17:DELETE FROM NoteContents WHERE contentsId IN ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:19:get:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:20:SELECT * FROM NoteContents WHERE contentsId = :id;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:22:getMultiple:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:23:SELECT * FROM NoteContents WHERE contentsId IN ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:25:getIndex:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq:26:SELECT last_insert_rowid();
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:3:CREATE TABLE IF NOT EXISTS NoteMetadata(
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:10:update:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:11:INSERT OR REPLACE INTO NoteMetadata(metadataId, title, date, hasDraft) VALUES ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:13:insert:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:14:INSERT OR REPLACE INTO NoteMetadata(title, date, hasDraft) VALUES ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:16:delete:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:17:DELETE FROM NoteMetadata WHERE metadataId = :id;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:19:deleteMultiple:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:20:DELETE FROM NoteMetadata WHERE metadataId IN ?;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:22:getUnsorted:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:23:SELECT * FROM NoteMetadata;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:25:getSortedByDateDescending:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:26:SELECT * FROM NoteMetadata ORDER BY date DESC;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:28:getSortedByDateAscending:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:29:SELECT * FROM NoteMetadata ORDER BY date ASC;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:31:get:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:32:SELECT * FROM NoteMetadata WHERE metadataId = :id;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:34:getDraftId:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:35:SELECT metadataId FROM NoteMetadata WHERE hasDraft = 1;
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:37:getIndex:
+third_party/farmerbb/notepad/app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq:38:SELECT last_insert_rowid();
