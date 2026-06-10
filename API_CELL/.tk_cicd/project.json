@@ -19,7 +19,9 @@
     "API_CELL/bin/api-cell-enforcing-gate",
     "API_CELL/.tk_cicd/project.json",
     "API_CELL/ENFORCING_POLICY.json",
-    "API_CELL/ENFORCING_MANIFEST.json"
+    "API_CELL/ENFORCING_MANIFEST.json",
+    "API_CELL/enforcing/negative_vectors.json",
+    "API_CELL/bin/api-cell-negative-vectors"
   ],
   "python_source_roots": [
     "API_CELL/src/api_cell"
@@ -81,8 +83,8 @@
     "name": "api_cell_enforcing_strategy",
     "kind": "local_first_cicd_strategy",
     "purpose": "block promotion unless API_CELL enforcing policy, manifest, map, strategy, tk_cicd, and public boundary all pass",
-    "current_stage": "enforcing_megastage",
-    "next_stage": "negative_enforcement_vectors",
+    "current_stage": "negative_enforcement_vectors",
+    "next_stage": "policy_manifest_runtime_binding",
     "required_enforcing_map": "API_CELL/enforcing/orientation_map.json",
     "required_policy": "API_CELL/ENFORCING_POLICY.json",
     "required_manifest": "API_CELL/ENFORCING_MANIFEST.json",
@@ -97,7 +99,11 @@
       "head_drift_blocks_promotion": true,
       "sensitive_path_blocks_promotion": true,
       "dirty_tree_blocks_promotion": true,
-      "tk_cicd_failure_blocks_promotion": true
-    }
+      "tk_cicd_failure_blocks_promotion": true,
+      "negative_vectors_required": true,
+      "unexpected_negative_vector_success_blocks_promotion": true
+    },
+    "negative_vectors": "API_CELL/enforcing/negative_vectors.json",
+    "negative_vectors_runner": "API_CELL/bin/api-cell-negative-vectors"
   }
 }

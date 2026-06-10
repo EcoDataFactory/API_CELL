@@ -224,12 +224,17 @@ PY
 
 phase "boundary:public"
 
-BAD_TRACKED="$(git ls-files API_CELL | grep -Ei '(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$' || true)"
-BAD_UNTRACKED="$(git ls-files --others --exclude-standard API_CELL | grep -Ei '(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$' || true)"
+SENSITIVE_RE='(^|/)GAM_py(/|$)|(^|/)GAM_CELL_PKI(/|$)|client_secrets|oauth2|token\.json$|\.pem$|\.p12$|\.key$|\.crt$|\.cer$|\.env$|\.master_env$'
 
-if [ -n "$BAD_TRACKED$BAD_UNTRACKED" ]; then
-  echo "$BAD_TRACKED"
-  echo "$BAD_UNTRACKED"
+BAD_TRACKED="$(git ls-files API_CELL | grep -Ei "$SENSITIVE_RE" || true)"
+BAD_UNTRACKED="$(git ls-files --others --exclude-standard API_CELL | grep -Ei "$SENSITIVE_RE" || true)"
+BAD_IGNORED="$(git ls-files --others --ignored --exclude-standard API_CELL | grep -Ei "$SENSITIVE_RE" || true)"
+BAD_FS="$(find API_CELL -type f 2>/dev/null | grep -Ei "$SENSITIVE_RE" || true)"
+
+BAD_ALL="$(printf '%s\n%s\n%s\n%s\n' "$BAD_TRACKED" "$BAD_UNTRACKED" "$BAD_IGNORED" "$BAD_FS" | sed '/^$/d' | sort -u)"
+
+if [ -n "$BAD_ALL" ]; then
+  echo "$BAD_ALL"
   fail "sensitive public material detected"
 fi
 

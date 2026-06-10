@@ -1,0 +1,193 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$ROOT" || exit 1
+
+VECTORS="API_CELL/enforcing/negative_vectors.json"
+GATE="API_CELL/bin/api-cell-enforcing-gate"
+
+export GIT_PAGER=cat
+export PAGER=cat
+export LESS=
+export PYTHONDONTWRITEBYTECODE=1
+
+fail() { echo "[FAIL] $*"; exit 1; }
+ok() { echo "[ OK ] $*"; }
+phase() { echo; echo "--- $1 ---"; }
+
+echo "============================================================"
+echo " API_CELL negative enforcement vectors"
+echo "============================================================"
+
+[ -f "$VECTORS" ] || fail "missing vectors file: $VECTORS"
+python -m json.tool "$VECTORS" >/dev/null || fail "invalid vectors json"
+[ -x "$GATE" ] || fail "missing gate: $GATE"
+
+if [ -n "$(git status --short)" ]; then
+  git status --short
+  fail "primary working tree must be clean"
+fi
+
+BASE_HEAD="$(git rev-parse HEAD)"
+TMP_ROOT="$HOME/.cache/tk_cicd/negative_vectors"
+RUN_ID="neg-$(date -u +%Y%m%dT%H%M%SZ)"
+WT="$TMP_ROOT/$RUN_ID/worktree"
+OUT="$TMP_ROOT/$RUN_ID/output"
+
+mkdir -p "$OUT"
+
+cleanup() {
+  git worktree remove --force "$WT" >/dev/null 2>&1 || true
+}
+trap cleanup EXIT INT TERM
+
+phase "setup"
+mkdir -p "$TMP_ROOT/$RUN_ID"
+git worktree add --detach "$WT" "$BASE_HEAD" >/dev/null
+ok "isolated worktree ready: $WT"
+
+run_vector() {
+  name="$1"
+  expected="$2"
+  mutation="$3"
+  fake_home="${4:-}"
+
+  phase "vector:$name"
+
+  git -C "$WT" reset --hard "$BASE_HEAD" >/dev/null
+  git -C "$WT" clean -fd >/dev/null
+
+  case "$mutation" in
+    missing_policy)
+      rm -f "$WT/API_CELL/ENFORCING_POLICY.json"
+      ;;
+    missing_manifest)
+      rm -f "$WT/API_CELL/ENFORCING_MANIFEST.json"
+      ;;
+    missing_strategy)
+      python - "$WT" <<'PY'
+from pathlib import Path
+import json
+import sys
+root = Path(sys.argv[1])
+p = root / "API_CELL/.tk_cicd/project.json"
+data = json.loads(p.read_text(encoding="utf-8"))
+data.pop("strategy", None)
+p.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+PY
+      ;;
+    missing_orientation_stage)
+      python - "$WT" <<'PY'
+from pathlib import Path
+import json
+import sys
+root = Path(sys.argv[1])
+p = root / "API_CELL/enforcing/orientation_map.json"
+data = json.loads(p.read_text(encoding="utf-8"))
+data["sequence"] = [x for x in data.get("sequence", []) if x.get("name") != "acceptance_language"]
+p.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+PY
+      ;;
+    invalid_policy_json)
+      printf '{ invalid json\n' > "$WT/API_CELL/ENFORCING_POLICY.json"
+      ;;
+    dirty_tree)
+      printf 'dirty probe\n' > "$WT/API_CELL/dirty_probe.tmp"
+      ;;
+    sensitive_path_token_json)
+      printf '{"token":"simulated"}\n' > "$WT/API_CELL/token.json"
+      ;;
+    missing_m_root)
+      fake_home="$OUT/fake_home"
+      rm -rf "$fake_home"
+      mkdir -p "$fake_home"
+      ;;
+    disabled_policy_hash_gate)
+      python - "$WT" <<'PY'
+from pathlib import Path
+import json
+import sys
+root = Path(sys.argv[1])
+p = root / "API_CELL/ENFORCING_POLICY.json"
+data = json.loads(p.read_text(encoding="utf-8"))
+data["required_gates"]["hash_gate"] = False
+p.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+PY
+      ;;
+    disabled_strategy_dirty_tree_flag)
+      python - "$WT" <<'PY'
+from pathlib import Path
+import json
+import sys
+root = Path(sys.argv[1])
+p = root / "API_CELL/.tk_cicd/project.json"
+data = json.loads(p.read_text(encoding="utf-8"))
+data["strategy"]["policy"]["dirty_tree_blocks_promotion"] = False
+p.write_text(json.dumps(data, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+PY
+      ;;
+    *)
+      fail "unknown mutation: $mutation"
+      ;;
+  esac
+
+  log="$OUT/$name.log"
+
+  set +e
+  if [ -n "$fake_home" ]; then
+    HOME="$fake_home" bash "$WT/API_CELL/bin/api-cell-enforcing-gate" >"$log" 2>&1
+  else
+    bash "$WT/API_CELL/bin/api-cell-enforcing-gate" >"$log" 2>&1
+  fi
+  rc="$?"
+  set -e
+
+  if [ "$rc" -eq 0 ]; then
+    cat "$log"
+    fail "vector unexpectedly passed: $name"
+  fi
+
+  if ! grep -Fqi "$expected" "$log"; then
+    cat "$log"
+    fail "vector failed for wrong reason: $name expected: $expected"
+  fi
+
+  ok "$name failed as expected"
+}
+
+run_vector "NEG_001_missing_policy" "missing required file" "missing_policy"
+run_vector "NEG_002_missing_manifest" "missing required file" "missing_manifest"
+run_vector "NEG_003_missing_strategy" "missing strategy keys" "missing_strategy"
+run_vector "NEG_004_missing_orientation_stage" "missing orientation stages" "missing_orientation_stage"
+run_vector "NEG_005_invalid_policy_json" "invalid json" "invalid_policy_json"
+run_vector "NEG_006_dirty_tree" "dirty tree" "dirty_tree"
+run_vector "NEG_007_sensitive_path_token_json" "sensitive public material detected" "sensitive_path_token_json"
+run_vector "NEG_008_missing_m_root" "missing required file" "missing_m_root"
+run_vector "NEG_009_disabled_policy_hash_gate" "gate disabled" "disabled_policy_hash_gate"
+run_vector "NEG_010_disabled_strategy_dirty_tree_flag" "strategy flags disabled" "disabled_strategy_dirty_tree_flag"
+
+phase "primary repo check"
+
+if [ "$(git branch --show-current)" != "tec-kio/api-cell-v017-negative-enforcement-vectors" ]; then
+  fail "primary branch drift"
+fi
+
+if [ "$(git rev-parse HEAD)" != "$BASE_HEAD" ]; then
+  fail "primary HEAD drift"
+fi
+
+if [ -n "$(git status --short)" ]; then
+  git status --short
+  fail "primary working tree dirty"
+fi
+
+ok "primary branch unchanged"
+ok "primary HEAD unchanged"
+ok "primary working tree clean"
+
+echo
+echo "============================================================"
+echo "NEGATIVE ENFORCEMENT VECTORS SUCCESS"
+echo "============================================================"
+echo "[INFO] output : $OUT"
