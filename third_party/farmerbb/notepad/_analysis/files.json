@@ -1,0 +1,584 @@
+[
+  {
+    "path": ".gitignore",
+    "size": 116,
+    "ext": "[no_ext]",
+    "sha256": "6094546b38e5bd4252ba6d6a0f68beed0e61505ce259bc19777d140f8fc41eb8"
+  },
+  {
+    "path": "LICENSE",
+    "size": 11357,
+    "ext": "[no_ext]",
+    "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+  },
+  {
+    "path": "NOTICE",
+    "size": 705,
+    "ext": "[no_ext]",
+    "sha256": "a407896372e4646b17aea59e5640303e20c55a376f23ab97744901dfc4119d33"
+  },
+  {
+    "path": "Privacy-Policy.md",
+    "size": 1072,
+    "ext": ".md",
+    "sha256": "8a8fa010e5063126767f6e0d87c4d3fb92595f7a105daf93c8b8b074fc3f57b2"
+  },
+  {
+    "path": "README-NEW.md",
+    "size": 6108,
+    "ext": ".md",
+    "sha256": "47e41644e771b4638ccbcc1335c73a6925fb02a5bb21f5b6cdfdc22b4a385a2a"
+  },
+  {
+    "path": "README.md",
+    "size": 1647,
+    "ext": ".md",
+    "sha256": "5883a52e45274df906b14ab8bd31a2f29866f22783c26f2331b4acafe8f74973"
+  },
+  {
+    "path": "_analysis/upstream.json",
+    "size": 350,
+    "ext": ".json",
+    "sha256": "d310a69cd4ff5bd04a89b7015c81926a46a526a6f1b3d215d32638550256ff30"
+  },
+  {
+    "path": "app/build.gradle.kts",
+    "size": 3491,
+    "ext": ".kts",
+    "sha256": "f401c644fe8a00c51fbfa6985452710b93de8812db22277a1fd7772cd0c623d0"
+  },
+  {
+    "path": "app/proguard-rules.pro",
+    "size": 509,
+    "ext": ".pro",
+    "sha256": "4f42986cb695d2ff49b985a45ea25b1b2bc124902ff1d07d7a6c2fdb1be18ece"
+  },
+  {
+    "path": "app/src/debug/res/xml/shortcuts.xml",
+    "size": 1155,
+    "ext": ".xml",
+    "sha256": "b64cc6403d5ff14af1772d198f1fdd75c66d52f12f5c249d2f03df4eee501768"
+  },
+  {
+    "path": "app/src/main/AndroidManifest.xml",
+    "size": 3688,
+    "ext": ".xml",
+    "sha256": "6f2d3d3128255d69cf1a4d4b904ff61e2b481b1e1f0087d3ca8e0cba36aeee62"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/android/NotepadActivity.kt",
+    "size": 2959,
+    "ext": ".kt",
+    "sha256": "2b3884cf98695741c3b738b4a581697ff127a649bca694bab325b771938b4918"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/android/NotepadApplication.kt",
+    "size": 1032,
+    "ext": ".kt",
+    "sha256": "a43b0e79ac347a20e2778b8077b3c13cac36dd7d5303451eb16382b8f21ea17a"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/android/StandaloneEditorActivity.kt",
+    "size": 2630,
+    "ext": ".kt",
+    "sha256": "209d3db8203fb66ded4d66c2c05ba0769da8a78843f613af5b22fa0c8ccf5882"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/data/NotepadRepository.kt",
+    "size": 6030,
+    "ext": ".kt",
+    "sha256": "c944f21eb17b1331a61b1331a522c24cf332f2668431f344e17c34a7a1160511"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/data/PreferenceManager.kt",
+    "size": 4664,
+    "ext": ".kt",
+    "sha256": "9882c0b33ca4619b186dfe124c29379a7fb062ce1fb03b71e591eed3706b4ff3"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/di/NotepadModule.kt",
+    "size": 2403,
+    "ext": ".kt",
+    "sha256": "714f9046091079f92e2f5cc267a6ae78b38363da83a47612ff499062b349b7dd"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/model/Defaults.kt",
+    "size": 1001,
+    "ext": ".kt",
+    "sha256": "66eccd68cf6cb3f098424b111574cbd26bc36f14f9df88d804001b38a66ea69e"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/model/ExportedNotesDirectory.kt",
+    "size": 954,
+    "ext": ".kt",
+    "sha256": "267d453fb875766e678644157ca01400e27f19d572b6ce09d988198d0fede7ca"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/model/NavState.kt",
+    "size": 1565,
+    "ext": ".kt",
+    "sha256": "02ef0bbad3cbb0e745f110235d3d27d03c0bd945db6c34665056463fd80ea341"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/model/Note.kt",
+    "size": 1026,
+    "ext": ".kt",
+    "sha256": "86fca7f12e74e7f23536c259a286899cb11a68fe0097ec3ab7d3367f5c435ffe"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/model/Prefs.kt",
+    "size": 3804,
+    "ext": ".kt",
+    "sha256": "f15617d10b29b7dfffbec2e83e790fb0c24bbfe09b31ec978790730af91f4b6a"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/model/ReleaseType.kt",
+    "size": 4935,
+    "ext": ".kt",
+    "sha256": "c735da7a17a2267141390d907cbeb0b1ee6b09764a467d4bd0c7f62d10c4f662"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/components/AlertDialogs.kt",
+    "size": 4100,
+    "ext": ".kt",
+    "sha256": "0437f32b98e673caed6fcc8f6da105c3b69248df86990527795df97819c6687f"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/components/IconButtons.kt",
+    "size": 5848,
+    "ext": ".kt",
+    "sha256": "9f02caaac70b66d8aafc7142b3c0d17cf9e6f01478df158089d240fa3fe587dc"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/components/Menus.kt",
+    "size": 2904,
+    "ext": ".kt",
+    "sha256": "8a86f8f42df47b08760c07470d23cf542a1c0a22502986ece9095030ad0c624f"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/components/NotepadTheme.kt",
+    "size": 2373,
+    "ext": ".kt",
+    "sha256": "2e4ce90cbf0eb69c91ca6c56e95be8720169803853ddddf1c60968ac08b50219"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/components/RtlTextWrapper.kt",
+    "size": 1595,
+    "ext": ".kt",
+    "sha256": "599c7f34f825a4cf2fcf8bba5fb97d23a4c209d415c075e5afb82f4cc09362eb"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/components/Texts.kt",
+    "size": 1755,
+    "ext": ".kt",
+    "sha256": "7d99c81ccc4a007a5f053a9c314019098df7fae407d0bd43b2693fd169dfcf69"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/content/EditNoteContent.kt",
+    "size": 4770,
+    "ext": ".kt",
+    "sha256": "a54428429fa79da76f1f5ce7ef5a5d41f5b821dbd3e6c630ed674453c8149294"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/content/NoteListContent.kt",
+    "size": 6239,
+    "ext": ".kt",
+    "sha256": "69b0836ee598ae3556b8e51dc739e464d74bdf8644aaa960cb6d63f7d1c46239"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/content/ViewNoteContent.kt",
+    "size": 7059,
+    "ext": ".kt",
+    "sha256": "dfa7d952fadf69cbbe406f54fe042415feeab1789f42086786f6686c252db2d5"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/previews/EditNotePreview.kt",
+    "size": 2411,
+    "ext": ".kt",
+    "sha256": "990e5b31869bc70a611f2d64865f99156583d39dd95b63261dd954b701ddbbd2"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/previews/NoteListPreview.kt",
+    "size": 2235,
+    "ext": ".kt",
+    "sha256": "19aa3c54bdaf5bbc2f92506ce25059bb2f6d7750f3f3803edd1b6c73f1ff3d37"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/previews/ViewNotePreview.kt",
+    "size": 2392,
+    "ext": ".kt",
+    "sha256": "1ca7cf12ad9ee85f9852baeba39da40cad517de1e230fa28845778396941f9b0"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/AppSettings.kt",
+    "size": 5847,
+    "ext": ".kt",
+    "sha256": "4648655cd65e2bbafe90cd3d7836a2d2a8de84a9df669081a121b021d7b48fbe"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt",
+    "size": 25145,
+    "ext": ".kt",
+    "sha256": "d1dfe89508e2048a3ee61d64ea8a9e30db9e228c271e37d440966e09fb19a22a"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/StandaloneEditor.kt",
+    "size": 5251,
+    "ext": ".kt",
+    "sha256": "da952a201625fe42b420fe0e0c9b64d994ca1173477e67237d45071a1a1335a8"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/usecase/ArtVandelay.kt",
+    "size": 8057,
+    "ext": ".kt",
+    "sha256": "e6af0ddc4e443353e9a73551510d931e970016a78a1d05e149d0999009a5bb3a"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/usecase/DataMigrator.kt",
+    "size": 5100,
+    "ext": ".kt",
+    "sha256": "b9938199376eba8f39ceb7051bfc1a96c73be30be65df083e466c3b6f55c9b2c"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/usecase/KeyboardShortcuts.kt",
+    "size": 1371,
+    "ext": ".kt",
+    "sha256": "2a975ba80e91f0d5bb4d70f226e876449d90254c0857c4c450b56f60950c2421"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/usecase/SystemTheme.kt",
+    "size": 1425,
+    "ext": ".kt",
+    "sha256": "68a9a3ba6f7baa469e88f60e0110c8f24c0d60456baac4f7aa76e26c5311f26b"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/usecase/Toaster.kt",
+    "size": 1561,
+    "ext": ".kt",
+    "sha256": "1ae24da5360e7aaee4ed47d18601f8607d769e693b7330116d048f844434c9c4"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/utils/ContextExtensions.kt",
+    "size": 3187,
+    "ext": ".kt",
+    "sha256": "1aefc39f96fbce7cfe74f935f07b04e6dae498ae8084b19bcf49cd7a057f3d3d"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/utils/Serialization.kt",
+    "size": 1074,
+    "ext": ".kt",
+    "sha256": "e571e37d51e5114854fb2866802241a3622366b49567f3955436b1cd1aaac591"
+  },
+  {
+    "path": "app/src/main/java/com/farmerbb/notepad/viewmodel/NotepadViewModel.kt",
+    "size": 17669,
+    "ext": ".kt",
+    "sha256": "db039f1e1e37a60dec9390f00b6f711aa07cb9361faa8f4777c3f213c751dcc8"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_launcher_adaptive_fg.xml",
+    "size": 3932,
+    "ext": ".xml",
+    "sha256": "98c35fffa623d183e14d21155332bd83533ec6ebd9a3b7839dad7fb2e2a3fc50"
+  },
+  {
+    "path": "app/src/main/res/drawable/ic_mode_edit_black_24dp.xml",
+    "size": 465,
+    "ext": ".xml",
+    "sha256": "5abe54cad3be063152172c50e0eeb1fe22b599feae57a9587849daf544c704ab"
+  },
+  {
+    "path": "app/src/main/res/drawable/notepad_logo.xml",
+    "size": 3792,
+    "ext": ".xml",
+    "sha256": "bf8eb76fdfea10a07f18a649848b3037335915d036f69f8caf9acd0eb45a7919"
+  },
+  {
+    "path": "app/src/main/res/drawable/shortcut_icon.xml",
+    "size": 218,
+    "ext": ".xml",
+    "sha256": "f77422f9a1506de51c0dcfb9aa4d5f56703c515f164ac2d400f822e2f6eb2545"
+  },
+  {
+    "path": "app/src/main/res/drawable/shortcut_icon_background.xml",
+    "size": 375,
+    "ext": ".xml",
+    "sha256": "693752ad96d5cf4939d864d5a0c261bea9d63949e0a8615390a3d862e86580e7"
+  },
+  {
+    "path": "app/src/main/res/drawable-anydpi-v26/ic_mode_edit_black_24dp.xml",
+    "size": 455,
+    "ext": ".xml",
+    "sha256": "c16f343a34a0c93dfb20af634ae669ab1ab6b8963862f916d9e8fcea55940a95"
+  },
+  {
+    "path": "app/src/main/res/drawable-anydpi-v26/shortcut_icon.xml",
+    "size": 261,
+    "ext": ".xml",
+    "sha256": "f263743e26aae856453fad652dd390d531bab337682fa426eb8abec287b714ff"
+  },
+  {
+    "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+    "size": 269,
+    "ext": ".xml",
+    "sha256": "c2da761436ea0c480c56ee0c1ee8afa93cce879ff5b79381ff3efa144202c98b"
+  },
+  {
+    "path": "app/src/main/res/mipmap-hdpi/ic_launcher.png",
+    "size": 3416,
+    "ext": ".png",
+    "sha256": "b23ad578e34635656adfc14e75b0a5311a19e309c89d78100fd90f482227a29b"
+  },
+  {
+    "path": "app/src/main/res/mipmap-mdpi/ic_launcher.png",
+    "size": 2820,
+    "ext": ".png",
+    "sha256": "29291697ef16c4f33f52c575d35a1962f5317cee78ea9027557e78045e5c368d"
+  },
+  {
+    "path": "app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+    "size": 6057,
+    "ext": ".png",
+    "sha256": "acdf1aac2f89489e34cfe423bd51a44ac3fdd9fbf63a92f2909a813b08e46143"
+  },
+  {
+    "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+    "size": 8794,
+    "ext": ".png",
+    "sha256": "8c8d9b94721a68d6f15689bf5db12cd8a5bcdfd7816069c90e707068bb88f089"
+  },
+  {
+    "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+    "size": 12348,
+    "ext": ".png",
+    "sha256": "3eaf3479b5261f12c0bf14068b0f0b4e4615ecdd991c7378de83afbc4a9e1f26"
+  },
+  {
+    "path": "app/src/main/res/values/colors.xml",
+    "size": 1272,
+    "ext": ".xml",
+    "sha256": "9763e91b25dfe375fa092256d37204dcaa00b08f4749444d365bb4f809d08a2d"
+  },
+  {
+    "path": "app/src/main/res/values/donottranslate.xml",
+    "size": 1559,
+    "ext": ".xml",
+    "sha256": "0c43a96eaff54736a3b0565f70a816a8e23b67830958c1100742bc8576d1cdf3"
+  },
+  {
+    "path": "app/src/main/res/values/strings.xml",
+    "size": 5756,
+    "ext": ".xml",
+    "sha256": "556ddcbb5f94f282312eeaebfab93568f75e419226569a5de34df5235b5f3b20"
+  },
+  {
+    "path": "app/src/main/res/values/styles_notepad.xml",
+    "size": 744,
+    "ext": ".xml",
+    "sha256": "42e7dec3a629de7e17d311ae28ab3b41622fd4f9750bb94a7349a2c635ce3762"
+  },
+  {
+    "path": "app/src/main/res/values/styles_notepad_base.xml",
+    "size": 1098,
+    "ext": ".xml",
+    "sha256": "b81abd1e108786694bfa1a9576b329fcea26287f70c79e692723f9af6d48c594"
+  },
+  {
+    "path": "app/src/main/res/values-ar/strings.xml",
+    "size": 6140,
+    "ext": ".xml",
+    "sha256": "1f31a58e0a67509ddd6ec9025f008876557c6c480be72a306543269e7898f833"
+  },
+  {
+    "path": "app/src/main/res/values-bn/strings.xml",
+    "size": 8602,
+    "ext": ".xml",
+    "sha256": "9073d95ed4317dc711cc5218995d80361021a4afbd218526005539e437eaca68"
+  },
+  {
+    "path": "app/src/main/res/values-cs/strings.xml",
+    "size": 6042,
+    "ext": ".xml",
+    "sha256": "b0c6e816c148c7f81bb4bc78507e515b236edff3cf7a665d83bd6567de0ce1d4"
+  },
+  {
+    "path": "app/src/main/res/values-de/strings.xml",
+    "size": 6052,
+    "ext": ".xml",
+    "sha256": "ca0ba04a889f355e472cbe7bb3d98d65e0152b23178f7a42455b8a0046bb5168"
+  },
+  {
+    "path": "app/src/main/res/values-el/strings.xml",
+    "size": 7618,
+    "ext": ".xml",
+    "sha256": "c1de64432712c1b3750839d6f4d10eb931c8aae9797689afa066aedceb0ad2ae"
+  },
+  {
+    "path": "app/src/main/res/values-es/strings.xml",
+    "size": 6072,
+    "ext": ".xml",
+    "sha256": "6f537b45e1786f480ec9fafaaf8a18a394c90444c77d6d91722937a792b6dfb8"
+  },
+  {
+    "path": "app/src/main/res/values-fr/strings.xml",
+    "size": 6186,
+    "ext": ".xml",
+    "sha256": "b5065aadf83c49f93a215407864d0a1e6ded4e0a12b01e870c2e44a0b29a2913"
+  },
+  {
+    "path": "app/src/main/res/values-it/strings.xml",
+    "size": 5981,
+    "ext": ".xml",
+    "sha256": "6a27cdbf0f438347e5fa0f94800dafe55d4792aa921c7f268a85785996e577f4"
+  },
+  {
+    "path": "app/src/main/res/values-ja/strings.xml",
+    "size": 6098,
+    "ext": ".xml",
+    "sha256": "61a862be4a4f797bede96379037917daad40ec9750760d035ba75af65fc377c3"
+  },
+  {
+    "path": "app/src/main/res/values-ko/strings.xml",
+    "size": 5884,
+    "ext": ".xml",
+    "sha256": "78a87d68f1b566c0ff01881abdfcd920513ff0f11b4a4ed42afcc7e2b0dc8c7a"
+  },
+  {
+    "path": "app/src/main/res/values-nl/strings.xml",
+    "size": 5982,
+    "ext": ".xml",
+    "sha256": "67c722552e5a1e2ecaf970bb8d5d82c1e98a325ab51f165b4f0da3ccf047614a"
+  },
+  {
+    "path": "app/src/main/res/values-no/strings.xml",
+    "size": 5923,
+    "ext": ".xml",
+    "sha256": "cf3d6f3faf9280115c22941f2d8b4ca091cdc04eb5def0cc3f0b3830bf7ee5b4"
+  },
+  {
+    "path": "app/src/main/res/values-pl/strings.xml",
+    "size": 6257,
+    "ext": ".xml",
+    "sha256": "7406c8c623bdeb94324bb9da717b2c12ede3936ad5ac6d94cf0b943aa2f32564"
+  },
+  {
+    "path": "app/src/main/res/values-pt-rBR/strings.xml",
+    "size": 6033,
+    "ext": ".xml",
+    "sha256": "d61a9f470d4be8f05ef72763720ec385d34d0a54513bc69629ad7691e96cfb4c"
+  },
+  {
+    "path": "app/src/main/res/values-ru/strings.xml",
+    "size": 6355,
+    "ext": ".xml",
+    "sha256": "4a00d12cba4694f0d73df672a5525730235ad9407c81e1452de596c4e5786dbd"
+  },
+  {
+    "path": "app/src/main/res/values-sw/strings.xml",
+    "size": 6203,
+    "ext": ".xml",
+    "sha256": "c0b170207c2676ef3813107556a397db380c5725aa03304be320bfcdf84ba977"
+  },
+  {
+    "path": "app/src/main/res/values-tr/strings.xml",
+    "size": 5185,
+    "ext": ".xml",
+    "sha256": "450185f918d8a074314deb480986d95676672dde616ed031a7032ec11551b352"
+  },
+  {
+    "path": "app/src/main/res/values-v27/styles_notepad.xml",
+    "size": 897,
+    "ext": ".xml",
+    "sha256": "4b6eee86ae17ad5e086ecdf97d3ef57aa32f7a65f0270e7fed8e66a5fd2c0439"
+  },
+  {
+    "path": "app/src/main/res/values-v35/styles_notepad.xml",
+    "size": 972,
+    "ext": ".xml",
+    "sha256": "71a5052c60bd6d627025057aee7c7a8a9caa3cc60ad0d297dfbf846af07a7dd6"
+  },
+  {
+    "path": "app/src/main/res/values-zh-rCN/strings.xml",
+    "size": 5702,
+    "ext": ".xml",
+    "sha256": "0b02d66916db21282ef674f7d33dd30a8428b7e2a594f90f9e075085f1c81854"
+  },
+  {
+    "path": "app/src/main/res/values-zh-rTW/strings.xml",
+    "size": 5679,
+    "ext": ".xml",
+    "sha256": "6166da7d380c2b6f503d12ac4df8c4eca92b4df2fb6f19478f8e72d94c9c83e7"
+  },
+  {
+    "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+    "size": 527,
+    "ext": ".sq",
+    "sha256": "256d28d04aae5f06f3acf633a229f95e8b42f6ae2b212f636c001ddbba7d4936"
+  },
+  {
+    "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+    "size": 575,
+    "ext": ".sq",
+    "sha256": "904785879a33fc301a64572d9b2c7717191881dd9101c2046a84d7c2f6f501c1"
+  },
+  {
+    "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+    "size": 873,
+    "ext": ".sq",
+    "sha256": "7060a06c55c3eb8dbb04d5db64ee2dcefb3580a871b919bfdb0c85c86f4bb473"
+  },
+  {
+    "path": "app/src/release/res/xml/shortcuts.xml",
+    "size": 1149,
+    "ext": ".xml",
+    "sha256": "16b744277af7749db423eb780474f2c7401586dec020d38ffb95fbc938333ac2"
+  },
+  {
+    "path": "build.gradle.kts",
+    "size": 580,
+    "ext": ".kts",
+    "sha256": "5769b7eaca8845f973f81103e91e77203457eeb61d11604fb567d96ab0eb6512"
+  },
+  {
+    "path": "gradle/libs.versions.toml",
+    "size": 4936,
+    "ext": ".toml",
+    "sha256": "526b9c8d68611fd563ac0b49679ac6ec8c64bbb7ace5defa21dc2a3013dda9ac"
+  },
+  {
+    "path": "gradle/wrapper/gradle-wrapper.jar",
+    "size": 45457,
+    "ext": ".jar",
+    "sha256": "76805e32c009c0cf0dd5d206bddc9fb22ea42e84db904b764f3047de095493f3"
+  },
+  {
+    "path": "gradle/wrapper/gradle-wrapper.properties",
+    "size": 252,
+    "ext": ".properties",
+    "sha256": "27e36e81f38c016d72c51f96c174899d1ddf55661acb8cc5a52e8b43e7a553a3"
+  },
+  {
+    "path": "gradle.properties",
+    "size": 122,
+    "ext": ".properties",
+    "sha256": "a96e2c1fd812405e8cb1ae4322ed35208bf453511be0f9c51da1720a5dced145"
+  },
+  {
+    "path": "gradlew",
+    "size": 8728,
+    "ext": "[no_ext]",
+    "sha256": "3238afb2aed5cb16eb7d6718077e7138059108f007b54179e9cc157c5a6e0e89"
+  },
+  {
+    "path": "gradlew.bat",
+    "size": 2937,
+    "ext": ".bat",
+    "sha256": "1d297e00bd21de3ace22b4d7f2de1f9dfa858883d66bbf7c1ccbecccec8f4f3b"
+  },
+  {
+    "path": "settings.gradle.kts",
+    "size": 97,
+    "ext": ".kts",
+    "sha256": "6f0550b8dd95e4a3cd9e52dd6bf47ebc0911fb42545e04fdbbfcb99e2d0aeba5"
+  }
+]

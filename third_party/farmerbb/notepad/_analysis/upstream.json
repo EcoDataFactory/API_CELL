@@ -1,0 +1,10 @@
+{
+  "name": "farmerbb-notepad",
+  "source_url": "https://github.com/farmerbb/Notepad.git",
+  "upstream_branch": "master",
+  "upstream_head": "2618f53994ec56121f6dd276f4d724ee4bd876cc",
+  "upstream_head_short": "2618f53",
+  "import_mode": "vendored_snapshot_analysis_only",
+  "compile_enabled": false,
+  "vendor_dir": "third_party/farmerbb/notepad"
+}
