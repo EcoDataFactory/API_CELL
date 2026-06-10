@@ -1,0 +1,54 @@
+{
+  "main_launch": [
+    "activity-alias com.farmerbb.notepad.MainActivity",
+    "NotepadActivity.onCreate",
+    "NotepadViewModel.migrateData",
+    "NotepadComposeAppRoute",
+    "NotepadComposeApp",
+    "NoteListContent / ViewNoteContent / EditNoteContent"
+  ],
+  "external_text": [
+    "activity-alias com.farmerbb.notepad.activity.NoteEditActivity",
+    "StandaloneEditorActivity.onCreate",
+    "ACTION_SEND / ACTION_EDIT / ACTION_VIEW",
+    "checkPlainText",
+    "getExternalContent or loadFileFromIntent",
+    "StandaloneEditorRoute"
+  ],
+  "save_note": [
+    "UI edit action",
+    "NotepadViewModel.saveNote",
+    "NotepadRepository.saveNote",
+    "NoteMetadata.insert/update",
+    "NoteContents.insert/update",
+    "CrossRef.insert"
+  ],
+  "delete_note": [
+    "UI delete action",
+    "NotepadViewModel.deleteNote/deleteSelectedNotes",
+    "NotepadRepository.deleteNote/deleteNotes",
+    "CrossRef get/delete",
+    "NoteMetadata delete",
+    "NoteContents delete"
+  ],
+  "draft": [
+    "NotepadActivity.onStop",
+    "NotepadViewModel.saveDraft",
+    "NotepadRepository.saveNote hasDraft=true",
+    "NotepadActivity.onStart",
+    "NotepadViewModel.deleteDraft"
+  ],
+  "import_export": [
+    "NotepadViewModel.importNotes/exportNotes/exportAllNotes",
+    "ArtVandelay",
+    "FSAF FileChooser",
+    "Serialization.kt",
+    "Okio source/sink"
+  ],
+  "preferences": [
+    "PreferenceManager",
+    "DataStoreManager",
+    "Prefs",
+    "AppSettings.NotepadPreferenceScreen"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "exported_components": [
+    {
+      "type": "activity",
+      "name": "com.farmerbb.notepad.android.NotepadActivity",
+      "exported": "true",
+      "launchMode": "singleTop",
+      "windowSoftInputMode": "adjustResize",
+      "intent_filters": []
+    },
+    {
+      "type": "activity",
+      "name": "com.farmerbb.notepad.android.StandaloneEditorActivity",
+      "exported": "true",
+      "launchMode": "singleTop",
+      "windowSoftInputMode": "adjustResize",
+      "intent_filters": []
+    },
+    {
+      "type": "activity-alias",
+      "name": "com.farmerbb.notepad.MainActivity",
+      "targetActivity": "com.farmerbb.notepad.android.NotepadActivity",
+      "exported": "true",
+      "launchMode": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.MAIN"
+          ],
+          "categories": [
+            "android.intent.category.LAUNCHER",
+            "android.intent.category.DEFAULT",
+            "android.intent.category.APP_MAPS"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "type": "activity-alias",
+      "name": "com.farmerbb.notepad.activity.NoteEditActivity",
+      "targetActivity": "com.farmerbb.notepad.android.StandaloneEditorActivity",
+      "exported": "true",
+      "launchMode": "singleTop",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW",
+            "android.intent.action.EDIT",
+            "android.intent.action.SEND",
+            "com.google.android.gm.action.AUTO_SEND"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "com.google.android.voicesearch.SELF_NOTE"
+          ],
+          "data": [
+            {
+              "android:mimeType": "text/plain"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "external_intents": [
+    {
+      "component": "com.farmerbb.notepad.activity.NoteEditActivity",
+      "target": "com.farmerbb.notepad.android.StandaloneEditorActivity",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.EDIT",
+        "android.intent.action.SEND",
+        "com.google.android.gm.action.AUTO_SEND"
+      ],
+      "categories": [
+        "android.intent.category.DEFAULT",
+        "com.google.android.voicesearch.SELF_NOTE"
+      ],
+      "data": [
+        {
+          "android:mimeType": "text/plain"
+        }
+      ]
+    }
+  ],
+  "permissions": [],
+  "features": [
+    {
+      "name": "android.hardware.touchscreen",
+      "required": "false"
+    },
+    {
+      "name": "android.hardware.type.pc",
+      "required": "false"
+    }
+  ],
+  "risk_notes": [
+    "No Android permissions declared.",
+    "Standalone editor accepts external text/plain via VIEW, EDIT, SEND, AUTO_SEND.",
+    "Storage access is mediated through FSAF / Storage Access Framework helper.",
+    "Launcher alias preserves legacy public class name."
+  ]
+}

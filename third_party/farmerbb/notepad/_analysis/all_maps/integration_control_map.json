@@ -1,0 +1,33 @@
+{
+  "do_not_compile_yet": true,
+  "recommended_next_actions": [
+    "Commit analysis artifacts.",
+    "Run dependency policy review.",
+    "Create integration boundary contract.",
+    "Decide whether to keep activity aliases exported.",
+    "Decide package/applicationId strategy before forked build.",
+    "Decide whether storage import/export remains enabled.",
+    "Then run compile in external build workspace."
+  ],
+  "integration_candidates": {
+    "keep": [
+      "Note model",
+      "SQLDelight schema",
+      "Repository operations",
+      "Compose note list/edit/view UI"
+    ],
+    "review_before_keep": [
+      "StandaloneEditorActivity external intents",
+      "ArtVandelay import/export",
+      "FSAF dependency",
+      "Release signing block",
+      "allowBackup"
+    ],
+    "likely_rebrand_or_fork": [
+      "applicationId",
+      "app labels",
+      "launcher icons",
+      "package namespace only if necessary"
+    ]
+  }
+}

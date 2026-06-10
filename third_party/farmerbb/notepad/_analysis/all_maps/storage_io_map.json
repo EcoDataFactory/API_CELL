@@ -1,0 +1,327 @@
+{
+  "database": {
+    "files": [
+      {
+        "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "tables": [
+          "CrossRef"
+        ],
+        "queries": [
+          {
+            "name": "insert",
+            "operation": "INSERT"
+          },
+          {
+            "name": "delete",
+            "operation": "DELETE"
+          },
+          {
+            "name": "deleteMultiple",
+            "operation": "DELETE"
+          },
+          {
+            "name": "get",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getMultiple",
+            "operation": "SELECT"
+          }
+        ]
+      },
+      {
+        "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "tables": [
+          "NoteContents"
+        ],
+        "queries": [
+          {
+            "name": "update",
+            "operation": "INSERT"
+          },
+          {
+            "name": "insert",
+            "operation": "INSERT"
+          },
+          {
+            "name": "delete",
+            "operation": "DELETE"
+          },
+          {
+            "name": "deleteMultiple",
+            "operation": "DELETE"
+          },
+          {
+            "name": "get",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getMultiple",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getIndex",
+            "operation": "SELECT"
+          }
+        ]
+      },
+      {
+        "path": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "tables": [
+          "NoteMetadata"
+        ],
+        "queries": [
+          {
+            "name": "update",
+            "operation": "INSERT"
+          },
+          {
+            "name": "insert",
+            "operation": "INSERT"
+          },
+          {
+            "name": "delete",
+            "operation": "DELETE"
+          },
+          {
+            "name": "deleteMultiple",
+            "operation": "DELETE"
+          },
+          {
+            "name": "getUnsorted",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getSortedByDateDescending",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getSortedByDateAscending",
+            "operation": "SELECT"
+          },
+          {
+            "name": "get",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getDraftId",
+            "operation": "SELECT"
+          },
+          {
+            "name": "getIndex",
+            "operation": "SELECT"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "table": "CrossRef",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "columns": [
+          {
+            "name": "metadataId",
+            "definition": "metadataId INTEGER NOT NULL"
+          },
+          {
+            "name": "contentsId",
+            "definition": "contentsId INTEGER NOT NULL"
+          }
+        ]
+      },
+      {
+        "table": "NoteContents",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "columns": [
+          {
+            "name": "contentsId",
+            "definition": "contentsId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"
+          },
+          {
+            "name": "text",
+            "definition": "text TEXT"
+          },
+          {
+            "name": "draftText",
+            "definition": "draftText TEXT"
+          }
+        ]
+      },
+      {
+        "table": "NoteMetadata",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "columns": [
+          {
+            "name": "metadataId",
+            "definition": "metadataId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"
+          },
+          {
+            "name": "title",
+            "definition": "title TEXT NOT NULL"
+          },
+          {
+            "name": "date",
+            "definition": "date INTEGER AS Date NOT NULL"
+          },
+          {
+            "name": "hasDraft",
+            "definition": "hasDraft INTEGER AS Boolean NOT NULL"
+          }
+        ]
+      }
+    ],
+    "queries": [
+      {
+        "name": "insert",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "operation": "INSERT",
+        "sql": "INSERT OR REPLACE INTO CrossRef(metadataId, contentsId) VALUES ?;"
+      },
+      {
+        "name": "delete",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "operation": "DELETE",
+        "sql": "DELETE FROM CrossRef WHERE metadataId = :id;"
+      },
+      {
+        "name": "deleteMultiple",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "operation": "DELETE",
+        "sql": "DELETE FROM CrossRef WHERE metadataId IN ?;"
+      },
+      {
+        "name": "get",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM CrossRef WHERE metadataId = :id;"
+      },
+      {
+        "name": "getMultiple",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/CrossRef.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM CrossRef WHERE metadataId IN ?;"
+      },
+      {
+        "name": "update",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "INSERT",
+        "sql": "INSERT OR REPLACE INTO NoteContents(contentsId, text, draftText) VALUES ?;"
+      },
+      {
+        "name": "insert",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "INSERT",
+        "sql": "INSERT OR REPLACE INTO NoteContents(text, draftText) VALUES ?;"
+      },
+      {
+        "name": "delete",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "DELETE",
+        "sql": "DELETE FROM NoteContents WHERE contentsId = :id;"
+      },
+      {
+        "name": "deleteMultiple",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "DELETE",
+        "sql": "DELETE FROM NoteContents WHERE contentsId IN ?;"
+      },
+      {
+        "name": "get",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM NoteContents WHERE contentsId = :id;"
+      },
+      {
+        "name": "getMultiple",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM NoteContents WHERE contentsId IN ?;"
+      },
+      {
+        "name": "getIndex",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteContents.sq",
+        "operation": "SELECT",
+        "sql": "SELECT last_insert_rowid();"
+      },
+      {
+        "name": "update",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "INSERT",
+        "sql": "INSERT OR REPLACE INTO NoteMetadata(metadataId, title, date, hasDraft) VALUES ?;"
+      },
+      {
+        "name": "insert",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "INSERT",
+        "sql": "INSERT OR REPLACE INTO NoteMetadata(title, date, hasDraft) VALUES ?;"
+      },
+      {
+        "name": "delete",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "DELETE",
+        "sql": "DELETE FROM NoteMetadata WHERE metadataId = :id;"
+      },
+      {
+        "name": "deleteMultiple",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "DELETE",
+        "sql": "DELETE FROM NoteMetadata WHERE metadataId IN ?;"
+      },
+      {
+        "name": "getUnsorted",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM NoteMetadata;"
+      },
+      {
+        "name": "getSortedByDateDescending",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM NoteMetadata ORDER BY date DESC;"
+      },
+      {
+        "name": "getSortedByDateAscending",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM NoteMetadata ORDER BY date ASC;"
+      },
+      {
+        "name": "get",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "SELECT",
+        "sql": "SELECT * FROM NoteMetadata WHERE metadataId = :id;"
+      },
+      {
+        "name": "getDraftId",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "SELECT",
+        "sql": "SELECT metadataId FROM NoteMetadata WHERE hasDraft = 1;"
+      },
+      {
+        "name": "getIndex",
+        "file": "app/src/main/sqldelight/com/farmerbb/notepad/model/NoteMetadata.sq",
+        "operation": "SELECT",
+        "sql": "SELECT last_insert_rowid();"
+      }
+    ]
+  },
+  "preferences": {
+    "files": [
+      "app/src/main/java/com/farmerbb/notepad/data/PreferenceManager.kt",
+      "app/src/main/java/com/farmerbb/notepad/model/Prefs.kt"
+    ],
+    "dependency": "de.schnettler.datastore.manager.DataStoreManager"
+  },
+  "file_io": {
+    "usecases": [
+      "app/src/main/java/com/farmerbb/notepad/usecase/ArtVandelay.kt",
+      "app/src/main/java/com/farmerbb/notepad/usecase/DataMigrator.kt"
+    ],
+    "helpers": [
+      "FSAF FileChooser",
+      "Okio",
+      "Serialization.kt"
+    ],
+    "external_mime": "text/plain"
+  }
+}

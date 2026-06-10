@@ -1,0 +1,42 @@
+NOTEPAD ALL MAPS SUMMARY
+
+root: third_party/farmerbb/notepad
+files: 111
+kotlin_files: 35
+sqldelight_files: 3
+resources: 39
+
+manifest:
+  permissions: []
+  activities: ['com.farmerbb.notepad.android.NotepadActivity', 'com.farmerbb.notepad.android.StandaloneEditorActivity']
+  aliases: ['com.farmerbb.notepad.MainActivity -> com.farmerbb.notepad.android.NotepadActivity', 'com.farmerbb.notepad.activity.NoteEditActivity -> com.farmerbb.notepad.android.StandaloneEditorActivity']
+
+build:
+  applicationId: ['com.farmerbb.notepad']
+  namespace: ['com.farmerbb.notepad']
+  versions: notepad 3.0.6 code 122
+  sdk: compile 36 target 35 min 21
+  kotlin: 2.2.20
+  compose: 1.9.1
+  sqldelight: 1.5.5
+
+database tables:
+  CrossRef: metadataId, contentsId
+  NoteContents: contentsId, text, draftText
+  NoteMetadata: metadataId, title, date, hasDraft
+
+primary flows:
+  main_launch: activity-alias com.farmerbb.notepad.MainActivity -> NotepadActivity.onCreate -> NotepadViewModel.migrateData -> NotepadComposeAppRoute -> NotepadComposeApp -> NoteListContent / ViewNoteContent / EditNoteContent
+  external_text: activity-alias com.farmerbb.notepad.activity.NoteEditActivity -> StandaloneEditorActivity.onCreate -> ACTION_SEND / ACTION_EDIT / ACTION_VIEW -> checkPlainText -> getExternalContent or loadFileFromIntent -> StandaloneEditorRoute
+  save_note: UI edit action -> NotepadViewModel.saveNote -> NotepadRepository.saveNote -> NoteMetadata.insert/update -> NoteContents.insert/update -> CrossRef.insert
+  delete_note: UI delete action -> NotepadViewModel.deleteNote/deleteSelectedNotes -> NotepadRepository.deleteNote/deleteNotes -> CrossRef get/delete -> NoteMetadata delete -> NoteContents delete
+  draft: NotepadActivity.onStop -> NotepadViewModel.saveDraft -> NotepadRepository.saveNote hasDraft=true -> NotepadActivity.onStart -> NotepadViewModel.deleteDraft
+  import_export: NotepadViewModel.importNotes/exportNotes/exportAllNotes -> ArtVandelay -> FSAF FileChooser -> Serialization.kt -> Okio source/sink
+  preferences: PreferenceManager -> DataStoreManager -> Prefs -> AppSettings.NotepadPreferenceScreen
+
+risk review:
+  - Exported activity aliases must be reviewed before embedding or exposing integration actions.
+  - External text import accepts ACTION_SEND, ACTION_EDIT, ACTION_VIEW, AUTO_SEND.
+  - FSAF dependency name is intentionally hostile/upstream naming; review vendor policy before public productization.
+  - Release signing reads KSTOREFILE/KSTOREPWD/KEYALIAS/KEYPWD environment variables.
+  - allowBackup=true may be acceptable for vanilla notes app but should be policy-reviewed.

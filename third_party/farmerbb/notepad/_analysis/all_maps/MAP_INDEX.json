@@ -1,0 +1,19 @@
+{
+  "generated_at_utc": "20260610T051228Z",
+  "outputs": {
+    "all_maps": "third_party/farmerbb/notepad/_analysis/all_maps/notepad_all_maps.json",
+    "manifest": "third_party/farmerbb/notepad/_analysis/all_maps/manifest_map.json",
+    "gradle": "third_party/farmerbb/notepad/_analysis/all_maps/gradle_dependency_map.json",
+    "database": "third_party/farmerbb/notepad/_analysis/all_maps/database_sqldelight_map.json",
+    "symbols": "third_party/farmerbb/notepad/_analysis/all_maps/kotlin_symbol_map.json",
+    "layers": "third_party/farmerbb/notepad/_analysis/all_maps/layer_map.json",
+    "flows": "third_party/farmerbb/notepad/_analysis/all_maps/flow_map.json",
+    "external_surface": "third_party/farmerbb/notepad/_analysis/all_maps/external_surface_map.json",
+    "storage_io": "third_party/farmerbb/notepad/_analysis/all_maps/storage_io_map.json",
+    "risk": "third_party/farmerbb/notepad/_analysis/all_maps/risk_map.json",
+    "control": "third_party/farmerbb/notepad/_analysis/all_maps/integration_control_map.json",
+    "summary": "third_party/farmerbb/notepad/_analysis/all_maps/notepad_all_maps.summary.txt"
+  },
+  "compile_enabled": false,
+  "purpose": "complete mapping pass before any compilation or modification"
+}

@@ -1,0 +1,21 @@
+{
+  "compile_risks": [
+    "Android Gradle Plugin 8.11.2 may require modern Gradle/JDK support.",
+    "JavaVersion.VERSION_21 requires JDK 21.",
+    "compileSdk 36 requires Android SDK 36 installed.",
+    "SQLDelight 1.5.5 with Kotlin 2.2.20 may need compatibility verification."
+  ],
+  "integration_risks": [
+    "Exported activity aliases must be reviewed before embedding or exposing integration actions.",
+    "External text import accepts ACTION_SEND, ACTION_EDIT, ACTION_VIEW, AUTO_SEND.",
+    "FSAF dependency name is intentionally hostile/upstream naming; review vendor policy before public productization.",
+    "Release signing reads KSTOREFILE/KSTOREPWD/KEYALIAS/KEYPWD environment variables.",
+    "allowBackup=true may be acceptable for vanilla notes app but should be policy-reviewed."
+  ],
+  "safe_properties": [
+    "No Android permissions declared.",
+    "No Java source files.",
+    "Small codebase: 35 Kotlin files.",
+    "Database schema is simple and local."
+  ]
+}
