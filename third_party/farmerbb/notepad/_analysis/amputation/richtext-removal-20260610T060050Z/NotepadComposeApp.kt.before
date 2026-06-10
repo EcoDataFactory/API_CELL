@@ -93,6 +93,8 @@ import com.farmerbb.notepad.ui.content.EditNoteContent
 import com.farmerbb.notepad.ui.content.NoteListContent
 import com.farmerbb.notepad.ui.content.ViewNoteContent
 import com.farmerbb.notepad.viewmodel.NotepadViewModel
+import com.zachklipp.richtext.ui.printing.Printable
+import com.zachklipp.richtext.ui.printing.rememberPrintableController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -173,7 +175,9 @@ private fun NotepadComposeApp(
     var showFirstRunDialog by rememberSaveable { mutableStateOf(false) }
     var showFirstViewDialog by rememberSaveable { mutableStateOf(false) }
     var showMenu by rememberSaveable { mutableStateOf(false) }
-val lifecycleOwner = LocalLifecycleOwner.current
+
+    val printController = rememberPrintableController()
+    val lifecycleOwner = LocalLifecycleOwner.current
     val haptics = LocalHapticFeedback.current
     val textStyle = TextStyle(
         color = colorResource(id = primaryColorRes),
@@ -539,6 +543,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
             }
 
             content = {
+                Printable(printController) {
                     ViewNoteContent(
                         text = note.text,
                         baseTextStyle = textStyle,
@@ -548,7 +553,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
                         showDoubleTapMessage = showDoubleTapMessage,
                         doubleTapMessageShown = vm::doubleTapMessageShown
                     ) { offset -> navState = Edit(note.id, offset) }
-                
+                }
             }
         }
 
@@ -589,6 +594,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
             }
 
             content = {
+                Printable(printController) {
                     EditNoteContent(
                         text = text,
                         baseTextStyle = textStyle,
@@ -599,7 +605,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
                         onTextChanged = vm::setText,
                         offset = state.offset
                     )
-                
+                }
             }
         }
     }

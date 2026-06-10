@@ -1,0 +1,19 @@
+{
+  "kotlin_file_count": 25,
+  "issues": [
+    {
+      "path": "app/src/main/java/com/farmerbb/notepad/ui/routes/NotepadComposeApp.kt",
+      "issues": [
+        "brace_mismatch"
+      ],
+      "balance": {
+        "{": 154,
+        "}": 156,
+        "(": 247,
+        ")": 247,
+        "[": 0,
+        "]": 0
+      }
+    }
+  ]
+}

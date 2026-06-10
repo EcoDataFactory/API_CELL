@@ -539,7 +539,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
             }
 
             content = {
-                    ViewNoteContent(
+ViewNoteContent(
                         text = note.text,
                         baseTextStyle = textStyle,
                         markdown = markdown,
@@ -548,7 +548,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
                         showDoubleTapMessage = showDoubleTapMessage,
                         doubleTapMessageShown = vm::doubleTapMessageShown
                     ) { offset -> navState = Edit(note.id, offset) }
-                
+                }
             }
         }
 
@@ -589,7 +589,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
             }
 
             content = {
-                    EditNoteContent(
+EditNoteContent(
                         text = text,
                         baseTextStyle = textStyle,
                         isLightTheme = isLightTheme,
@@ -599,7 +599,7 @@ val lifecycleOwner = LocalLifecycleOwner.current
                         onTextChanged = vm::setText,
                         offset = state.offset
                     )
-                
+                }
             }
         }
     }
